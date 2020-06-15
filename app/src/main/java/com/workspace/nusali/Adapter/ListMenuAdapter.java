@@ -1,0 +1,69 @@
+package com.workspace.nusali.Adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
+import com.workspace.nusali.Activity.DetailMenuActivity;
+import com.workspace.nusali.Model.ListMenuModel;
+import com.workspace.nusali.R;
+
+import java.util.ArrayList;
+
+public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MyViewHolder> {
+    Context context;
+    ArrayList<ListMenuModel> menuList;
+
+    public ListMenuAdapter(Context context, ArrayList<ListMenuModel> menuList) {
+        this.context = context;
+        this.menuList = menuList;
+    }
+
+    @NonNull
+    @Override
+    public ListMenuAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_list_menu, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ListMenuAdapter.MyViewHolder holder, final int position) {
+        final ListMenuModel listMenuModel = menuList.get(position);
+        holder.judulMenu.setText(listMenuModel.getJudul());
+        holder.hargaMenu.setText(listMenuModel.getHarga().toString());
+        Picasso.get().load(listMenuModel.getGambar()).into(holder.fotoMenu);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailMenuActivity.class);
+                intent.putExtra("judul", menuList.get(position));
+                intent.putExtra("gambar", menuList.get(position));
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return menuList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        ImageView fotoMenu;
+        TextView judulMenu, hargaMenu;
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            fotoMenu = itemView.findViewById(R.id.image_list_menu);
+            judulMenu = itemView.findViewById(R.id.judul_list_menu);
+            hargaMenu = itemView.findViewById(R.id.harga_list_menu);
+        }
+    }
+}
