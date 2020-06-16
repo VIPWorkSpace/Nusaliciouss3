@@ -104,7 +104,7 @@ public class FragmentHome extends Fragment {
                         startActivity(intent);
                     }
                     else if (finall == 3){
-                        Intent intent = new Intent(getContext(), DetailMenuActivity.class);
+                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
                         startActivity(intent);
                     }
                     else if (finall == 4){

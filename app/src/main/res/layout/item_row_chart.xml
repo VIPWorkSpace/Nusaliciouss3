@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:layout_gravity="center"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
@@ -36,7 +36,7 @@
 
 
         <TextView
-            android:id="@+id/quantity"
+            android:id="@+id/tv_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
@@ -58,6 +58,34 @@
             android:textColor="#000"
             android:textSize="14sp"
             tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="100sp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/price"
+            android:text="25/08/2020"
+            android:textColor="#000"
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="100sp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/tv_date"
+            android:text="Waktu: 10.30"
+            android:textColor="#000"
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
     </RelativeLayout>
 
 
