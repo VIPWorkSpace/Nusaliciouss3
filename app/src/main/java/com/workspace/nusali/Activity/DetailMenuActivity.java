@@ -2,6 +2,7 @@ package com.workspace.nusali.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 
 import android.annotation.SuppressLint;
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
 import com.workspace.nusali.Fragment.FragmentDatePicker;
 import com.workspace.nusali.Fragment.FragmentDialogAlert;
 import com.workspace.nusali.Model.ListMenuModel;
@@ -39,6 +41,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
 
     String userIdKey = "";
     String userId = "";
+    CardView cardTanggal;
     TextView judulHalaman, namaKatering, jenisMenu, judulMenu, descMenu, hargaMenu, totalHarga;
     EditText tanggal, waktu, jumlahPesanan;
     ImageView fotoMenu, btnMinus, btnPlus;
@@ -73,6 +76,8 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         btnPlus = findViewById(R.id.btn_plus);
         //Button
         btnKeranjang = findViewById(R.id.btn_chart);
+        //CardView
+        cardTanggal = findViewById(R.id.card_tanggal);
 
 
         //PARCELABLE
@@ -102,14 +107,13 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         jumlahPesanan.setText(jumlahBeli.toString());
 
         //Setting tanggal
-        tanggal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment datePicker = new FragmentDatePicker();
-                datePicker.show(getSupportFragmentManager(),"date picker");
-
-            }
-        });
+       cardTanggal.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               DialogFragment datePicker = new FragmentDatePicker();
+               datePicker.show(getSupportFragmentManager(),"date picker");
+           }
+       });
 
         //Setting button tambah pesanan
         btnPlus.setOnClickListener(new View.OnClickListener() {
