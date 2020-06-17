@@ -18,10 +18,11 @@ public class FragmentDatePicker extends DialogFragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         c.add(Calendar.DAY_OF_MONTH, +1);
+
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
-        datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis() -1000);
+        datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis()+1000);
         datePickerDialog.show();
 //        return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
         return datePickerDialog;

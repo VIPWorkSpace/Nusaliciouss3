@@ -10,12 +10,15 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,7 +53,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
     Integer total = 0;
     Integer belanjaID = new Random().nextInt();
     String idMenu = belanjaID.toString();
-    private DatabaseReference referenceChart;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -103,7 +106,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         Picasso.get().load(gambar).into(fotoMenu);
 
         //Setting Jumlah Pesanan
-
+        btnMinus.setEnabled(false);
         jumlahPesanan.setText(jumlahBeli.toString());
 
         //Setting tanggal
@@ -150,7 +153,17 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         btnKeranjang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToCartList();
+                    String tanggalKirim = tanggal.getText().toString();
+                    String waktuKirim = waktu.getText().toString();
+                    if(tanggalKirim.isEmpty()){
+                        Toast.makeText(getApplicationContext(), "Tanggal Kosong ! ", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (waktuKirim.isEmpty()){
+                        Toast.makeText(getApplicationContext(), "Waktu Kosong ! ", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        addToCartList();
+                    }
             }
         });
 
@@ -173,11 +186,12 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         cartMap.put("id", idMenu);
         cartMap.put("judul", judulMenu.getText().toString());
         cartMap.put("jumlah", jumlahPesanan.getText().toString());
-        cartMap.put("total", totalHarga.getText().toString());
+        cartMap.put("total", totalHarga.getText());
         cartMap.put("tanggal", tanggal.getText().toString());
         cartMap.put("waktu", waktu.getText().toString());
-        cartMap.put("date", saveCurrentDate);
-        cartMap.put("time", saveCurrentTime);
+        cartMap.put("katering", namaKatering.getText().toString());
+        cartMap.put("dateOrder", saveCurrentDate);
+        cartMap.put("timeOrder", saveCurrentTime);
 
         cartListRef.child(userId).child(idMenu).updateChildren(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -209,5 +223,22 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         tanggal.setText(currentDateString);
+    }
+
+    public void checkButton(View v){
+        boolean checked =  ((RadioButton) v).isChecked();
+
+        switch (v.getId()){
+            case R.id.radio_siang:
+                if(checked){
+                    waktu.setText("09.00-12.00");
+                }
+                break;
+            case R.id.radio_sore:
+                if(checked){
+                    waktu.setText("16.00-19.00");
+                }
+                break;
+        }
     }
 }
