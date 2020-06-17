@@ -1,9 +1,11 @@
 package com.workspace.nusali.Model;
 
-public class ChartModel {
+
+
+public class ChartModel{
     String id;
     String judul;
-    String jumlah;
+    Integer jumlah;
     String katering;
     String tanggal;
     Integer total;
@@ -11,10 +13,11 @@ public class ChartModel {
     String dateorder;
     String timeorder;
 
+
     public ChartModel() {
     }
 
-    public ChartModel(String id, String judul, String jumlah, String katering, String tanggal, Integer total, String waktu, String dateorder, String timeorder) {
+    public ChartModel(String id, String judul, Integer jumlah, String katering, String tanggal, Integer total, String waktu, String dateorder, String timeorder) {
         this.id = id;
         this.judul = judul;
         this.jumlah = jumlah;
@@ -34,7 +37,7 @@ public class ChartModel {
         return judul;
     }
 
-    public String getJumlah() {
+    public Integer getJumlah() {
         return jumlah;
     }
 

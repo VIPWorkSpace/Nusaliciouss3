@@ -183,7 +183,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId).child(idMenu);
         cartListRef.getRef().child("id").setValue(idMenu);
         cartListRef.getRef().child("judul").setValue(judulMenu.getText().toString());
-        cartListRef.getRef().child("jumlah").setValue(jumlahPesanan.getText().toString());
+        cartListRef.getRef().child("jumlah").setValue(jumlahBeli);
         String hargaTotal = (String) totalHarga.getText();
         Integer totalBayar = Integer.parseInt(hargaTotal);
         cartListRef.getRef().child("total").setValue(totalBayar);

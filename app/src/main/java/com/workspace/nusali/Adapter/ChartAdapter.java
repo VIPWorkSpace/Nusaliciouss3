@@ -44,7 +44,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
 
        final ChartModel chartModel = chartList.get(position);
        holder.judul.setText(chartModel.getJudul());
-       holder.jumlah.setText(chartModel.getJumlah());
+       holder.jumlah.setText(chartModel.getJumlah().toString());
        holder.harga.setText(chartModel.getTotal().toString());
        holder.tanggal.setText(chartModel.getTanggal());
        holder.waktu.setText(chartModel.getWaktu());
