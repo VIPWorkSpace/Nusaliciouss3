@@ -1,5 +1,6 @@
 package com.workspace.nusali.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -33,11 +34,12 @@ public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MyView
         return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_list_menu, parent, false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ListMenuAdapter.MyViewHolder holder, final int position) {
         final ListMenuModel listMenuModel = menuList.get(position);
         holder.judulMenu.setText(listMenuModel.getJudul());
-        holder.hargaMenu.setText(listMenuModel.getHarga().toString());
+        holder.hargaMenu.setText("Rp."+listMenuModel.getHarga().toString());
         Picasso.get().load(listMenuModel.getGambar()).into(holder.fotoMenu);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +58,7 @@ public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MyView
         return menuList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView fotoMenu;
         TextView judulMenu, hargaMenu;
         public MyViewHolder(@NonNull View itemView) {

@@ -70,4 +70,7 @@
     <string name="dpawon">Dpawon Katering</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="location">Alamat Penerima</string>
+    <string name="contact">Kontak Telepon</string>
+    <string name="tip">Petunjuk Lokasi</string>
 </resources>
