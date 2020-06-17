@@ -97,7 +97,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         final int hargaDetailMenu = Integer.parseInt(harga);
         hargaMenu.setText("Rp." +Integer.toString(hargaDetailMenu)+ ",-");
         //setting total harga
-        totalHarga.setText("Rp."+Integer.toString(hargaDetailMenu));
+        totalHarga.setText(Integer.toString(hargaDetailMenu));
         //setting desc
         String desc = listMenuModel.getDesc();
         descMenu.setText(desc);
@@ -129,7 +129,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
                 }
 
                 total = jumlahBeli * hargaDetailMenu;
-                totalHarga.setText("Rp."+Integer.toString(total));
+                totalHarga.setText(Integer.toString(total));
 
             }
         });
@@ -143,7 +143,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
                 if (jumlahBeli < 2)
                     btnMinus.setEnabled(false);
                 total = jumlahBeli * hargaDetailMenu;
-                totalHarga.setText("Rp."+Integer.toString(total));
+                totalHarga.setText(Integer.toString(total));
             }
 
         });
@@ -180,25 +180,37 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calForDate.getTime());
 
-        DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Keranjang");
+        DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId).child(idMenu);
+        cartListRef.getRef().child("id").setValue(idMenu);
+        cartListRef.getRef().child("judul").setValue(judulMenu.getText().toString());
+        cartListRef.getRef().child("jumlah").setValue(jumlahPesanan.getText().toString());
+        String hargaTotal = (String) totalHarga.getText();
+        Integer totalBayar = Integer.parseInt(hargaTotal);
+        cartListRef.getRef().child("total").setValue(totalBayar);
+        cartListRef.getRef().child("katering").setValue(namaKatering.getText().toString());
+        cartListRef.getRef().child("tanggal").setValue(tanggal.getText().toString());
+        cartListRef.getRef().child("waktu").setValue(waktu.getText().toString());
+        cartListRef.getRef().child("dateorder").setValue(saveCurrentDate);
+        cartListRef.getRef().child("timeorder").setValue(saveCurrentTime);
+        openDialog();
 
-        final HashMap<String, Object> cartMap = new HashMap<>();
-        cartMap.put("id", idMenu);
-        cartMap.put("judul", judulMenu.getText().toString());
-        cartMap.put("jumlah", jumlahPesanan.getText().toString());
-        cartMap.put("total", totalHarga.getText());
-        cartMap.put("tanggal", tanggal.getText().toString());
-        cartMap.put("waktu", waktu.getText().toString());
-        cartMap.put("katering", namaKatering.getText().toString());
-        cartMap.put("dateOrder", saveCurrentDate);
-        cartMap.put("timeOrder", saveCurrentTime);
-
-        cartListRef.child(userId).child(idMenu).updateChildren(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                openDialog();
-            }
-        });
+//        final HashMap<String, Object> cartMap = new HashMap<>();
+//        cartMap.put("id", idMenu);
+//        cartMap.put("judul", judulMenu.getText().toString());
+//        cartMap.put("jumlah", jumlahPesanan.getText().toString());
+//        cartMap.put("total", totalHarga.getText());
+//        cartMap.put("tanggal", tanggal.getText().toString());
+//        cartMap.put("waktu", waktu.getText().toString());
+//        cartMap.put("katering", namaKatering.getText().toString());
+//        cartMap.put("dateOrder", saveCurrentDate);
+//        cartMap.put("timeOrder", saveCurrentTime);
+//
+//        cartListRef.child(userId).child(idMenu).updateChildren(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                openDialog();
+//            }
+//        });
 
     }
 

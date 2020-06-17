@@ -1,5 +1,6 @@
 package com.workspace.nusali.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -37,13 +38,14 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
         return myViewHolder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ChartAdapter.MyViewHolder holder, int position) {
 
        final ChartModel chartModel = chartList.get(position);
        holder.judul.setText(chartModel.getJudul());
        holder.jumlah.setText(chartModel.getJumlah());
-       holder.harga.setText(chartModel.getTotal());
+       holder.harga.setText(chartModel.getTotal().toString());
        holder.tanggal.setText(chartModel.getTanggal());
        holder.waktu.setText(chartModel.getWaktu());
 
