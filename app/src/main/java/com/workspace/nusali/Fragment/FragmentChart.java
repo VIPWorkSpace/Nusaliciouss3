@@ -41,8 +41,6 @@ public class FragmentChart extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_chart, container, false);
 
@@ -50,6 +48,7 @@ public class FragmentChart extends Fragment {
         recyclerViewChart = v.findViewById(R.id.CheckoutRecycler);
         recyclerViewChart.setHasFixedSize(true);
         recyclerViewChart.setLayoutManager(new LinearLayoutManager(getContext()));
+        chartList = new ArrayList<>();
 
         referenceChart = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId);
         referenceChart.addValueEventListener(new ValueEventListener() {
