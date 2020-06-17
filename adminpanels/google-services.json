@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:762989226338:android:0c16651221a37262cd243b",
+        "android_client_info": {
+          "package_name": "com.workspace.adminpanels"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762989226338-86tdrr15lqplgdivihnqqlj9dfq9j0vp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.workspace.adminpanels",
+            "certificate_hash": "ddadd01a8cb54e5465f24ea074170a7d69d04b13"
+          }
+        },
+        {
+          "client_id": "762989226338-3hl0d2e4q4go980elaapqj9mfojkqs62.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChQf8PAJIfhooG0Wyb5fkOiR82lbv_LGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762989226338-3hl0d2e4q4go980elaapqj9mfojkqs62.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:762989226338:android:fde853a38407edbdcd243b",
         "android_client_info": {
           "package_name": "com.workspace.nusal"
