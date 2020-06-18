@@ -38,7 +38,7 @@ public class DataAddMenuActivity extends AppCompatActivity {
     DatabaseReference mAddMenu;
     StorageReference mStorage;
     Button btnUpload, btnSave;
-    TextInputEditText textNama, textDesc, textHarga,textKategori;
+    TextInputEditText textNama, textDesc, textHarga, textKategori;
     ProgressBar mProgress;
     ImageView imagePreview;
     Uri imageUri;
@@ -76,7 +76,7 @@ public class DataAddMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void chooseImage(){
+    private void chooseImage() {
         Intent choose = new Intent();
         choose.setType("image/*");
         choose.setAction(Intent.ACTION_GET_CONTENT);
@@ -86,20 +86,20 @@ public class DataAddMenuActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ImagePick && resultCode == RESULT_OK && data != null && data.getData() != null){
+        if (requestCode == ImagePick && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             Picasso.get().load(imageUri).into(imagePreview);
         }
     }
 
-    private String getFileExtension(Uri uri){
+    private String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
     private void saveMenu() {
-        if (imageUri != null){
+        if (imageUri != null) {
             StorageReference fileReferense = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
             fileReferense.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -119,7 +119,7 @@ public class DataAddMenuActivity extends AppCompatActivity {
 
                             Toast.makeText(DataAddMenuActivity.this, "Save Successful", Toast.LENGTH_LONG).show();
 
-                            addmenuModel add = new addmenuModel(textPaket, textDescs,textharga,textkateg, taskSnapshot.getUploadSessionUri().toString());
+                            addmenuModel add = new addmenuModel(textPaket, textDescs, textharga, textkateg, taskSnapshot.getUploadSessionUri().toString());
                             String imageId = mAddMenu.push().getKey();
                             mAddMenu.child(imageId).setValue(add);
                         }
@@ -143,6 +143,8 @@ public class DataAddMenuActivity extends AppCompatActivity {
 
 
     }
-    private void addMenu(){
-     DatabaseReference referenceAddMenu = FirebaseDatabase.getInstance().getReference().child("DataMenu").push();
-};
+
+    private void addMenu() {
+        DatabaseReference referenceAddMenu = FirebaseDatabase.getInstance().getReference().child("DataMenu").push();
+    }
+}
