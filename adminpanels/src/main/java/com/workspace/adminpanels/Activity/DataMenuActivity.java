@@ -16,8 +16,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.workspace.adminpanels.Adapter.menuData;
+import com.workspace.adminpanels.Adapter.menuAdapter;
 import com.workspace.adminpanels.Model.menuModel;
 import com.workspace.adminpanels.R;
 
@@ -31,7 +32,7 @@ public class DataMenuActivity extends AppCompatActivity {
     FloatingActionButton fabMenu;
     DatabaseReference menuRef;
     ArrayList<menuModel> menuList;
-    menuData menuAdapter;
+    menuAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +48,21 @@ public class DataMenuActivity extends AppCompatActivity {
         rvdMenu.setHasFixedSize(true);
         rvdMenu.setLayoutManager(new LinearLayoutManager(this));
 
-        menuList = new ArrayList<>();
+        menuList = new ArrayList<menuModel>();
         retrieveData();
         fabListener();
     }
     private void retrieveData(){
-        menuRef = FirebaseDatabase.getInstance().getReference().child("Data").child("Menu").child("Naskot");
+        menuRef = FirebaseDatabase.getInstance().getReference().child("DataMenu");
         menuRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     menuModel menuMod = ds.getValue(menuModel.class);
-                    menuList.add(menuMod);
+                        menuList.add(menuMod);
                 }
-                menuAdapter = new menuData(menuList);
-                rvdMenu.setAdapter(menuAdapter);
+                adapter = new menuAdapter(menuList);
+                rvdMenu.setAdapter(adapter);
 
             }
 

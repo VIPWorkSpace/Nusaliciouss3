@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,50 +14,70 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:padding="10dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addToolbar">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtNamaMenu"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="0dp">
+            android:layout_marginTop="0dp"
+            android:hint="Nama Paket">
+
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textNameMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nama Paket" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtDescMenu"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:hint="Isi menu">
+
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtDescMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Isi menu" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtHargaMenu"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:hint="Harga">
+
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtHargaMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Harga" />
+                android:inputType="number"
+                android:maxLength="8"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="5dp"
+            android:hint="Kategori">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtKategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -67,8 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
+        android:layout_marginTop="5dp"
         android:text="Choose Picture"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -83,5 +101,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/imgPreview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_upload"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <ProgressBar
+        android:id="@+id/pb_menu"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

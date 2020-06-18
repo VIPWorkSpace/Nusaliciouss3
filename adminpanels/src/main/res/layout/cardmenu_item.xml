@@ -14,7 +14,32 @@
             android:layout_height="75dp"
             android:src="@drawable/ic_launcher_background"
             android:layout_marginLeft="15dp"/>
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/btn_delete"
+            android:background="@drawable/ic_baseline_edit_24" />
 
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@drawable/ic_baseline_delete_24" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/textNamaMenu"
             android:layout_width="wrap_content"
@@ -42,26 +67,16 @@
             android:layout_marginLeft="16dp"
             android:layout_toEndOf="@id/imgMenuItem"
             android:text="Harga"/>
-
-        <Button
-            android:id="@+id/btn_edit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/btn_delete"
-            android:background="@drawable/ic_baseline_edit_24" />
-
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:background="@drawable/ic_baseline_delete_24" />
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/textCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textHargaMenu"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="20dp"
+            android:layout_toEndOf="@id/imgMenuItem"
+            android:text="Kategori" />
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
