@@ -43,9 +43,10 @@
                 android:columnCount="2"
                 android:padding="10dp">
                 <androidx.cardview.widget.CardView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="135dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="50dp"
                     android:layout_marginBottom="5dp"
                     app:cardElevation="8dp"
                     app:cardCornerRadius="5dp">
@@ -68,8 +69,9 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="150dp"
+                    android:layout_height="135dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="5dp"
                     app:cardElevation="8dp"
@@ -89,13 +91,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="Data User"/>
+                            android:text="Data Menu"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="135dp"
+                    android:layout_marginLeft="50dp"
                     android:layout_marginTop="5dp"
                     app:cardElevation="8dp"
                     app:cardCornerRadius="5dp">
@@ -114,12 +116,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="Data User"/>
+                            android:text="Transaksi"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="150dp"
+                    android:layout_height="135dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     app:cardElevation="8dp"

@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DataAddMenuActivity"></activity>
+        <activity android:name=".Activity.DataAddMenuActivity"
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".Activity.DataMenuActivity" />
         <activity android:name=".Activity.DataUserActivity" />
         <activity android:name=".MainActivity">

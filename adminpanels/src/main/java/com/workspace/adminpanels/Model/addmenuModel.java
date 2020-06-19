@@ -10,17 +10,12 @@ public class addmenuModel {
     public addmenuModel() {
     }
 
-    public addmenuModel(String judul, String desc, Integer harga, String mImageUrl, String kategori) {
-        if (judul.trim().equals("") && desc.trim().equals("") && kategori.trim().equals("")){
-            judul = "No Paket";
-            desc = "No Desc";
-            kategori = "No Kategori";
-        }
+    public addmenuModel(String judul, String desc, Integer harga, String kategori, String mImageUrl) {
         this.judul = judul;
         this.desc = desc;
         this.harga = harga;
-        this.mImageUrl = mImageUrl;
         this.kategori = kategori;
+        this.mImageUrl = mImageUrl;
     }
 
     public String getJudul() {

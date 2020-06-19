@@ -28,6 +28,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.workspace.adminpanels.MainActivity;
 import com.workspace.adminpanels.Model.addmenuModel;
 import com.workspace.adminpanels.R;
 
@@ -41,7 +42,8 @@ public class DataAddMenuActivity extends AppCompatActivity {
     TextInputEditText textNama, textDesc, textHarga, textKategori;
     ProgressBar mProgress;
     ImageView imagePreview;
-    Uri imageUri;
+    Uri  photoLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,15 @@ public class DataAddMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveMenu();
+                Intent send = new Intent(DataAddMenuActivity.this, MainActivity.class);
+                startActivity(send);
+            }
+        });
+
+        imagePreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseImage();
             }
         });
     }
@@ -87,8 +98,8 @@ public class DataAddMenuActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ImagePick && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            Picasso.get().load(imageUri).into(imagePreview);
+            photoLocation = data.getData();
+            Picasso.get().load(photoLocation).into(imagePreview);
         }
     }
 
@@ -99,29 +110,36 @@ public class DataAddMenuActivity extends AppCompatActivity {
     }
 
     private void saveMenu() {
-        if (imageUri != null) {
-            StorageReference fileReferense = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-            fileReferense.putFile(imageUri)
+
+        if (photoLocation != null) {
+            final StorageReference fileReferense = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(photoLocation));
+            fileReferense.putFile(photoLocation)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
+                        public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+
+                            fileReferense.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
-                                public void run() {
-                                    mProgress.setProgress(0);
+                                public void onSuccess(Uri uri) {
+                                    String mImage = uri.toString();
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mProgress.setProgress(0);
+                                        }
+                                    }, 10000);
+                                    String textPaket = textNama.getText().toString().trim();
+                                    String textDescs = textDesc.getText().toString().trim();
+                                    Integer textharga = Integer.valueOf((textHarga.getText().toString().trim()));
+                                    String textkateg = textKategori.getText().toString().trim();
+
+                                    Toast.makeText(DataAddMenuActivity.this, "Save Successful", Toast.LENGTH_LONG).show();
+                                    addmenuModel add = new addmenuModel(textPaket, textDescs, textharga,textkateg, mImage);
+                                    String imageId = mAddMenu.push().getKey();
+                                    mAddMenu.child(imageId).setValue(add);
                                 }
-                            }, 8000);
-                            String textPaket = textNama.getText().toString().trim();
-                            String textDescs = textDesc.getText().toString().trim();
-                            Integer textharga = Integer.valueOf((textHarga.getText().toString().trim()));
-                            String textkateg = textKategori.getText().toString().trim();
-
-                            Toast.makeText(DataAddMenuActivity.this, "Save Successful", Toast.LENGTH_LONG).show();
-
-                            addmenuModel add = new addmenuModel(textPaket, textDescs, textharga, textkateg, taskSnapshot.getUploadSessionUri().toString());
-                            String imageId = mAddMenu.push().getKey();
-                            mAddMenu.child(imageId).setValue(add);
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
