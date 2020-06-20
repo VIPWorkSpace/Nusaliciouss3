@@ -6,16 +6,18 @@ public class menuModel {
     String desc;
     Integer harga;
     String kategori;
+    String katering;
     String gambar;
 
     public menuModel() {
     }
 
-    public menuModel(String judul, String desc, Integer harga, String kategori, String gambar) {
+    public menuModel(String judul, String desc, Integer harga, String kategori, String katering, String gambar) {
         this.judul = judul;
         this.desc = desc;
         this.harga = harga;
         this.kategori = kategori;
+        this.katering = katering;
         this.gambar = gambar;
     }
 
@@ -49,6 +51,14 @@ public class menuModel {
 
     public void setKategori(String kategori) {
         this.kategori = kategori;
+    }
+
+    public String getKatering() {
+        return katering;
+    }
+
+    public void setKatering(String katering) {
+        this.katering = katering;
     }
 
     public String getGambar() {
