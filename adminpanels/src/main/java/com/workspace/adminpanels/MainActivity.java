@@ -21,6 +21,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.workspace.adminpanels.Activity.DataAddMenuActivity;
 import com.workspace.adminpanels.Activity.DataMenuActivity;
 import com.workspace.adminpanels.Activity.DataUserActivity;
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(1).withName("Home").withIcon(R.drawable.home);
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(2).withName("Akun").withIcon(R.drawable.person);
+        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(4).withName("Add Menu").withIcon(R.drawable.person);
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName("test");
         //create the drawer and remember the `Drawer` result object
         Drawer result = new DrawerBuilder()
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 .addDrawerItems(
                         item1.withIdentifier(1),
                         item2.withIdentifier(2),
+                        item4.withIdentifier(4),
                         new DividerDrawerItem(),
                         item3.withIdentifier(3)
                 )
@@ -70,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
                                 activityClass = DataUserActivity.class;
                                 Intent i = new Intent(MainActivity.this, DataUserActivity.class);
                                 view.getContext().startActivity(i);
+                            case 3:
+                                activityClass = DataAddMenuActivity.class;
+                                Intent add = new Intent(MainActivity.this, DataAddMenuActivity.class);
+                                view.getContext().startActivity(add);
+                                break;
                             default:
                                 activityClass = MainActivity.class;
                         } try {

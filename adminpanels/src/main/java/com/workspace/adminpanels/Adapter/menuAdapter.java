@@ -2,7 +2,6 @@ package com.workspace.adminpanels.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,11 +49,11 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
     @Override
     public void onBindViewHolder(@NonNull final menuAdapter.myHolder holder, final int position) {
         final menuModel menuMod = menulist.get(position);
-        Picasso.get().load(menuMod.getmImageUrl()).noFade().into(holder.picPreview);
+        Picasso.get().load(menuMod.getGambar()).noFade().into(holder.picPreview);
         holder.txNama.setText(menuMod.getJudul());
         holder.txDesc.setText(menuMod.getDesc());
         holder.txHarga.setText("Rp " + menuMod.getHarga().toString());
-        holder.txKategori.setText(menuMod.getKategori());
+        holder.txKategori.setText("Kategori " + menuMod.getKategori());
 
         final String currentJudul = menuMod.getJudul();
         dRef = FirebaseDatabase.getInstance().getReference().child("DataMenu");
@@ -63,19 +61,7 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
             @Override
             public void onClick(final View view) {
                 Query query = dRef.orderByChild("judul").equalTo(currentJudul);
-//                query.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        for (DataSnapshot ds : dataSnapshot.getChildren()){
-//                            ds.getRef().removeValue();
-//                        }
-//                    }
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-                query.addValueEventListener(new ValueEventListener() {
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot ds : dataSnapshot.getChildren()){
@@ -83,10 +69,9 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
                         }
                         Toast.makeText(view.getContext(), "Data Berhasil Dihapus", Toast.LENGTH_SHORT).show();
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(view.getContext(), "Gagal Menghapus", Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 Intent move = new Intent(view.getContext(), MainActivity.class);

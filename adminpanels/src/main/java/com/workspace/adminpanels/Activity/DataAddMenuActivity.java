@@ -63,7 +63,8 @@ public class DataAddMenuActivity extends AppCompatActivity {
         imagePreview = findViewById(R.id.imgPreview);
         mProgress = findViewById(R.id.pb_menu);
         mStorage = FirebaseStorage.getInstance().getReference("Image Menu");
-        mAddMenu = FirebaseDatabase.getInstance().getReference("DataMenu");
+        mAddMenu = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
+
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,12 +80,6 @@ public class DataAddMenuActivity extends AppCompatActivity {
             }
         });
 
-        imagePreview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chooseImage();
-            }
-        });
     }
 
     private void chooseImage() {
@@ -99,7 +94,7 @@ public class DataAddMenuActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ImagePick && resultCode == RESULT_OK && data != null && data.getData() != null) {
             photoLocation = data.getData();
-            Picasso.get().load(photoLocation).into(imagePreview);
+            //Picasso.get().load(photoLocation).into(imagePreview);
         }
     }
 

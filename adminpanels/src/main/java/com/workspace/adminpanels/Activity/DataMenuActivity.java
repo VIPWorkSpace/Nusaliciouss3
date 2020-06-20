@@ -6,10 +6,13 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +33,7 @@ public class DataMenuActivity extends AppCompatActivity {
     SearchView searchMenu;
     RecyclerView rvdMenu;
     FloatingActionButton fabMenu;
+    ProgressBar pbMenu;
     DatabaseReference menuRef;
     ArrayList<menuModel> menuList;
     menuAdapter adapter;
@@ -44,6 +48,7 @@ public class DataMenuActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Menu");
         searchMenu = findViewById(R.id.searchMenu);
         fabMenu = findViewById(R.id.fab_addMenu);
+        pbMenu = findViewById(R.id.pb_menu);
         rvdMenu = findViewById(R.id.rvd_Menu);
         rvdMenu.setHasFixedSize(true);
         rvdMenu.setLayoutManager(new LinearLayoutManager(this));
@@ -51,9 +56,10 @@ public class DataMenuActivity extends AppCompatActivity {
         menuList = new ArrayList<menuModel>();
         retrieveData();
         fabListener();
+
     }
     private void retrieveData(){
-        menuRef = FirebaseDatabase.getInstance().getReference().child("DataMenu");
+        menuRef = FirebaseDatabase.getInstance().getReference().child("Data").child("Menu");
         menuRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,11 +70,11 @@ public class DataMenuActivity extends AppCompatActivity {
                 adapter = new menuAdapter(menuList);
                 rvdMenu.setAdapter(adapter);
 
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
