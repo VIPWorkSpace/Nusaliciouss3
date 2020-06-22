@@ -12,9 +12,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,8 +32,12 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.workspace.adminpanels.MainActivity;
 import com.workspace.adminpanels.Model.addmenuModel;
 import com.workspace.adminpanels.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataAddMenuActivity extends AppCompatActivity {
 
@@ -37,11 +45,14 @@ public class DataAddMenuActivity extends AppCompatActivity {
     private static final int ImagePick = 1;
     DatabaseReference mAddMenu;
     StorageReference mStorage;
+    Spinner spinCategory, spinCatering;
+    TextView selectCategory,selectCatering;
     Button btnUpload, btnSave;
     TextInputEditText textNama, textDesc, textHarga, textKategori;
     ProgressBar mProgress;
     ImageView imagePreview;
-    Uri imageUri;
+    Uri  photoLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,36 +70,27 @@ public class DataAddMenuActivity extends AppCompatActivity {
         textHarga = findViewById(R.id.txtHargaMenu);
         textKategori = findViewById(R.id.txtKategori);
         imagePreview = findViewById(R.id.imgPreview);
+        spinCategory = findViewById(R.id.spin_category);
+        spinCatering = findViewById(R.id.spin_catering);
+        selectCategory = findViewById(R.id.select_category);
+        selectCatering = findViewById(R.id.select_catering);
         mProgress = findViewById(R.id.pb_menu);
         mStorage = FirebaseStorage.getInstance().getReference("Image Menu");
-        mAddMenu = FirebaseDatabase.getInstance().getReference("DataMenu");
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chooseImage();
-            }
-        });
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveMenu();
-            }
-        });
-    }
+        mAddMenu = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
 
-    private void chooseImage() {
-        Intent choose = new Intent();
-        choose.setType("image/*");
-        choose.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(choose, ImagePick);
+        uploadClick();
+        saveClick();
+        listCategory();
+        listCatering();
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ImagePick && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            Picasso.get().load(imageUri).into(imagePreview);
+            photoLocation = data.getData();
+            Picasso.get().load(photoLocation).fit().centerCrop().into(imagePreview);
         }
     }
 
@@ -97,31 +99,43 @@ public class DataAddMenuActivity extends AppCompatActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-
+    private void chooseImage() {
+        Intent choose = new Intent();
+        choose.setType("image/*");
+        choose.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(choose, ImagePick);
+    }
     private void saveMenu() {
-        if (imageUri != null) {
-            StorageReference fileReferense = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-            fileReferense.putFile(imageUri)
+
+        if (photoLocation != null) {
+            final StorageReference fileReferense = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(photoLocation));
+            fileReferense.putFile(photoLocation)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
+                        public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
+                            fileReferense.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
-                                public void run() {
-                                    mProgress.setProgress(0);
+                                public void onSuccess(Uri uri) {
+                                    String mImage = uri.toString();
+                                    Handler handler = new Handler();
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            mProgress.setProgress(0);
+                                        }
+                                    }, 10000);
+                                    String textPaket = textNama.getText().toString().trim();
+                                    String textDescs = textDesc.getText().toString().trim();
+                                    Integer textharga = Integer.valueOf((textHarga.getText().toString().trim()));
+                                    String textkateg = textKategori.getText().toString().trim();
+                                    String textKatering = selectCatering.getText().toString();
+
+                                    Toast.makeText(DataAddMenuActivity.this, "Save Successful", Toast.LENGTH_LONG).show();
+                                    addmenuModel add = new addmenuModel(textPaket, textDescs, textharga,textkateg,textKatering, mImage);
+                                    String imageId = mAddMenu.push().getKey();
+                                    mAddMenu.child(imageId).setValue(add);
                                 }
-                            }, 8000);
-                            String textPaket = textNama.getText().toString().trim();
-                            String textDescs = textDesc.getText().toString().trim();
-                            Integer textharga = Integer.valueOf((textHarga.getText().toString().trim()));
-                            String textkateg = textKategori.getText().toString().trim();
-
-                            Toast.makeText(DataAddMenuActivity.this, "Save Successful", Toast.LENGTH_LONG).show();
-
-                            addmenuModel add = new addmenuModel(textPaket, textDescs, textharga, textkateg, taskSnapshot.getUploadSessionUri().toString());
-                            String imageId = mAddMenu.push().getKey();
-                            mAddMenu.child(imageId).setValue(add);
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -141,10 +155,76 @@ public class DataAddMenuActivity extends AppCompatActivity {
             Toast.makeText(this, "Tidak Ada file yang dipilih", Toast.LENGTH_SHORT).show();
         }
 
-
     }
+    private void uploadClick(){
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                chooseImage();
+            }
+        });
+    }
+    private void saveClick(){
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveMenu();
+                Intent send = new Intent(DataAddMenuActivity.this, MainActivity.class);
+                startActivity(send);
+            }
+        });
+    }
+    private void listCategory(){
+        List<String> mListCategory = new ArrayList<>();
+        mListCategory.add(0, "Choose Category");
+        mListCategory.add("Nasi Kotak");
+        mListCategory.add("Prasmanan");
 
-    private void addMenu() {
-        DatabaseReference referenceAddMenu = FirebaseDatabase.getInstance().getReference().child("DataMenu").push();
+        ArrayAdapter<String> categoryAdapter;
+        categoryAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mListCategory);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinCategory.setAdapter(categoryAdapter);
+
+        spinCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (adapterView.getItemAtPosition(i).equals("Choose Category")){
+
+                } else {
+                    selectCategory.setText(adapterView.getSelectedItem().toString());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+    private void listCatering(){
+        List<String> mListCatering = new ArrayList<>();
+        mListCatering.add(0,"Choose Catering");
+        mListCatering.add("D'Pawon Catering");
+        mListCatering.add("Roselia");
+
+        ArrayAdapter<String> cateringAdapter;
+        cateringAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mListCatering);
+        cateringAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinCatering.setAdapter(cateringAdapter);
+
+        spinCatering.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (adapterView.getItemAtPosition(i).equals("Choose Catering")){
+
+                }else {
+                    selectCatering.setText(adapterView.getSelectedItem().toString());
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 }

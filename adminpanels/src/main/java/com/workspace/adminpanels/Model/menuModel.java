@@ -6,17 +6,19 @@ public class menuModel {
     String desc;
     Integer harga;
     String kategori;
-    String mImageUrl;
+    String katering;
+    String gambar;
 
     public menuModel() {
     }
 
-    public menuModel(String judul, String desc, Integer harga, String kategori, String mImageUrl) {
+    public menuModel(String judul, String desc, Integer harga, String kategori, String katering, String gambar) {
         this.judul = judul;
         this.desc = desc;
         this.harga = harga;
         this.kategori = kategori;
-        this.mImageUrl = mImageUrl;
+        this.katering = katering;
+        this.gambar = gambar;
     }
 
     public String getJudul() {
@@ -51,11 +53,19 @@ public class menuModel {
         this.kategori = kategori;
     }
 
-    public String getmImageUrl() {
-        return mImageUrl;
+    public String getKatering() {
+        return katering;
     }
 
-    public void setmImageUrl(String mImageUrl) {
-        this.mImageUrl = mImageUrl;
+    public void setKatering(String katering) {
+        this.katering = katering;
+    }
+
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 }

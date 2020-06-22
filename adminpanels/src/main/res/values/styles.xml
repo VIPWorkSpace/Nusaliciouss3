@@ -12,7 +12,9 @@
     </style>
 
     <style name="MyActionBar" parent="Theme.AppCompat.NoActionBar">
-        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="actionMenuTextColor">#fff</item>
+        <item name="android:titleTextColor">#fff</item>
+        <item name="android:actionMenuTextColor">#fff</item>
     </style>
 
 </resources>

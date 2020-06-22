@@ -9,19 +9,20 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
         <ImageView
-            android:id="@+id/imgMenuItem"
+            android:id="@+id/imgMenuItem2"
             android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_height="100dp"
             android:src="@drawable/ic_launcher_background"
             android:layout_marginLeft="15dp"/>
+
         <Button
             android:id="@+id/btn_edit"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/btn_delete"
+            android:layout_below="@+id/btn_delete"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="0dp"
             android:background="@drawable/ic_baseline_edit_24" />
 
         <Button
@@ -33,20 +34,13 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
             android:background="@drawable/ic_baseline_delete_24" />
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
         <TextView
             android:id="@+id/textNamaMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
-            android:layout_toEndOf="@+id/imgMenuItem"
+            android:layout_toEndOf="@+id/imgMenuItem2"
             android:text="Nama" />
 
         <TextView
@@ -56,7 +50,7 @@
             android:layout_below="@+id/textNamaMenu"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="16dp"
-            android:layout_toEndOf="@id/imgMenuItem"
+            android:layout_toEndOf="@id/imgMenuItem2"
             android:text="Descripsi" />
         <TextView
             android:id="@+id/textHargaMenu"
@@ -65,18 +59,31 @@
             android:layout_below="@id/textDescMenu"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="16dp"
-            android:layout_toEndOf="@id/imgMenuItem"
+            android:layout_toEndOf="@id/imgMenuItem2"
             android:text="Harga"/>
+
         <TextView
             android:id="@+id/textCat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textHargaMenu"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="60dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginBottom="20dp"
-            android:layout_toEndOf="@id/imgMenuItem"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="50dp"
+            android:layout_toEndOf="@+id/textNamaMenu"
             android:text="Kategori" />
-    </LinearLayout>
 
+        <TextView
+            android:id="@+id/textCatering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textCat"
+            android:layout_alignStart="@+id/textCat"
+            android:layout_alignEnd="@+id/textCat"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="0dp"
+            android:text="Katering" />
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

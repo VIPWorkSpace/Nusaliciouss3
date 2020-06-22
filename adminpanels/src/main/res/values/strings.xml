@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">AdminPanels</string>
+    <string name="halo">Halo,</string>
+    <string name="admin">Admin</string>
+    <string name="dashboard">DASHBOARD</string>
+    <string name="data_user">Data User</string>
+    <string name="list_user">List User</string>
+    <string name="tambah_menu">Tambah Menu</string>
+    <string name="add_menu">Add Menu</string>
+    <string name="data_menu">Data Menu</string>
+    <string name="list_menu">List Menu</string>
 </resources>

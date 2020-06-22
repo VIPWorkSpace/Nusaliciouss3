@@ -5,22 +5,19 @@ public class addmenuModel {
     String desc;
     Integer harga;
     String kategori;
-    String mImageUrl;
+    String katering;
+    String gambar;
 
     public addmenuModel() {
     }
 
-    public addmenuModel(String judul, String desc, Integer harga, String mImageUrl, String kategori) {
-        if (judul.trim().equals("") && desc.trim().equals("") && kategori.trim().equals("")){
-            judul = "No Paket";
-            desc = "No Desc";
-            kategori = "No Kategori";
-        }
+    public addmenuModel(String judul, String desc, Integer harga, String kategori, String katering, String gambar) {
         this.judul = judul;
         this.desc = desc;
         this.harga = harga;
-        this.mImageUrl = mImageUrl;
         this.kategori = kategori;
+        this.katering = katering;
+        this.gambar = gambar;
     }
 
     public String getJudul() {
@@ -55,11 +52,19 @@ public class addmenuModel {
         this.kategori = kategori;
     }
 
-    public String getmImageUrl() {
-        return mImageUrl;
+    public String getKatering() {
+        return katering;
     }
 
-    public void setmImageUrl(String mImageUrl) {
-        this.mImageUrl = mImageUrl;
+    public void setKatering(String katering) {
+        this.katering = katering;
+    }
+
+    public String getGambar() {
+        return gambar;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 }
