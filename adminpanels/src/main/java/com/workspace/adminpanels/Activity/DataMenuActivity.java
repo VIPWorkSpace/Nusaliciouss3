@@ -63,6 +63,7 @@ public class DataMenuActivity extends AppCompatActivity {
         menuRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                menuList.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     menuModel menuMod = ds.getValue(menuModel.class);
                         menuList.add(menuMod);

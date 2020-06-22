@@ -43,6 +43,7 @@ public class DataUserActivity extends AppCompatActivity {
         dToolbar = findViewById(R.id.dToolbar);
         setSupportActionBar(dToolbar);
         getSupportActionBar().setTitle("Data User");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rvdUser.setHasFixedSize(true);
         rvdUser.setLayoutManager(new LinearLayoutManager(this));

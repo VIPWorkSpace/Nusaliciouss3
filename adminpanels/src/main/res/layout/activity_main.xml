@@ -7,15 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorTop">
-    </androidx.appcompat.widget.Toolbar>
     <LinearLayout
         android:id="@+id/linearGradient"
-        android:layout_below="@+id/mToolbar"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:orientation="vertical"
@@ -27,13 +20,14 @@
                 android:id="@+id/textHello"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Halo,"
+                android:text="@string/halo"
                 android:textSize="20dp"
                 android:textColor="@android:color/white"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="45dp"
                 android:layout_marginLeft="24dp"/>
 
             <TextView
+                android:id="@+id/textID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/textHello"
@@ -42,13 +36,39 @@
                 android:layout_marginBottom="0dp"
                 android:layout_marginLeft="5dp"
                 android:layout_toEndOf="@+id/textHello"
-                android:text="Admin"
+                android:text="@string/admin"
                 android:textColor="@android:color/white"
                 android:textSize="20dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/dashboard"
+                android:textColor="@android:color/white"
+                android:textSize="26dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_admin"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/ic_launcher_background" />
         </RelativeLayout>
     </LinearLayout>
-
+    <RelativeLayout
+        android:id="@+id/relativeViewShape"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="110dp"
+        android:background="@drawable/shape_rectangle">
+    </RelativeLayout>
     <FrameLayout
         android:id="@+id/textCont"
         android:layout_width="match_parent"
@@ -68,11 +88,11 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="150dp"
                     android:layout_height="135dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginBottom="5dp"
                     app:cardElevation="8dp"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="10dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -88,17 +108,25 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="Data User"/>
+                            android:text="@string/data_menu"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/black"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_menu"
+                            android:textSize="16dp"
+                            android:layout_gravity="center"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:layout_width="150dp"
                     android:layout_height="135dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginBottom="5dp"
                     app:cardElevation="8dp"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="10dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -114,16 +142,24 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="Data Menu"/>
+                            android:text="@string/tambah_menu"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/black"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/add_menu"
+                            android:textSize="16dp"
+                            android:layout_gravity="center"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:layout_width="150dp"
                     android:layout_height="135dp"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
                     app:cardElevation="8dp"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="10dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -139,16 +175,24 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="Transaksi"/>
+                            android:text="@string/data_user"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/black"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/list_user"
+                            android:layout_gravity="center"
+                            android:textSize="16dp"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:layout_width="150dp"
                     android:layout_height="135dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     app:cardElevation="8dp"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="10dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -164,7 +208,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="Data User"/>
+                            android:text="COMING SOON"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/black"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="16dp"
+                            android:layout_gravity="center"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </GridLayout>
