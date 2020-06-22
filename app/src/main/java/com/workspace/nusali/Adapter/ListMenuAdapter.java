@@ -66,6 +66,7 @@ public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MyView
             fotoMenu = itemView.findViewById(R.id.image_list_menu);
             judulMenu = itemView.findViewById(R.id.judul_list_menu);
             hargaMenu = itemView.findViewById(R.id.harga_list_menu);
+
         }
     }
 }

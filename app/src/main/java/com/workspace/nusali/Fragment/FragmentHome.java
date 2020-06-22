@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,7 +60,7 @@ public class FragmentHome extends Fragment {
         referenceUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                nameUser.setText(String.format("Hi, %s", dataSnapshot.child("name").getValue().toString()));
+                nameUser.setText(String.format("Hi, %s", dataSnapshot.child("name").getValue()));
                 saldoUser.setText(String.format("Rp.%s", dataSnapshot.child("saldo").getValue().toString()));
             }
 
@@ -131,6 +132,11 @@ public class FragmentHome extends Fragment {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(userIdKey, MODE_PRIVATE);
         userId = sharedPreferences.getString("firebaseKey", "");
-
     }
+
+
+
+
+
+
 }

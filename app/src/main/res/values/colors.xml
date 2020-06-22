@@ -9,6 +9,7 @@
     <color name="Red">#FF2626</color>
     <color name="RedDark">#7A1F1F</color>
     <color name="Maroon">#FD442B</color>
+    <color name="gradient_start_color">#FF4C4C</color>
     <!-- Kustom Warna Abu-Abu-->
     <color name="AbuMuda">#EDEDED</color>
     <color name="Abu">#BCBCBC</color>
@@ -39,6 +40,9 @@
     <color name="Green_Dark">#2D5C2D</color>
     <color name="Green_monotone">#00AC66</color>
     <color name="Green_natural">#00DC02</color>
+
+    <!-- Custom Color Blue -->
+    <color name="gradient_end_color">#18a3fe</color>
 
 
 

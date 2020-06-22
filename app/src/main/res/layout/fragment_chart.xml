@@ -34,13 +34,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
+        android:scrollbars="none"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp">
+            android:paddingBottom="115dp">
 
 
             <androidx.cardview.widget.CardView
@@ -108,9 +109,11 @@
                         android:text="Nama Penerima"
                         android:textSize="16sp"
                         android:fontFamily="@font/medium"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
+                        android:id="@+id/nama_penerima"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -263,7 +266,7 @@
         app:cardBackgroundColor="@color/Pink"
         app:cardCornerRadius="4dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btn_proses_chart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -303,26 +306,64 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:gravity="right"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 tools:ignore="RtlHardcoded,UselessParent">
 
                 <TextView
+                    android:id="@+id/rp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:layout_marginTop="4dp"
-                    android:text="@string/price_item"
+                    android:text="Rp."
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tv_total_chart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:text="..."
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tv_saldo_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:layout_below="@id/tv_total_pay"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <TextView
+                    android:id="@+id/rp2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Rp."
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tv_saldo_chart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:text=""
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/price_item"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -330,7 +371,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_proses_chart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Red"

@@ -2,7 +2,7 @@ package com.workspace.nusali.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +17,9 @@ import com.workspace.nusali.R;
 import java.util.ArrayList;
 
 
-
 public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder> {
     public Context context;
     private ArrayList<ChartModel> chartList;
-
-
 
 
     public ChartAdapter(Context c, ArrayList<ChartModel> p) {
@@ -42,12 +39,13 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull ChartAdapter.MyViewHolder holder, int position) {
 
-       final ChartModel chartModel = chartList.get(position);
-       holder.judul.setText(chartModel.getJudul());
-       holder.jumlah.setText(chartModel.getJumlah().toString());
-       holder.harga.setText(chartModel.getTotal().toString());
-       holder.tanggal.setText(chartModel.getTanggal());
-       holder.waktu.setText(chartModel.getWaktu());
+        final ChartModel chartModel = chartList.get(position);
+        holder.judul.setText(chartModel.getJudul());
+        holder.jumlah.setText(chartModel.getJumlah().toString()+"Pax.");
+        holder.harga.setText(chartModel.getTotal().toString());
+        holder.tanggal.setText(chartModel.getTanggal());
+        holder.waktu.setText(chartModel.getWaktu());
+        holder.katering.setText(chartModel.getKatering());
 
     }
 
@@ -57,7 +55,8 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-            TextView judul, harga, jumlah, tanggal, waktu;
+        TextView judul, harga, jumlah, tanggal, waktu, katering;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             judul = itemView.findViewById(R.id.title_chart);
@@ -65,6 +64,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
             jumlah = itemView.findViewById(R.id.quantity_chart);
             tanggal = itemView.findViewById(R.id.date_chart);
             waktu = itemView.findViewById(R.id.time_chart);
+            katering = itemView.findViewById(R.id.katering_chart);
         }
     }
 

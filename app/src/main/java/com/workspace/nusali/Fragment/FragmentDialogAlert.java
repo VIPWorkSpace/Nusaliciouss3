@@ -19,6 +19,7 @@ public class FragmentDialogAlert extends AppCompatDialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(getActivity(), ListMenuActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
         return builder.create();

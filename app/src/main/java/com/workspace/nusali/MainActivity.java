@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -24,6 +26,8 @@ import com.workspace.nusali.Fragment.FragmentOrder;
 import com.workspace.nusali.Fragment.FragmentPayment;
 
 public class MainActivity extends AppCompatActivity {
+    private long backPressedTime;
+    private Toast backToast;
     String userIdKey = "";
     String userId = "";
     FirebaseAuth mAuth;
@@ -45,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         frameTab = findViewById(R.id.frame_tab);
         viewPager = findViewById(R.id.viewPager);
 
-        BottomNavigationView bottomNav =findViewById(R.id.bottom_nav);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navigationListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new FragmentHome()).commit();
 
@@ -70,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         //<-- SETTING FRAGMENT LIBRARY -->
 
 
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment setFragment = null;
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.navHome:
                     setFragment = new FragmentHome();
                     frameTab.setVisibility(View.GONE);
@@ -118,8 +124,22 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("firebaseKey", userId);
             editor.apply();
+
         }
-
-
     }
+
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel();
+            moveTaskToBack(true);
+            super.onBackPressed();
+            return;
+        } else {
+            backToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
+    }
+
 }
