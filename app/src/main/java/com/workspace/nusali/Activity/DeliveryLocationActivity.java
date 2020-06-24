@@ -48,10 +48,15 @@ public class DeliveryLocationActivity extends AppCompatActivity {
         referenceData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                namaPenerima.setText(dataSnapshot.child("namaPenerima").getValue().toString());
-                nomerPenerima.setText(dataSnapshot.child("nomerPenerima").getValue().toString());
-                alamatPenerima.setText(dataSnapshot.child("alamatPenerima").getValue().toString());
-                petunjuk.setText(dataSnapshot.child("petunjuk").getValue().toString());
+                if(dataSnapshot.exists()) {
+                    namaPenerima.setText(dataSnapshot.child("namaPenerima").getValue().toString());
+                    nomerPenerima.setText(dataSnapshot.child("nomerPenerima").getValue().toString());
+                    alamatPenerima.setText(dataSnapshot.child("alamatPenerima").getValue().toString());
+                    petunjuk.setText(dataSnapshot.child("petunjuk").getValue().toString());
+                }
+                else{
+
+                }
             }
 
             @Override

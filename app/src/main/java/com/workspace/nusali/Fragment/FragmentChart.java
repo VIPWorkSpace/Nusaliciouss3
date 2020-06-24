@@ -1,5 +1,6 @@
 package com.workspace.nusali.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,11 +31,13 @@ import com.workspace.nusali.Adapter.ChartAdapter;
 import com.workspace.nusali.Model.ChartModel;
 import com.workspace.nusali.Model.OrderModel;
 
+import com.workspace.nusali.Model.PaymentModel;
 import com.workspace.nusali.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Random;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -45,19 +49,20 @@ public class FragmentChart extends Fragment {
     TextView namaPenerima, alamatPenerima, nomerPenerima, hint, ubahAlamat;
     DatabaseReference referenceChart, referenceDataDelivery;
     DatabaseReference referenceOrder;
-    // DatabaseReference referencePay;
+    DatabaseReference referencePay;
 
     Task<Void> referenceRemove;
 
     RecyclerView recyclerViewChart;
     ArrayList<ChartModel> chartList;
     ChartAdapter chartAdapter;
-
+    int jumlah = 0;
     int totalChart = 0;
     private Integer jumlahPesan = 0;
     Integer belanjaID = new Random().nextInt();
     String idTransaksi = belanjaID.toString();
     String toChart;
+    String jumlahBeli;
 
     public FragmentChart() {
         // Required empty public constructor
@@ -133,7 +138,7 @@ public class FragmentChart extends Fragment {
             @Override
             public void onClick(View v) {
 
-                goToPesanan();
+                goToPayment();
 
 
             }
@@ -149,75 +154,6 @@ public class FragmentChart extends Fragment {
 
     }
 
-//    public void goToPayment() {
-////        if (TextUtils.isEmpty(namaPenerima.getText().toString())) {
-////            Toast.makeText(getActivity(), "Tanggal Kosong ! ", Toast.LENGTH_SHORT).show();
-////        } else {
-//
-//        final String saveCurrentTime, saveCurrentDate;
-//
-//        Calendar calForDate = Calendar.getInstance();
-//        final SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-//        saveCurrentDate = currentDate.format(calForDate.getTime());
-//
-//        final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-//        saveCurrentTime = currentTime.format(calForDate.getTime());
-//
-//        referencePay = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId).child("Pembayaran");
-//        referencePay.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-////
-//
-////                referencePay.getRef().child("idTransaksi").setValue(idTransaksi);
-////                Integer totalBayar = Integer.parseInt(toChart);
-////                referencePay.getRef().child("total").setValue(totalBayar);
-////                referencePay.getRef().child("tanggal pesan").setValue(saveCurrentDate);
-////                referencePay.getRef().child("waktu pesan").setValue(saveCurrentTime);
-////                Intent intent = new Intent(getContext(), PaymentActivity.class);
-////                startActivity(intent);
-//                final String saveCurrentTime, saveCurrentDate;
-//
-//                Calendar calForDate = Calendar.getInstance();
-//                final SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-//                saveCurrentDate = currentDate.format(calForDate.getTime());
-//
-//                final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-//                saveCurrentTime = currentTime.format(calForDate.getTime());
-//
-//                Integer totalBayar = Integer.parseInt(toChart);
-//                Integer idTrans = Integer.parseInt(idTransaksi);
-//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-//                    ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
-//                    chartList.add(chartModel);
-//                    for (int i = 0; i < chartList.size(); ) {
-//                        Integer jumlah = chartList.get(i++).getJumlah();
-//                        jumlahPesan = jumlahPesan + jumlah;
-//                        String katering = chartList.get(i).getKatering();
-//                        String tanggal = chartList.get(i).getTanggal();
-//                        String waktu = chartList.get(i).getWaktu();
-//
-//                        PaymentModel payModel = new PaymentModel(idTrans, jumlahPesan, katering, tanggal, totalBayar, waktu, saveCurrentDate, saveCurrentTime);
-//                       referencePay.getRef().child(idTransaksi).setValue(payModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                           @Override
-//                           public void onComplete(@NonNull Task<Void> task) {
-//
-//                           }
-//                       });
-//
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//    }
-
     public void goToPesanan() {
         final String saveCurrentTime, saveCurrentDate;
 
@@ -227,8 +163,8 @@ public class FragmentChart extends Fragment {
 
         final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calForDate.getTime());
-        referenceOrder = FirebaseDatabase.getInstance().getReference("Transaksi").child(userId).child("Pesanan");
-        referenceOrder.addListenerForSingleValueEvent(new ValueEventListener() {
+        referenceOrder = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId);
+        referenceOrder.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -244,6 +180,8 @@ public class FragmentChart extends Fragment {
                         String tanggal = chartList.get(i).getTanggal();
                         Integer total = chartList.get(i).getTotal();
                         String waktu = chartList.get(i).getWaktu();
+                        jumlahPesan += Integer.valueOf(jumlah);
+
 //                                jumlahPesan += chartList.get(i).getTotal();
 //                        dataSnapshot.getRef().child("idMenu").setValue(idMenu);
 //                        dataSnapshot.getRef().child("judul").setValue(judul);
@@ -252,16 +190,23 @@ public class FragmentChart extends Fragment {
 //                        dataSnapshot.getRef().child("tanggal").setValue(tanggal);
 //                        dataSnapshot.getRef().child("total").setValue(total);
 //                        dataSnapshot.getRef().child("waktu").setValue(waktu);
-                       OrderModel orderModel = new OrderModel(idMenu, judul, jumlah, katering, tanggal, total, waktu);
-                        referenceOrder.getRef().child(idTransaksi + " " + saveCurrentDate).child(menuId + " " + saveCurrentTime).setValue(orderModel);
-                        referenceRemove = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId).removeValue();
-                        Intent intent = new Intent(getContext(), PaymentActivity.class);
-                        startActivity(intent);
-//                            intent.putExtra("idTrans", idTransaksi);
-//                            intent.putExtra("pesanan", jumlahPesan);
-//                            intent.putExtra("total", totalChart);
-//                            intent.putExtra("Alamat", totalChart);
-//                            intent.putExtra("Nama_Penerima", totalChart);
+                        OrderModel orderModel = new OrderModel(idMenu, judul, jumlah, katering, tanggal, total, waktu);
+                        referenceOrder.child("Pesanan").child(idTransaksi + " " + saveCurrentDate + " " + saveCurrentTime).child(menuId).setValue(orderModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+//                                referenceRemove = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId).removeValue();
+//                                Intent intent = new Intent(getContext(), PaymentActivity.class);
+//                                startActivity(intent);
+//                                intent.putExtra("idTrans", idTransaksi);
+//                                intent.putExtra("pesanan", jumlahPesan);
+//                                intent.putExtra("total", totalChart);
+//                                intent.putExtra("alamatPenerima", namaPenerima.getText().toString());
+//                                intent.putExtra("alamatPenerima", alamatPenerima.getText().toString());
+//                                intent.putExtra("nomerPenerima", nomerPenerima.getText().toString());
+//                                intent.putExtra("petunjuk", hint.getText().toString());
+
+                            }
+                        });
 
 
                     }
@@ -277,16 +222,139 @@ public class FragmentChart extends Fragment {
 
     }
 
+    public void goToPayment() {
+//        if (TextUtils.isEmpty(namaPenerima.getText().toString())) {
+//            Toast.makeText(getActivity(), "Tanggal Kosong ! ", Toast.LENGTH_SHORT).show();
+//        } else {
+
+        final String saveCurrentTime, saveCurrentDate;
+
+        Calendar calForDate = Calendar.getInstance();
+        final SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        saveCurrentDate = currentDate.format(calForDate.getTime());
+
+        final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+        saveCurrentTime = currentTime.format(calForDate.getTime());
+
+        referencePay = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId).child("Pembayaran");
+        referencePay.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+
+//                referencePay.getRef().child("idTransaksi").setValue(idTransaksi);
+//                Integer totalBayar = Integer.parseInt(toChart);
+//                referencePay.getRef().child("total").setValue(totalBayar);
+//                referencePay.getRef().child("tanggal pesan").setValue(saveCurrentDate);
+//                referencePay.getRef().child("waktu pesan").setValue(saveCurrentTime);
+//                Intent intent = new Intent(getContext(), PaymentActivity.class);
+//                startActivity(intent);
+//                final String saveCurrentTime, saveCurrentDate;
+//
+//                Calendar calForDate = Calendar.getInstance();
+//                final SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+//                saveCurrentDate = currentDate.format(calForDate.getTime());
+//
+//                final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+//                saveCurrentTime = currentTime.format(calForDate.getTime());
+
+                Integer totalBayar = Integer.parseInt(toChart);
+                Integer idTrans = Integer.parseInt(idTransaksi);
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
+                    chartList.add(chartModel);
+                    for (int i = 0; i < chartList.size(); i++) {
+                         jumlah = chartList.get(i).getJumlah();
+                         jumlahBeli = Integer.toString(jumlah);
+                     //   String jumlahBeli = String.valueOf(jumlah2);
+                      //  jumlahPesan = Integer.parseInt(jumlahBeli);
+//                        String katering = chartList.get(i).getKatering();
+//                        String tanggal = chartList.get(i).getTanggal();
+//                        String waktu = chartList.get(i).getWaktu();
+                        PaymentModel payModel = new PaymentModel(idTrans, jumlahBeli, totalBayar);
+                        referencePay.getRef().child(idTransaksi+" "+saveCurrentDate+" "+saveCurrentTime).setValue(payModel);
+                        Intent intent = new Intent(getContext(), PaymentActivity.class);
+                        startActivity(intent);
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+//    public void goToOrder(){
+//
+//        final String saveCurrentTime, saveCurrentDate;
+//
+//        Calendar calForDate = Calendar.getInstance();
+//        final SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+//        saveCurrentDate = currentDate.format(calForDate.getTime());
+//
+//        final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+//        saveCurrentTime = currentTime.format(calForDate.getTime());
+//
+//
+//        referenceOrder = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId).child("Pesanan");
+//
+//        final HashMap<String, Object> orderMap = new HashMap<>();
+//        DataSnapshot dataSnapshot = null;
+//        referenceOrder = (DatabaseReference) dataSnapshot.getChildren();
+//        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+//            ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
+//            chartList.add(chartModel);
+//            for (int i = 0; i < chartList.size(); i++) {
+//                Integer idMenu = chartList.get(i).getId();
+//                String menuId = String.valueOf(idMenu);
+//                String judul = chartList.get(i).getJudul();
+//                Integer jumlah = chartList.get(i).getJumlah();
+//                String jumlahBeli = String.valueOf(jumlah);
+//                String katering = chartList.get(i).getKatering();
+//                String tanggal = chartList.get(i).getTanggal();
+//                Integer total = chartList.get(i).getTotal();
+//                String total2 = String.valueOf(total);
+//                String waktu = chartList.get(i).getWaktu();
+//
+//                orderMap.put("idMenu", menuId);
+//                orderMap.put("judul", judul);
+//                orderMap.put("jumlah", jumlahBeli);
+//                orderMap.put("katering", katering);
+//                orderMap.put("tanggal", tanggal);
+//                orderMap.put("total", total2);
+//                orderMap.put("waktu", waktu);
+//
+//                referenceOrder.child(idTransaksi + " " + saveCurrentDate).child(menuId + " " + saveCurrentTime).updateChildren(orderMap);
+//                Intent intent = new Intent(getContext(), PaymentActivity.class);
+//                startActivity(intent);
+//            }
+//        }
+//    }
+
     public void getDataDelivery() {
         //load data yang ada
         referenceDataDelivery = FirebaseDatabase.getInstance().getReference().child("User").child(userId).child("pengiriman");
         referenceDataDelivery.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                namaPenerima.setText(dataSnapshot.child("namaPenerima").getValue().toString());
-                nomerPenerima.setText(dataSnapshot.child("nomerPenerima").getValue().toString());
-                alamatPenerima.setText(dataSnapshot.child("alamatPenerima").getValue().toString());
-                hint.setText(dataSnapshot.child("petunjuk").getValue().toString());
+                if (dataSnapshot.exists()) {
+                    namaPenerima.setText(dataSnapshot.child("namaPenerima").getValue().toString());
+                    nomerPenerima.setText(dataSnapshot.child("nomerPenerima").getValue().toString());
+                    alamatPenerima.setText(dataSnapshot.child("alamatPenerima").getValue().toString());
+                    hint.setText(dataSnapshot.child("petunjuk").getValue().toString());
+                } else {
+                    namaPenerima.setText("wegy");
+                    nomerPenerima.setText("087788661921");
+                    alamatPenerima.setText("jl hj naim");
+                    hint.setText("no 32");
+                }
             }
 
             @Override
