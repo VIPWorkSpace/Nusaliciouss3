@@ -95,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         String userId = "";
                                         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                                         userId = currentUser.getUid();
-                                        FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId).child("Pesanan").child(idTransaksi).child(idMenu).child("id").setValue(idMenu);
+                                    //    FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId).child("Pesanan").child(idTransaksi).child(idMenu).child("id").setValue(idMenu);
                                         FirebaseDatabase.getInstance().getReference("User").child(userId).child("pribadi").child("saldo").setValue(50000);
                                         FirebaseDatabase.getInstance().getReference("User").child(userId).child("pribadi").child("url_foto").setValue("https://firebasestorage.googleapis.com/v0/b/nusalicious-ed650.appspot.com/o/avaDefault.jpg?alt=media&token=f8925c60-4d15-449c-931b-d5c5099fce46");
 
