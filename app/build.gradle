@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.workspace.nusali"
-        minSdkVersion 24
+        minSdkVersion 22
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -47,5 +47,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
+
+    //library billing prosesor
+    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
 
 }

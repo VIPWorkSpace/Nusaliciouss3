@@ -3,14 +3,24 @@ package com.workspace.nusali.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.workspace.nusali.Activity.LoginActivity;
+import com.workspace.nusali.Fragment.FragmentDialogDetailMenu;
 import com.workspace.nusali.Model.ChartModel;
 import com.workspace.nusali.R;
 
@@ -20,7 +30,9 @@ import java.util.ArrayList;
 public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder> {
     public Context context;
     private ArrayList<ChartModel> chartList;
-
+    Task<Void> referenceDelete;
+    String userIdKey = "";
+    String userId = "";
 
     public ChartAdapter(Context c, ArrayList<ChartModel> p) {
         context = c;
@@ -37,8 +49,8 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ChartAdapter.MyViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull final ChartAdapter.MyViewHolder holder, final int position) {
+        getUsernameLocal();
         final ChartModel chartModel = chartList.get(position);
         holder.judul.setText(chartModel.getJudul());
         holder.jumlah.setText(chartModel.getJumlah().toString()+"Pax.");
@@ -46,6 +58,28 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
         holder.tanggal.setText(chartModel.getTanggal());
         holder.waktu.setText(chartModel.getWaktu());
         holder.katering.setText(chartModel.getKatering());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence[] options = new CharSequence[]
+                        {
+                                "Remove"
+                        };
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Options: ");
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                       referenceDelete = FirebaseDatabase.getInstance().getReference("Keranjang").child(userId).child(String.valueOf(chartModel.getId())).removeValue();
+                        Toast.makeText(context, "Removed " +referenceDelete, Toast.LENGTH_SHORT).show();
+                   }
+
+                });
+                builder.show();
+            }
+        });
 
     }
 
@@ -67,6 +101,15 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
             katering = itemView.findViewById(R.id.katering_chart);
         }
     }
+
+    public void getUsernameLocal() {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(userIdKey, Context.MODE_PRIVATE);
+        userId = sharedPreferences.getString("firebaseKey", "");
+
+    }
+
+
 
 
 }

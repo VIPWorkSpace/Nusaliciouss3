@@ -65,6 +65,19 @@
             android:textSize="14sp"
             tools:ignore="HardcodedText,RelativeOverlap" />
 
+        <TextView
+            android:id="@+id/price_chart2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_Rp"
+            android:layout_toEndOf="@id/quantity_chart"
+            android:layout_marginTop="2dp"
+            android:text="Edit"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/Green_natural"
+            android:textSize="14sp"
+            tools:ignore="HardcodedText,RelativeOverlap" />
+
 
 
         <TextView

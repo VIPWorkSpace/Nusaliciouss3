@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,8 +32,8 @@ import com.workspace.nusali.R;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FragmentHome extends Fragment {
-
+public class FragmentHome extends Fragment{
+//    BillingProcessor bp;
     DatabaseReference referenceUser;
     String userIdKey = "";
     String userId = "";
@@ -54,8 +56,10 @@ public class FragmentHome extends Fragment {
         final TextView nameUser = v.findViewById(R.id.name_user);
         final TextView saldoUser = v.findViewById(R.id.saldo_user);
 
+//        bp = new BillingProcessor(getContext(), "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyEzA2MHjOd3y0ubv7AZf5xZKW9OzszQYDmZbRCFBHV6FQYKkCaMyqP0paT8eck8AJ32BYY8L0jnbIV0DdM3Ejok2nkFRZx7pnNd9v7zwPlRGgN9bFo12GHJ5CTwLRoKz+bjl1tQmdPjbvs9MtzzacQRShN1jZNAt6kBA8OZifHf1Nn+JPZjTOzs1CMlUTSmfruqV6wan8bYNvBC0LMqNqLPjQ/Mve/bpwNnl5/PypjksufxXhUp4vbnVnMZvY8TbfLT8orMXD6j0NUOmYPX4+bNhR0lLF64zLKK4Fy2btYNR/uUfmUA+KtHx1eZEKY9L8XQmIe/zFIVq3iOz5CxbsQIDAQAB", (BillingProcessor.IBillingHandler) getActivity());
+//        bp.initialize();
 
-        referenceUser = FirebaseDatabase.getInstance().getReference().child("User").child(userId);
+        referenceUser = FirebaseDatabase.getInstance().getReference().child("User").child(userId).child("pribadi");
 
         referenceUser.addValueEventListener(new ValueEventListener() {
             @Override
@@ -134,9 +138,39 @@ public class FragmentHome extends Fragment {
         userId = sharedPreferences.getString("firebaseKey", "");
     }
 
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
+//            super.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
+//
+//        @Override
+//    public void onDestroy() {
+//        if (bp != null) {
+//            bp.release();
+//        }
+//        super.onDestroy();
+//    }
 
 
-
-
-
+//    @Override
+//    public void onProductPurchased(String productId, TransactionDetails details) {
+//
+//    }
+//
+//    @Override
+//    public void onPurchaseHistoryRestored() {
+//
+//    }
+//
+//    @Override
+//    public void onBillingError(int errorCode, Throwable error) {
+//
+//    }
+//
+//    @Override
+//    public void onBillingInitialized() {
+//
+//    }
 }

@@ -73,4 +73,8 @@
     <string name="location">Alamat Penerima</string>
     <string name="contact">Kontak Telepon</string>
     <string name="tip">Petunjuk Lokasi</string>
+    <string name="email2">xae@nusamandiri.ac.id</string>
+    <string name="profile_detail">Profile Detail</string>
+    <string name="number_phone">Nomer Handphone</string>
+    <string name="hint">pager hijau ada boneka gundam</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.workspace.nusali.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
@@ -11,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import com.workspace.nusali.Fragment.FragmentDatePicker;
-import com.workspace.nusali.Fragment.FragmentDialogAlert;
+import com.workspace.nusali.Fragment.FragmentDialogDetailMenu;
 import com.workspace.nusali.Model.ListMenuModel;
 import com.workspace.nusali.R;
 
@@ -35,7 +35,6 @@ import com.workspace.nusali.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
@@ -52,6 +51,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
     Integer total = 0;
     Integer belanjaID = new Random().nextInt();
     String idMenu = belanjaID.toString();
+    LoadingDialog loadingDialog;
 
 
     @SuppressLint("SetTextI18n")
@@ -60,6 +60,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_menu);
         getUsernameLocal();
+         loadingDialog = new LoadingDialog(DetailMenuActivity.this);
         //TextView
         judulHalaman = findViewById(R.id.tv_judul_menu);
         namaKatering = findViewById(R.id.nama_katering);
@@ -161,6 +162,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
                         Toast.makeText(getApplicationContext(), "Waktu Kosong ! ", Toast.LENGTH_SHORT).show();
                     }
                     else {
+
                         addToCartList();
                     }
             }
@@ -216,8 +218,17 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
     }
 
     public void openDialog(){
-        FragmentDialogAlert fragmentDialogAlert = new FragmentDialogAlert();
-        fragmentDialogAlert.show(getSupportFragmentManager(), "Success");
+        loadingDialog.startLoadingDialog();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismissDialog();
+            }
+        }, 1000);
+        FragmentDialogDetailMenu fragmentDialogDetailMenu = new FragmentDialogDetailMenu();
+        fragmentDialogDetailMenu.show(getSupportFragmentManager(), "Success");
+
     }
 
 

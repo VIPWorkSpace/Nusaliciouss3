@@ -6,6 +6,8 @@ public class UserModel {
     String email;
     String password;
 
+
+
     public UserModel() {
     }
 
@@ -14,6 +16,7 @@ public class UserModel {
         this.phone = phone;
         this.email = email;
         this.password = password;
+
     }
 
     public String getName() {
@@ -47,4 +50,6 @@ public class UserModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

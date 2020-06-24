@@ -85,6 +85,12 @@ public class IntroActivity extends AppCompatActivity {
                 }
             }
         });
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(mList.size());
+            }
+        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
