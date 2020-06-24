@@ -68,6 +68,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="Jumlah Item"
+                        android:textColor="@android:color/black"
+                        tools:ignore="HardcodedText" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="@string/total_tagihan"
                         android:textColor="@android:color/black" />
 
@@ -108,6 +116,16 @@
                     tools:ignore="RtlHardcoded">
 
                     <TextView
+                        android:id="@+id/jumlah_item_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2Pax."
+                        android:textColor="@android:color/black"
+                        tools:ignore="HardcodedText" />
+
+
+                    <TextView
+                        android:id="@+id/total_tagihan_payment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/price_item"
@@ -136,6 +154,7 @@
                         android:background="#EDEDED" />
 
                     <TextView
+                        android:id="@+id/total_bayar_payment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"

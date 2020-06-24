@@ -4,18 +4,16 @@ package com.workspace.nusali.Model;
 
 public class PaymentModel {
     Integer idTransaksi;
-    String jumlah;
+    Integer jumlah;
     Integer total;
 
+    public PaymentModel() {
+    }
 
-
-
-    public PaymentModel(Integer idTransaksi, String jumlah, Integer total) {
+    public PaymentModel(Integer idTransaksi, Integer jumlah, Integer total) {
         this.idTransaksi = idTransaksi;
         this.jumlah = jumlah;
         this.total = total;
-
-
     }
 
     public Integer getIdTransaksi() {
@@ -26,11 +24,11 @@ public class PaymentModel {
         this.idTransaksi = idTransaksi;
     }
 
-    public String getJumlah() {
+    public Integer getJumlah() {
         return jumlah;
     }
 
-    public void setJumlah(String jumlah) {
+    public void setJumlah(Integer jumlah) {
         this.jumlah = jumlah;
     }
 

@@ -28,6 +28,7 @@ import com.synnapps.carouselview.ImageListener;
 import com.workspace.nusali.Activity.DetailMenuActivity;
 import com.workspace.nusali.Activity.Equipment;
 import com.workspace.nusali.Activity.ListMenuActivity;
+import com.workspace.nusali.Activity.PaymentActivity;
 import com.workspace.nusali.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -109,7 +110,7 @@ public class FragmentHome extends Fragment{
                         startActivity(intent);
                     }
                     else if (finall == 3){
-                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
+                        Intent intent = new Intent(getContext(), PaymentActivity.class);
                         startActivity(intent);
                     }
                     else if (finall == 4){

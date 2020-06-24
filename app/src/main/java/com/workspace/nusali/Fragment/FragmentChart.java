@@ -56,12 +56,13 @@ public class FragmentChart extends Fragment {
     RecyclerView recyclerViewChart;
     ArrayList<ChartModel> chartList;
     ChartAdapter chartAdapter;
-    int jumlah = 0;
-    int totalChart = 0;
-    private Integer jumlahPesan = 0;
+
+    int totalKeranjang = 0;
+    int jumlahPesan = 0;
+
     Integer belanjaID = new Random().nextInt();
     String idTransaksi = belanjaID.toString();
-    String toChart;
+    String totalHarga;
     String jumlahBeli;
 
     public FragmentChart() {
@@ -114,13 +115,15 @@ public class FragmentChart extends Fragment {
                 }
 
                 for (int i = 0; i < chartList.size(); i++) {
-//                    DataSnapshot snapshot = dataSnapshot.getChildren().iterator().next();
-//                    ChartModel chartModel2 = snapshot.getValue(ChartModel.class);
-                    totalChart += chartList.get(i).getTotal();
+                    totalKeranjang += chartList.get(i).getTotal();
                     TextView tvTotal = v.findViewById(R.id.tv_total_chart);
+                    totalHarga = Integer.toString(totalKeranjang);
+                    tvTotal.setText(totalHarga);
+                    jumlahPesan += chartList.get(i).getJumlah();
+                    TextView jumlahItem = v.findViewById(R.id.jumlah_pesanan_chart);
+                    jumlahBeli = Integer.toString(jumlahPesan);
+                    jumlahItem.setText(jumlahBeli);
 
-                    toChart = Integer.toString(totalChart);
-                    tvTotal.setText(toChart);
                 }
 
 
@@ -223,9 +226,6 @@ public class FragmentChart extends Fragment {
     }
 
     public void goToPayment() {
-//        if (TextUtils.isEmpty(namaPenerima.getText().toString())) {
-//            Toast.makeText(getActivity(), "Tanggal Kosong ! ", Toast.LENGTH_SHORT).show();
-//        } else {
 
         final String saveCurrentTime, saveCurrentDate;
 
@@ -240,45 +240,14 @@ public class FragmentChart extends Fragment {
         referencePay.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-
-//                referencePay.getRef().child("idTransaksi").setValue(idTransaksi);
-//                Integer totalBayar = Integer.parseInt(toChart);
-//                referencePay.getRef().child("total").setValue(totalBayar);
-//                referencePay.getRef().child("tanggal pesan").setValue(saveCurrentDate);
-//                referencePay.getRef().child("waktu pesan").setValue(saveCurrentTime);
-//                Intent intent = new Intent(getContext(), PaymentActivity.class);
-//                startActivity(intent);
-//                final String saveCurrentTime, saveCurrentDate;
-//
-//                Calendar calForDate = Calendar.getInstance();
-//                final SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-//                saveCurrentDate = currentDate.format(calForDate.getTime());
-//
-//                final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-//                saveCurrentTime = currentTime.format(calForDate.getTime());
-
-                Integer totalBayar = Integer.parseInt(toChart);
+                Integer jumlahPax = Integer.parseInt(jumlahBeli);
+                Integer totalBayar = Integer.parseInt(totalHarga);
                 Integer idTrans = Integer.parseInt(idTransaksi);
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
-                    chartList.add(chartModel);
-                    for (int i = 0; i < chartList.size(); i++) {
-                         jumlah = chartList.get(i).getJumlah();
-                         jumlahBeli = Integer.toString(jumlah);
- //                    //   String jumlahBeli = String.valueOf(jumlah2);
-                      //  jumlahPesan = Integer.parseInt(jumlahBeli);
-//                        String katering = chartList.get(i).getKatering();
-//                        String tanggal = chartList.get(i).getTanggal();
-//                        String waktu = chartList.get(i).getWaktu();
-                        PaymentModel payModel = new PaymentModel(idTrans, jumlahBeli, totalBayar);
-                        referencePay.getRef().child(idTransaksi+" "+saveCurrentDate+" "+saveCurrentTime).setValue(payModel);
-                        Intent intent = new Intent(getContext(), PaymentActivity.class);
-                        startActivity(intent);
-
-
-                    }
-                }
+                PaymentModel payModel = new PaymentModel(idTrans, jumlahPax, totalBayar);
+                referencePay.getRef().child(idTransaksi + " " + saveCurrentDate + " " + saveCurrentTime).setValue(payModel);
+                Intent intent = new Intent(getContext(), PaymentActivity.class);
+                intent.putExtra("idTrans", idTransaksi);
+                startActivity(intent);
             }
 
             @Override

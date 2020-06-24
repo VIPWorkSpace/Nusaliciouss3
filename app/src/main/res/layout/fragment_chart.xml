@@ -301,7 +301,8 @@
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="4dp"
                     android:textColor="@android:color/black"
-                    android:text="@string/your_balance" />
+                    android:text="Jumlah Pesanan"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
 
             <LinearLayout
@@ -348,23 +349,23 @@
                 tools:ignore="RtlHardcoded,UselessParent">
 
                 <TextView
-                    android:id="@+id/rp2"
+                    android:id="@+id/jumlah_pesanan_chart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Rp."
+                    android:text="20"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     tools:ignore="HardcodedText" />
 
                 <TextView
-                    android:id="@+id/tv_saldo_chart"
+                    android:id="@+id/tv_pax"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="4dp"
-                    android:text=""
+                    android:text=" Pax."
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
