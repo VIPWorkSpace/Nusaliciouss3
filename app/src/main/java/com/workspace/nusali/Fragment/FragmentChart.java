@@ -266,7 +266,7 @@ public class FragmentChart extends Fragment {
                     for (int i = 0; i < chartList.size(); i++) {
                          jumlah = chartList.get(i).getJumlah();
                          jumlahBeli = Integer.toString(jumlah);
-                     //   String jumlahBeli = String.valueOf(jumlah2);
+ //                    //   String jumlahBeli = String.valueOf(jumlah2);
                       //  jumlahPesan = Integer.parseInt(jumlahBeli);
 //                        String katering = chartList.get(i).getKatering();
 //                        String tanggal = chartList.get(i).getTanggal();
