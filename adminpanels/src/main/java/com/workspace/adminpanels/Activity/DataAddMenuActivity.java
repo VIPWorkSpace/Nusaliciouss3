@@ -41,17 +41,17 @@ import java.util.List;
 
 public class DataAddMenuActivity extends AppCompatActivity {
 
-    Toolbar toolbarAdd;
+    private Toolbar toolbarAdd;
     private static final int ImagePick = 1;
-    DatabaseReference mAddMenu;
-    StorageReference mStorage;
-    Spinner spinCategory, spinCatering;
-    TextView selectCategory,selectCatering;
-    Button btnUpload, btnSave;
-    TextInputEditText textNama, textDesc, textHarga, textKategori;
-    ProgressBar mProgress;
-    ImageView imagePreview;
-    Uri  photoLocation;
+    private DatabaseReference mAddMenu;
+    private StorageReference mStorage;
+    private Spinner spinCategory, spinCatering;
+    private TextView selectCategory,selectCatering;
+    private Button btnUpload, btnSave;
+    private TextInputEditText textNama, textDesc, textHarga, textKategori;
+    private ProgressBar mProgress;
+    private ImageView imagePreview;
+    private Uri  photoLocation;
 
 
     @Override
@@ -76,7 +76,7 @@ public class DataAddMenuActivity extends AppCompatActivity {
         selectCatering = findViewById(R.id.select_catering);
         mProgress = findViewById(R.id.pb_menu);
         mStorage = FirebaseStorage.getInstance().getReference("Image Menu");
-        mAddMenu = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
+        mAddMenu = FirebaseDatabase.getInstance().getReference("DataMenu");
 
         uploadClick();
         saveClick();

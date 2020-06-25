@@ -29,14 +29,14 @@ import java.util.ArrayList;
 
 public class DataMenuActivity extends AppCompatActivity {
 
-    Toolbar toolbarMenu;
-    SearchView searchMenu;
-    RecyclerView rvdMenu;
-    FloatingActionButton fabMenu;
-    ProgressBar pbMenu;
-    DatabaseReference menuRef;
-    ArrayList<menuModel> menuList;
-    menuAdapter adapter;
+    private Toolbar toolbarMenu;
+    private SearchView searchMenu;
+    private RecyclerView rvdMenu;
+    private FloatingActionButton fabMenu;
+    private ProgressBar pbMenu;
+    private DatabaseReference menuRef;
+    private ArrayList<menuModel> menuList;
+    private menuAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class DataMenuActivity extends AppCompatActivity {
 
     }
     private void retrieveData(){
-        menuRef = FirebaseDatabase.getInstance().getReference().child("Data").child("Menu");
+        menuRef = FirebaseDatabase.getInstance().getReference().child("DataMenu");
         menuRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
