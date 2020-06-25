@@ -6,14 +6,16 @@ public class PaymentModel {
     Integer idTransaksi;
     Integer jumlah;
     Integer total;
+    String metodeBayar;
 
     public PaymentModel() {
     }
 
-    public PaymentModel(Integer idTransaksi, Integer jumlah, Integer total) {
+    public PaymentModel(Integer idTransaksi, Integer jumlah, Integer total, String metodeBayar) {
         this.idTransaksi = idTransaksi;
         this.jumlah = jumlah;
         this.total = total;
+        this.metodeBayar = metodeBayar;
     }
 
     public Integer getIdTransaksi() {
@@ -32,7 +34,6 @@ public class PaymentModel {
         this.jumlah = jumlah;
     }
 
-
     public Integer getTotal() {
         return total;
     }
@@ -41,7 +42,11 @@ public class PaymentModel {
         this.total = total;
     }
 
+    public String getMetodeBayar() {
+        return metodeBayar;
+    }
 
-
-
+    public void setMetodeBayar(String metodeBayar) {
+        this.metodeBayar = metodeBayar;
+    }
 }
