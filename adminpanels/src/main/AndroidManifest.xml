@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.workspace.adminpanels">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,11 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DataAddMenuActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".Activity.DataPesanan"></activity>
+        <activity
+            android:name=".Activity.DataAddMenuActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".Activity.DataMenuActivity" />
-        <activity android:name=".Activity.DataUserActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".Activity.DataUserActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,4 +9,6 @@
     <string name="add_menu">Add Menu</string>
     <string name="data_menu">Data Menu</string>
     <string name="list_menu">List Menu</string>
+    <string name="transaksi_pesanan">Transaksi Pesanan</string>
+    <string name="pesanan">Pesanan</string>
 </resources>

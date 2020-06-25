@@ -25,13 +25,13 @@ import java.util.ArrayList;
 
 public class DataUserActivity extends AppCompatActivity {
 
-    Toolbar dToolbar;
-    RecyclerView rvdUser;
-    SearchView svdUser;
-    DatabaseReference dataRef;
-    userData userAdapter;
-    ArrayList<userModel> userModels;
-    SwipeRefreshLayout srlSecond;
+    private Toolbar dToolbar;
+    private RecyclerView rvdUser;
+    private SearchView svdUser;
+    private DatabaseReference dataRef;
+    private userData userAdapter;
+    private ArrayList<userModel> userModels;
+    private SwipeRefreshLayout srlSecond;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
