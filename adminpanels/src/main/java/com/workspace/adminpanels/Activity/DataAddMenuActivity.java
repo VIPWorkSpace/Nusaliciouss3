@@ -25,8 +25,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -42,16 +45,20 @@ import java.util.List;
 public class DataAddMenuActivity extends AppCompatActivity {
 
     private Toolbar toolbarAdd;
+    private DatabaseReference mRef;
+    private FirebaseDatabase db;
     private static final int ImagePick = 1;
     private DatabaseReference mAddMenu;
     private StorageReference mStorage;
-    private Spinner spinCategory, spinCatering;
+    private Spinner textKategori, spinCatering;
     private TextView selectCategory,selectCatering;
     private Button btnUpload, btnSave;
-    private TextInputEditText textNama, textDesc, textHarga, textKategori;
+    private TextInputEditText textNama, textDesc, textHarga, textKategori2;
     private ProgressBar mProgress;
     private ImageView imagePreview;
     private Uri  photoLocation;
+    addmenuModel menuAdd;
+    int maxId = 0;
 
 
     @Override
@@ -68,15 +75,15 @@ public class DataAddMenuActivity extends AppCompatActivity {
         textNama = findViewById(R.id.textNameMenu);
         textDesc = findViewById(R.id.txtDescMenu);
         textHarga = findViewById(R.id.txtHargaMenu);
-        textKategori = findViewById(R.id.txtKategori);
         imagePreview = findViewById(R.id.imgPreview);
-        spinCategory = findViewById(R.id.spin_category);
+        textKategori = findViewById(R.id.spin_category);
         spinCatering = findViewById(R.id.spin_catering);
         selectCategory = findViewById(R.id.select_category);
         selectCatering = findViewById(R.id.select_catering);
         mProgress = findViewById(R.id.pb_menu);
+
         mStorage = FirebaseStorage.getInstance().getReference("Image Menu");
-        mAddMenu = FirebaseDatabase.getInstance().getReference("DataMenu");
+        mAddMenu = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
 
         uploadClick();
         saveClick();
@@ -107,6 +114,7 @@ public class DataAddMenuActivity extends AppCompatActivity {
     }
     private void saveMenu() {
 
+
         if (photoLocation != null) {
             final StorageReference fileReferense = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(photoLocation));
             fileReferense.putFile(photoLocation)
@@ -127,13 +135,14 @@ public class DataAddMenuActivity extends AppCompatActivity {
                                     String textPaket = textNama.getText().toString().trim();
                                     String textDescs = textDesc.getText().toString().trim();
                                     Integer textharga = Integer.valueOf((textHarga.getText().toString().trim()));
-                                    String textkateg = textKategori.getText().toString().trim();
-                                    String textKatering = selectCatering.getText().toString();
+                                    String kategori = textKategori.getSelectedItem().toString();
+                                    String kateriing = spinCatering.getSelectedItem().toString();
+
 
                                     Toast.makeText(DataAddMenuActivity.this, "Save Successful", Toast.LENGTH_LONG).show();
-                                    addmenuModel add = new addmenuModel(textPaket, textDescs, textharga,textkateg,textKatering, mImage);
+                                    menuAdd = new addmenuModel(textPaket, textDescs, textharga,kategori, kateriing, mImage);
                                     String imageId = mAddMenu.push().getKey();
-                                    mAddMenu.child(imageId).setValue(add);
+                                    mAddMenu.child(imageId).setValue(menuAdd);
                                 }
                             });
                         }
@@ -183,9 +192,9 @@ public class DataAddMenuActivity extends AppCompatActivity {
         ArrayAdapter<String> categoryAdapter;
         categoryAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mListCategory);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinCategory.setAdapter(categoryAdapter);
+        textKategori.setAdapter(categoryAdapter);
 
-        spinCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        textKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (adapterView.getItemAtPosition(i).equals("Choose Category")){

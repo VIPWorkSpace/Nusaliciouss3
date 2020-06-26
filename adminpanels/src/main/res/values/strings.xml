@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AdminPanels</string>
     <string name="halo">Halo,</string>
-    <string name="admin">Admin</string>
+    <string name="welcome">Selamat Datang</string>
     <string name="dashboard">DASHBOARD</string>
     <string name="data_user">Data User</string>
     <string name="list_user">List User</string>

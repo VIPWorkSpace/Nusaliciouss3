@@ -1,5 +1,6 @@
 package com.workspace.adminpanels;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -13,6 +14,11 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -24,21 +30,30 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.workspace.adminpanels.Activity.DataAddMenuActivity;
 import com.workspace.adminpanels.Activity.DataMenuActivity;
+import com.workspace.adminpanels.Activity.DataPesanan;
 import com.workspace.adminpanels.Activity.DataUserActivity;
+import com.workspace.adminpanels.Model.adminModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    GridLayout gridDashboard;
-    TextView adminName;
+    private GridLayout gridDashboard;
+    private TextView mUsername;
+    private DatabaseReference dRef;
+    String username = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        adminName = findViewById(R.id.textID);
+        mUsername = findViewById(R.id.textID);
         gridDashboard = findViewById(R.id.gridL);
         setSingleEvent(gridDashboard);
+
+
+    }
+
+    private void retrieveAdmin() {
     }
 
     private void setSingleEvent(GridLayout gridDashboard) {
@@ -58,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent dataUser = new Intent(MainActivity.this, DataUserActivity.class);
                         startActivity(dataUser);
                     } else if (finals == 3) {
-                        Intent in = new Intent(MainActivity.this, DataUserActivity.class);
-                        startActivity(in);
+                        Intent transaction = new Intent(MainActivity.this, DataPesanan.class);
+                        startActivity(transaction);
                     }
                 }
             });
