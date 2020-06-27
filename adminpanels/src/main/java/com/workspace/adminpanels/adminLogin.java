@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,10 +28,12 @@ public class adminLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_login);
+
         //pemanggilan void
         init();
         registerOnclick();
         loginOnclick();
+
 
     }
 
@@ -56,6 +58,7 @@ public class adminLogin extends AppCompatActivity {
         loginAdm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final WaitingDialog waitingDialog = new WaitingDialog(adminLogin.this);
                 String username = tUsername.getText().toString();
                 final String password = tPassword.getText().toString();
 
@@ -72,14 +75,29 @@ public class adminLogin extends AppCompatActivity {
                             String passwordFromFirebase = dataSnapshot.child("password").getValue().toString();
 
                             if (password.equals(passwordFromFirebase)){
+                                waitingDialog.startWaitingDialog();
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        waitingDialog.dismissWaiting();
+                                    }
+                                }, 5000);
                                 Intent login = new Intent(adminLogin.this, MainActivity.class);
                                 startActivity(login);
+                                loginAdm.setText("WAITING...");
+                                loginAdm.setEnabled(false);
+                                registerAdm.setEnabled(false);
                             }else {
                                 Toast.makeText(adminLogin.this, "Password Salah", Toast.LENGTH_SHORT).show();
+                                loginAdm.setText("LOGIN");
+                                loginAdm.setEnabled(true);
                             }
 
                           }else {
                               Toast.makeText(adminLogin.this, "Username Salah", Toast.LENGTH_SHORT).show();
+                              loginAdm.setText("LOGIN");
+                              loginAdm.setEnabled(true);
                           }
 
                         }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -45,13 +46,18 @@ public class DataMenuActivity extends AppCompatActivity {
 
         toolbarMenu = findViewById(R.id.dToolbarMenu);
         setSupportActionBar(toolbarMenu);
+//        toolbarMenu.setTitleTextColor(getResources().getColor(R.color.md_white_1000));
         getSupportActionBar().setTitle("Menu");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         searchMenu = findViewById(R.id.searchMenu);
         fabMenu = findViewById(R.id.fab_addMenu);
         pbMenu = findViewById(R.id.pb_menu);
         rvdMenu = findViewById(R.id.rvd_Menu);
         rvdMenu.setHasFixedSize(true);
         rvdMenu.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.ItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        rvdMenu.addItemDecoration(divider);
 
         menuList = new ArrayList<menuModel>();
         retrieveData();
@@ -59,7 +65,7 @@ public class DataMenuActivity extends AppCompatActivity {
 
     }
     private void retrieveData(){
-        menuRef = FirebaseDatabase.getInstance().getReference().child("DataMenu");
+        menuRef = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
         menuRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

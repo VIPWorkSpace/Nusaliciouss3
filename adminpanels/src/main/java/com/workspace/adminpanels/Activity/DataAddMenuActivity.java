@@ -44,7 +44,6 @@ import java.util.List;
 
 public class DataAddMenuActivity extends AppCompatActivity {
 
-    private Toolbar toolbarAdd;
     private DatabaseReference mRef;
     private FirebaseDatabase db;
     private static final int ImagePick = 1;
@@ -66,10 +65,6 @@ public class DataAddMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_add_menu);
 
-        toolbarAdd = findViewById(R.id.addToolbar);
-        setSupportActionBar(toolbarAdd);
-        toolbarAdd.setTitleTextColor(getResources().getColor(R.color.md_white_1000));
-        getSupportActionBar().setTitle("Add New Menu");
         btnUpload = findViewById(R.id.btn_upload);
         btnSave = findViewById(R.id.btn_save);
         textNama = findViewById(R.id.textNameMenu);

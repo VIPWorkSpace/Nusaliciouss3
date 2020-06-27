@@ -60,8 +60,8 @@ public class adminRegister extends AppCompatActivity {
                 regisRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().child("surename").setValue(txName.getText().toString());
-                        dataSnapshot.getRef().child("username").setValue(txUsername.getText().toString());
+                        dataSnapshot.getRef().child("surename").setValue(txName.getText().toString().trim());
+                        dataSnapshot.getRef().child("username").setValue(txUsername.getText().toString().trim());
                         dataSnapshot.getRef().child("password").setValue(txPasswd.getText().toString());
                     }
 

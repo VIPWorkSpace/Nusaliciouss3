@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         final LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
 
         btnLogin = findViewById(R.id.btn_login);

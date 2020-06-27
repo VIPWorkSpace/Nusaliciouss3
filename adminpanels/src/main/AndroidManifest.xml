@@ -17,7 +17,8 @@
         <activity
             android:name=".Activity.DataAddMenuActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Activity.DataMenuActivity" />
+        <activity android:name=".Activity.DataMenuActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".Activity.DataUserActivity"
             android:parentActivityName=".MainActivity" />

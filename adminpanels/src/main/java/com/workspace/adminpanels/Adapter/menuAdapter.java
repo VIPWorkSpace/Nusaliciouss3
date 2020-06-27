@@ -50,13 +50,14 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
     public void onBindViewHolder(@NonNull final menuAdapter.myHolder holder, final int position) {
         final menuModel menuMod = menulist.get(position);
         Picasso.get().load(menuMod.getGambar()).noFade().into(holder.picPreview);
-        holder.txNama.setText(menuMod.getJudul());
+        holder.txNama.setText("Paket : \n" + menuMod.getJudul());
         holder.txDesc.setText(menuMod.getDesc());
-        holder.txHarga.setText("Rp " + menuMod.getHarga().toString());
-        holder.txKategori.setText("Kategori " + menuMod.getKategori());
+        holder.txHarga.setText("Harga : \n Rp " + menuMod.getHarga().toString());
+        holder.txKategori.setText("Kategori : \n" + menuMod.getKategori());
+        holder.txKatering.setText(menuMod.getKatering());
 
         final String currentJudul = menuMod.getJudul();
-        dRef = FirebaseDatabase.getInstance().getReference().child("DataMenu");
+        dRef = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -74,8 +75,8 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
 
                     }
                 });
-                Intent move = new Intent(view.getContext(), MainActivity.class);
-                view.getContext().startActivity(move);
+//                Intent move = new Intent(view.getContext(), MainActivity.class);
+//                view.getContext().startActivity(move);
             }
         });
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +92,7 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
     }
 
     public class myHolder extends RecyclerView.ViewHolder {
-        TextView txNama, txDesc, txHarga, txKategori;
+        TextView txNama, txDesc, txHarga, txKategori, txKatering;
         ImageView picPreview;
         Button btnEdit, btnDelete;
         public myHolder(@NonNull View itemView) {
@@ -100,6 +101,7 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
             txDesc = itemView.findViewById(R.id.textDescMenu);
             txHarga = itemView.findViewById(R.id.textHargaMenu);
             txKategori = itemView.findViewById(R.id.textCat);
+            txKatering = itemView.findViewById(R.id.textCatering);
             picPreview = itemView.findViewById(R.id.imgMenuItem2);
             btnEdit = itemView.findViewById(R.id.btn_edit);
             btnDelete = itemView.findViewById(R.id.btn_delete);

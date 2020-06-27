@@ -8,10 +8,10 @@
     tools:context=".Activity.DataMenuActivity">
 
     <androidx.appcompat.widget.Toolbar
+        style="@style/MyActionBar"
         android:id="@+id/dToolbarMenu"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
