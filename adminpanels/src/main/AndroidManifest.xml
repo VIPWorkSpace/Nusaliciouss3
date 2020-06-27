@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".adminRegister"></activity>
+        <activity android:name=".Activity.adminRegister"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".Activity.DataPesanan" />
         <activity
@@ -22,7 +22,7 @@
         <activity
             android:name=".Activity.DataUserActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".adminLogin">
+        <activity android:name=".Activity.adminLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

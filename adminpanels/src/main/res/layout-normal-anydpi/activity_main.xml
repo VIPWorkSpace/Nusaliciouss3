@@ -199,7 +199,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="@string/pesanan"
+                            android:text="@string/transaksi"
                             android:textSize="18dp"
                             android:textColor="@android:color/black"/>
                         <TextView

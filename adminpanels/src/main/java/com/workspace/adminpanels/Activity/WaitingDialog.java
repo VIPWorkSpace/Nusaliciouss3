@@ -1,9 +1,11 @@
-package com.workspace.adminpanels;
+package com.workspace.adminpanels.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
+
+import com.workspace.adminpanels.R;
 
 public class WaitingDialog {
     Activity activity;
