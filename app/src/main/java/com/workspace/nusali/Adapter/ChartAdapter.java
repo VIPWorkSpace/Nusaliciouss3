@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.workspace.nusali.Activity.LoginActivity;
 import com.workspace.nusali.Fragment.FragmentDialogDetailMenu;
+import com.workspace.nusali.MainActivity;
 import com.workspace.nusali.Model.ChartModel;
 import com.workspace.nusali.R;
 
@@ -72,8 +74,10 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                       referenceDelete = FirebaseDatabase.getInstance().getReference("Keranjang").child(userId).child(String.valueOf(chartModel.getId())).removeValue();
-                        Toast.makeText(context, "Removed " +referenceDelete, Toast.LENGTH_SHORT).show();
+                       referenceDelete = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId).child(String.valueOf(chartModel.getId())).removeValue();
+                        Intent intent = new Intent(context, MainActivity.class);
+                        context.startActivity(intent);
+                       Toast.makeText(context, "Removed " +referenceDelete, Toast.LENGTH_SHORT).show();
                    }
 
                 });

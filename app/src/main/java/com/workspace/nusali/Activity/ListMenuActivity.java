@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.workspace.nusali.Adapter.ListMenuAdapter;
 import com.workspace.nusali.Model.ListMenuModel;
@@ -37,24 +38,49 @@ public class ListMenuActivity extends AppCompatActivity {
         recyclerListMenu.setHasFixedSize(true);
         recyclerListMenu.setLayoutManager(new LinearLayoutManager(this));
         listMenu = new ArrayList<ListMenuModel>();
+        Bundle bundle = getIntent().getExtras();
+        String jenisMenu = bundle.getString("jenis_menu");
+        referenceListMenu = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Data").child("Menu");
+        Query query = FirebaseDatabase.getInstance().getReference("Data").child("Menu")
+                .orderByChild("kategori").equalTo(jenisMenu);
+        query.addListenerForSingleValueEvent(valueEventListener);
 
-        referenceListMenu = FirebaseDatabase.getInstance().getReference().child("Data").child("Menu").child("Naskot");
-        referenceListMenu.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    ListMenuModel Listmenu = ds.getValue(ListMenuModel.class);
-                    listMenu.add(Listmenu);
-                }
-                listMenuAdapter = new ListMenuAdapter(ListMenuActivity.this, listMenu);
-                recyclerListMenu.setAdapter(listMenuAdapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        referenceListMenu.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot ds : dataSnapshot.getChildren()){
+//                    ListMenuModel Listmenu = ds.getValue(ListMenuModel.class);
+//                    listMenu.add(Listmenu);
+//                }
+//                listMenuAdapter = new ListMenuAdapter(ListMenuActivity.this, listMenu);
+//                recyclerListMenu.setAdapter(listMenuAdapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
     }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                ListMenuModel Listmenu = ds.getValue(ListMenuModel.class);
+                listMenu.add(Listmenu);
+            }
+            listMenuAdapter = new ListMenuAdapter(ListMenuActivity.this, listMenu);
+            recyclerListMenu.setAdapter(listMenuAdapter);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+
+
 }

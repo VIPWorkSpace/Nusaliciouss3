@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.workspace.nusali.Activity.ListMenuActivity;
+import com.workspace.nusali.MainActivity;
 
 public class FragmentDialogDetailMenu extends AppCompatDialogFragment {
 
@@ -18,7 +19,7 @@ public class FragmentDialogDetailMenu extends AppCompatDialogFragment {
         builder.setTitle("Success").setMessage("Berhasil masuk keranjang !").setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(getActivity(), ListMenuActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }

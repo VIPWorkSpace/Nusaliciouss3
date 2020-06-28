@@ -101,11 +101,11 @@ public class FragmentChart extends Fragment {
         chartList = new ArrayList<>();
 
         //LOAD RECYCLER KERANJANG
-        referenceChart = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId);
+        referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId);
         referenceChart.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                        chartList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
                     chartList.add(chartModel);
@@ -172,7 +172,7 @@ public class FragmentChart extends Fragment {
 
     public void getDataDelivery() {
         //load data yang ada
-        referenceDataDelivery = FirebaseDatabase.getInstance().getReference().child("User").child(userId).child("pengiriman");
+        referenceDataDelivery = FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pengiriman");
         referenceDataDelivery.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override

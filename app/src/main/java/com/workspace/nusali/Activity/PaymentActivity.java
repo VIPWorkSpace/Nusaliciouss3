@@ -33,12 +33,12 @@ import java.util.HashMap;
 
 public class PaymentActivity extends AppCompatActivity implements View.OnClickListener {
     ArrayList<ChartModel> chartList;
-    DatabaseReference referenceOrder, referenceChart;
+    DatabaseReference referenceOrder, referenceChart, referenceUser;
     private String userIdKey = "";
     private String userId = "";
     DatabaseReference referencePayment;
     Task<Void> referenceRemove;
-    TextView totalTagihan, jumlahPesanan, totalBayar, idbayar;
+    TextView totalTagihan, jumlahPesanan, totalBayar, saldoUser;
     String idTransaksi, totalHarga, jumlahItem, namaPenerima, alamatPenerima, nomerPenerima, petunjuk;
     RecyclerView recyclerViewChart;
     ChartAdapter chartAdapter;
@@ -50,6 +50,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         totalTagihan = findViewById(R.id.total_tagihan_payment);
         jumlahPesanan = findViewById(R.id.jumlah_item_payment4);
         totalBayar = findViewById(R.id.total_bayar_payment);
+        saldoUser = findViewById(R.id.saldo_anda);
         Bundle bundle = getIntent().getExtras();
         idTransaksi = bundle.getString("idTrans");
 //        idbayar.setText(idTransaksi);
@@ -62,6 +63,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         totalTagihan.setText(totalHarga);
         jumlahPesanan.setText(jumlahItem);
         totalBayar.setText(totalHarga);
+        getSaldoUser();
 //        getDataPembayaran();
         chartList = new ArrayList<>();
         Button btnGpay = findViewById(R.id.btn_g_pay);
@@ -73,7 +75,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         recyclerViewChart.setHasFixedSize(true);
         recyclerViewChart.setLayoutManager(new LinearLayoutManager(this));
         chartList = new ArrayList<>();
-
        recycler();
 
 
@@ -84,6 +85,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.btn_g_pay:
+
                 goToPesanan();
 
                 break;
@@ -95,11 +97,27 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    public void getSaldoUser(){
+        referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pribadi");
+
+        referenceUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                saldoUser.setText(String.format("Rp.%s", dataSnapshot.child("saldo").getValue().toString()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
 
     public void recycler(){
         //LOAD RECYCLER KERANJANG
-        referenceChart = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId);
+        referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId);
         referenceChart.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -127,7 +145,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     public void goToPesanan() {
 
 
-        referenceOrder = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId);
+        referenceOrder = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId);
         referenceOrder.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -151,12 +169,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                         String tanggal = chartList.get(i).getTanggal();
                         Integer total = chartList.get(i).getTotal();
                         String waktu = chartList.get(i).getWaktu();
-                        
+
                         OrderModel orderModel = new OrderModel(idMenu, judul, jumlah, katering, tanggal, total, waktu);
                         referenceOrder.child("Pesanan").child(idTransaksi).child(menuId).setValue(orderModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                referencePayment = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId).child("Pembayaran");
+                                referencePayment = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran");
                                 final HashMap<String, Object> paymentMap = new HashMap<>();
                                 paymentMap.put("jumlah", jumlahItem);
                                 paymentMap.put("total", totalHarga);
@@ -169,7 +187,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                                 referencePayment.child(idTransaksi).updateChildren(paymentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        referenceRemove = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId).removeValue();
+                                        referenceRemove = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId).removeValue();
                                         Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }

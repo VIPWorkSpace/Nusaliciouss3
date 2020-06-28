@@ -113,6 +113,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/delivery_location"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"

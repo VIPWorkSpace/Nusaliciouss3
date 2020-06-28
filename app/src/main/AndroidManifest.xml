@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.DeliveryLocationActivity"></activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".Activity.SimpanAlamatActivity" />
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.PaymentActivity" />
         <activity android:name=".Activity.LoginActivity" />

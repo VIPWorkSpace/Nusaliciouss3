@@ -43,7 +43,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
     String userIdKey = "";
     String userId = "";
     CardView cardTanggal;
-    TextView judulHalaman, namaKatering, jenisMenu, judulMenu, descMenu, hargaMenu, totalHarga;
+    TextView judulHalaman, namaKatering, jenisMenu, judulMenu, descMenu, hargaMenu, totalHarga, minimalBeli;
     EditText tanggal, waktu, jumlahPesanan;
     ImageView fotoMenu, btnMinus, btnPlus;
     Button btnKeranjang;
@@ -69,6 +69,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         descMenu = findViewById(R.id.desc_detail_menu);
         hargaMenu = findViewById(R.id.harga_detail_menu);
         totalHarga = findViewById(R.id.total_price);
+        minimalBeli = findViewById(R.id.tv_minimal_beli);
         //Edit Text
         tanggal = findViewById(R.id.tv_tanggal);
         waktu = findViewById(R.id.tv_time);
@@ -96,18 +97,25 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         String harga = listMenuModel.getHarga().toString();
         final int hargaDetailMenu = Integer.parseInt(harga);
         hargaMenu.setText("Rp." +Integer.toString(hargaDetailMenu)+ ",-");
-        //setting total harga
-        totalHarga.setText(Integer.toString(hargaDetailMenu));
+
         //setting desc
         String desc = listMenuModel.getDesc();
         descMenu.setText(desc);
         //setting fotoMenu
         String gambar = listMenuModel.getGambar();
         Picasso.get().load(gambar).into(fotoMenu);
-
+        //setting jumlah beli
+        String minimalOrder = listMenuModel.getMinimal().toString();
+        final int detailMinimalOrder = Integer.parseInt(minimalOrder);
+        minimalBeli.setText("Min" +Integer.toString(detailMinimalOrder)+ " Porsi");
         //Setting Jumlah Pesanan
         btnMinus.setEnabled(false);
+        jumlahBeli = Integer.valueOf(detailMinimalOrder);
         jumlahPesanan.setText(jumlahBeli.toString());
+
+        //setting total harga
+        total = jumlahBeli * hargaDetailMenu;
+        totalHarga.setText(Integer.toString(total));
 
         //Setting tanggal
        cardTanggal.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +148,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
             public void onClick(View v) {
                 jumlahBeli -= 1;
                 jumlahPesanan.setText(jumlahBeli.toString());
-                if (jumlahBeli < 2)
+                if (jumlahBeli <= detailMinimalOrder)
                     btnMinus.setEnabled(false);
                 total = jumlahBeli * hargaDetailMenu;
                 totalHarga.setText(Integer.toString(total));
@@ -181,7 +189,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calForDate.getTime());
 
-        DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId).child(idMenu);
+        DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId).child(idMenu);
         Integer menuId = Integer.parseInt(idMenu);
         cartListRef.getRef().child("id").setValue(menuId);
         cartListRef.getRef().child("judul").setValue(judulMenu.getText().toString());
@@ -228,6 +236,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         }, 1000);
         FragmentDialogDetailMenu fragmentDialogDetailMenu = new FragmentDialogDetailMenu();
         fragmentDialogDetailMenu.show(getSupportFragmentManager(), "Success");
+        Intent intent= new Intent(DetailMenuActivity.this, ListMenuActivity.class);
 
     }
 
