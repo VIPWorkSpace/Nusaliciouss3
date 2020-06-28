@@ -33,12 +33,13 @@ import com.workspace.nusali.R;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class FragmentHome extends Fragment{
-//    BillingProcessor bp;
+public class FragmentHome extends Fragment {
+    //    BillingProcessor bp;
+    TextView nameUser, saldoUser;
     DatabaseReference referenceUser;
     String userIdKey = "";
     String userId = "";
-    private int[] mImages = new int[] {
+    private int[] mImages = new int[]{
             R.drawable.spanduk1, R.drawable.spanduk2, R.drawable.spanduk3
     };
     GridLayout homeGrid;
@@ -54,26 +55,12 @@ public class FragmentHome extends Fragment{
 
         getUsernameLocal();
 
-        final TextView nameUser = v.findViewById(R.id.name_user);
-        final TextView saldoUser = v.findViewById(R.id.saldo_user);
-
+        nameUser = v.findViewById(R.id.name_user);
+        saldoUser = v.findViewById(R.id.saldo_user);
+        getSaldo();
 //        bp = new BillingProcessor(getContext(), "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyEzA2MHjOd3y0ubv7AZf5xZKW9OzszQYDmZbRCFBHV6FQYKkCaMyqP0paT8eck8AJ32BYY8L0jnbIV0DdM3Ejok2nkFRZx7pnNd9v7zwPlRGgN9bFo12GHJ5CTwLRoKz+bjl1tQmdPjbvs9MtzzacQRShN1jZNAt6kBA8OZifHf1Nn+JPZjTOzs1CMlUTSmfruqV6wan8bYNvBC0LMqNqLPjQ/Mve/bpwNnl5/PypjksufxXhUp4vbnVnMZvY8TbfLT8orMXD6j0NUOmYPX4+bNhR0lLF64zLKK4Fy2btYNR/uUfmUA+KtHx1eZEKY9L8XQmIe/zFIVq3iOz5CxbsQIDAQAB", (BillingProcessor.IBillingHandler) getActivity());
 //        bp.initialize();
 
-        referenceUser = FirebaseDatabase.getInstance().getReference().child("User").child(userId).child("pribadi");
-
-        referenceUser.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                nameUser.setText(String.format("Hi, %s", dataSnapshot.child("name").getValue()));
-                saldoUser.setText(String.format("Rp.%s", dataSnapshot.child("saldo").getValue().toString()));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         CarouselView carouselView = v.findViewById(R.id.carousel);
         carouselView.setPageCount(mImages.length);
@@ -89,43 +76,39 @@ public class FragmentHome extends Fragment{
         //Return
         return v;
     }
+
     //Gridlayout Click Listener
     private void setSingleEvent(GridLayout homeGrid) {
-        for (int i = 0; i < homeGrid.getChildCount(); i++){
+        for (int i = 0; i < homeGrid.getChildCount(); i++) {
             CardView mCardView = (CardView) homeGrid.getChildAt(i);
             final int finall = i;
             mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (finall == 0){
+                    if (finall == 0) {
+                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
+                        intent.putExtra("jenis_menu", "Nasi Kotak");
+                        startActivity(intent);
+                    } else if (finall == 1) {
+                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
+                        intent.putExtra("jenis_menu", "Prasmanan");
+                        startActivity(intent);
+                    } else if (finall == 2) {
                         Intent intent = new Intent(getContext(), ListMenuActivity.class);
                         startActivity(intent);
-                    }
-                    else if (finall == 1){
-                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
-                        startActivity(intent);
-                    }
-                    else if (finall == 2){
-                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
-                        startActivity(intent);
-                    }
-                    else if (finall == 3){
+                    } else if (finall == 3) {
                         Intent intent = new Intent(getContext(), PaymentActivity.class);
                         startActivity(intent);
-                    }
-                    else if (finall == 4){
+                    } else if (finall == 4) {
                         Intent intent = new Intent(getContext(), ListMenuActivity.class);
                         startActivity(intent);
-                    }
-                    else if (finall == 5){
+                    } else if (finall == 5) {
                         Intent intent = new Intent(getContext(), ListMenuActivity.class);
                         startActivity(intent);
-                    }
-                    else if (finall == 6){
+                    } else if (finall == 6) {
                         Intent intent = new Intent(getContext(), ListMenuActivity.class);
                         startActivity(intent);
-                    }
-                    else if (finall == 7){
+                    } else if (finall == 7) {
                         Intent intent = new Intent(getContext(), Equipment.class);
                         startActivity(intent);
                     }
@@ -133,6 +116,25 @@ public class FragmentHome extends Fragment{
             });
         }
     }
+
+    public void getSaldo() {
+        referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pribadi");
+
+        referenceUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nameUser.setText(String.format("Hi, %s", dataSnapshot.child("name").getValue()));
+                saldoUser.setText(String.format("Rp.%s", dataSnapshot.child("saldo").getValue().toString()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     public void getUsernameLocal() {
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(userIdKey, MODE_PRIVATE);

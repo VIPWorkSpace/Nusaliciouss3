@@ -76,7 +76,7 @@ public class DeliveryLocationActivity extends AppCompatActivity {
     }
 
     public void save(){
-        referenceDelivery = FirebaseDatabase.getInstance().getReference().child("User");
+        referenceDelivery = FirebaseDatabase.getInstance().getReference().child("Data").child("User");
 
         final HashMap<String, Object> deliveryMap = new HashMap<>();
         deliveryMap.put("namaPenerima", namaPenerima.getText().toString());

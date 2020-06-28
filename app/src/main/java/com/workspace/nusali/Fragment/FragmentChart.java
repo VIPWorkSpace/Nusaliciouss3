@@ -101,7 +101,7 @@ public class FragmentChart extends Fragment {
         chartList = new ArrayList<>();
 
         //LOAD RECYCLER KERANJANG
-        referenceChart = FirebaseDatabase.getInstance().getReference().child("Keranjang").child(userId);
+        referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId);
         referenceChart.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

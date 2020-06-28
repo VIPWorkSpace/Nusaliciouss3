@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btn_register);
 
 
-        referenceRegister = FirebaseDatabase.getInstance().getReference("User");
+        referenceRegister = FirebaseDatabase.getInstance().getReference().child("Data").child("User");
         firebaseAuth = FirebaseAuth.getInstance();
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,16 +90,16 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 UserModel userModel =new UserModel(name, phone, email, password);
-                                FirebaseDatabase.getInstance().getReference("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("pribadi").setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                FirebaseDatabase.getInstance().getReference("Data").child("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("pribadi").setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 
                                         String userId = "";
                                         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                                         userId = currentUser.getUid();
-                                       FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("id").setValue(idMenu);
-                                        FirebaseDatabase.getInstance().getReference("User").child(userId).child("pribadi").child("saldo").setValue(50000);
-                                        FirebaseDatabase.getInstance().getReference("User").child(userId).child("pribadi").child("url_foto").setValue("https://firebasestorage.googleapis.com/v0/b/nusalicious-ed650.appspot.com/o/avaDefault.jpg?alt=media&token=f8925c60-4d15-449c-931b-d5c5099fce46");
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("id").setValue(idMenu);
+                                        FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pribadi").child("saldo").setValue(50000);
+                                        FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pribadi").child("url_foto").setValue("https://firebasestorage.googleapis.com/v0/b/nusalicious-ed650.appspot.com/o/avaDefault.jpg?alt=media&token=f8925c60-4d15-449c-931b-d5c5099fce46");
 
 
                                         Toast.makeText(RegisterActivity.this, "Daftar Sukses",
