@@ -44,7 +44,7 @@ public class DeliveryLocationActivity extends AppCompatActivity {
 
 
         //load data yang ada
-        referenceData = FirebaseDatabase.getInstance().getReference().child("User").child(userId).child("pengiriman");
+        referenceData = FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pengiriman");
         referenceData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -76,7 +76,7 @@ public class DeliveryLocationActivity extends AppCompatActivity {
     }
 
     public void save(){
-        referenceDelivery = FirebaseDatabase.getInstance().getReference().child("Data").child("User");
+        referenceDelivery = FirebaseDatabase.getInstance().getReference("Data").child("User");
 
         final HashMap<String, Object> deliveryMap = new HashMap<>();
         deliveryMap.put("namaPenerima", namaPenerima.getText().toString());
