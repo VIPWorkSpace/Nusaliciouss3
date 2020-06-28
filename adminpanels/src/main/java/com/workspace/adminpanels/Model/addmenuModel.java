@@ -4,19 +4,27 @@ public class addmenuModel {
     String judul;
     String desc;
     Integer harga;
+    Integer minimal;
+    String keterangan;
+    String kategori;
     String katering;
     String gambar;
-    String kategori;
 
-    public addmenuModel(String textPaket, String textDescs, Integer textharga, String kategori, String textKatering, String mImage) {
+
+
+    public addmenuModel() {
+    }
+
+    public addmenuModel(String textPaket, String textDescs, Integer textharga, Integer textMin, String textKet, String kategori, String kateriing, String mImage) {
         this.judul = textPaket;
         this.desc = textDescs;
         this.harga = textharga;
+        this.minimal = textMin;
+        this.keterangan = textKet;
         this.kategori = kategori;
-        this.katering = textKatering;
+        this.katering = kateriing;
         this.gambar = mImage;
     }
-    
 
     public String getJudul() {
         return judul;
@@ -64,5 +72,21 @@ public class addmenuModel {
 
     public void setkategori(String kategori) {
         this.kategori = kategori;
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    public Integer getMinimal() {
+        return minimal;
+    }
+
+    public void setMinimal(Integer minimal) {
+        this.minimal = minimal;
     }
 }

@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.adminRegister"></activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".Activity.DataPesanan" />
+        <activity android:name=".Activity.DataTransaksi"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".Activity.DataAddMenuActivity"
             android:parentActivityName=".MainActivity" />

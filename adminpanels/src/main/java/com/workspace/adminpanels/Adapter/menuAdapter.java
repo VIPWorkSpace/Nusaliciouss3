@@ -53,6 +53,8 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
         holder.txNama.setText("Paket : \n" + menuMod.getJudul());
         holder.txDesc.setText(menuMod.getDesc());
         holder.txHarga.setText("Harga : \n Rp " + menuMod.getHarga().toString());
+        holder.txMinimum.setText(menuMod.getMinimal().toString());
+        holder.txKet.setText(menuMod.getKeterangan().toString());
         holder.txKategori.setText("Kategori : \n" + menuMod.getKategori());
         holder.txKatering.setText(menuMod.getKatering());
 
@@ -92,7 +94,7 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
     }
 
     public class myHolder extends RecyclerView.ViewHolder {
-        TextView txNama, txDesc, txHarga, txKategori, txKatering;
+        TextView txNama, txDesc, txHarga, txKategori, txKatering, txMinimum, txKet;
         ImageView picPreview;
         Button btnEdit, btnDelete;
         public myHolder(@NonNull View itemView) {
@@ -100,6 +102,8 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
             txNama = itemView.findViewById(R.id.textNamaMenu);
             txDesc = itemView.findViewById(R.id.textDescMenu);
             txHarga = itemView.findViewById(R.id.textHargaMenu);
+            txMinimum = itemView.findViewById(R.id.textMinimum);
+            txKet = itemView.findViewById(R.id.textKeterangann);
             txKategori = itemView.findViewById(R.id.textCat);
             txKatering = itemView.findViewById(R.id.textCatering);
             picPreview = itemView.findViewById(R.id.imgMenuItem2);

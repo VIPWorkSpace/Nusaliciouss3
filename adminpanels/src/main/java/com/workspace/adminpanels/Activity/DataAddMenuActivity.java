@@ -52,7 +52,7 @@ public class DataAddMenuActivity extends AppCompatActivity {
     private Spinner textKategori, spinCatering;
     private TextView selectCategory,selectCatering;
     private Button btnUpload, btnSave;
-    private TextInputEditText textNama, textDesc, textHarga, textKategori2;
+    private TextInputEditText textNama, textDesc, textHarga, textKeterangan, textMinimal;
     private ProgressBar mProgress;
     private ImageView imagePreview;
     private Uri  photoLocation;
@@ -72,6 +72,8 @@ public class DataAddMenuActivity extends AppCompatActivity {
         textHarga = findViewById(R.id.txtHargaMenu);
         imagePreview = findViewById(R.id.imgPreview);
         textKategori = findViewById(R.id.spin_category);
+        textKeterangan = findViewById(R.id.txtKeteranganMenu);
+        textMinimal = findViewById(R.id.txtMinimalMenu);
         spinCatering = findViewById(R.id.spin_catering);
         selectCategory = findViewById(R.id.select_category);
         selectCatering = findViewById(R.id.select_catering);
@@ -130,12 +132,14 @@ public class DataAddMenuActivity extends AppCompatActivity {
                                     String textPaket = textNama.getText().toString().trim();
                                     String textDescs = textDesc.getText().toString().trim();
                                     Integer textharga = Integer.valueOf((textHarga.getText().toString().trim()));
+                                    String textKet = textKeterangan.getText().toString().trim();
+                                    Integer textMin = Integer.valueOf(textMinimal.getText().toString().trim());
                                     String kategori = textKategori.getSelectedItem().toString();
                                     String kateriing = spinCatering.getSelectedItem().toString();
 
 
                                     Toast.makeText(DataAddMenuActivity.this, "Save Successful", Toast.LENGTH_LONG).show();
-                                    menuAdd = new addmenuModel(textPaket, textDescs, textharga,kategori, kateriing, mImage);
+                                    menuAdd = new addmenuModel(textPaket, textDescs, textharga, textMin, textKet,kategori, kateriing, mImage);
                                     String imageId = mAddMenu.push().getKey();
                                     mAddMenu.child(imageId).setValue(menuAdd);
                                 }
@@ -183,6 +187,7 @@ public class DataAddMenuActivity extends AppCompatActivity {
         mListCategory.add(0, "Choose Category");
         mListCategory.add("Nasi Kotak");
         mListCategory.add("Prasmanan");
+        mListCategory.add("Coffee Break");
 
         ArrayAdapter<String> categoryAdapter;
         categoryAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mListCategory);
@@ -198,7 +203,6 @@ public class DataAddMenuActivity extends AppCompatActivity {
                     selectCategory.setText(adapterView.getSelectedItem().toString());
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
