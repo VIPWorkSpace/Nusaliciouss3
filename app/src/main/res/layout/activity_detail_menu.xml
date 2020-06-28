@@ -248,7 +248,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
@@ -294,6 +294,26 @@
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 tools:ignore="HardcodedText" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keterangan : "
+                    android:textColor="@android:color/black"/>
+                <TextView
+                    android:id="@+id/text_keterangan_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Isi Keterangan"
+                    android:layout_marginBottom="5dp"/>
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -477,12 +497,7 @@
                  android:textColor="@color/White"
                  android:textSize="18sp"
                  tools:ignore="HardcodedText" />
-
-
          </LinearLayout>
-
-
-
      </RelativeLayout>
 
 
