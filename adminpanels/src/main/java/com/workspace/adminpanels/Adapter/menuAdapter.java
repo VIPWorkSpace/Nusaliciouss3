@@ -50,12 +50,12 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
     public void onBindViewHolder(@NonNull final menuAdapter.myHolder holder, final int position) {
         final menuModel menuMod = menulist.get(position);
         Picasso.get().load(menuMod.getGambar()).noFade().into(holder.picPreview);
-        holder.txNama.setText("Paket : \n" + menuMod.getJudul());
+        holder.txNama.setText("Paket : " + menuMod.getJudul());
         holder.txDesc.setText(menuMod.getDesc());
-        holder.txHarga.setText("Harga : \n Rp " + menuMod.getHarga().toString());
+        holder.txHarga.setText("Harga : Rp " + menuMod.getHarga().toString());
         holder.txMinimum.setText(menuMod.getMinimal().toString());
         holder.txKet.setText(menuMod.getKeterangan().toString());
-        holder.txKategori.setText("Kategori : \n" + menuMod.getKategori());
+        holder.txKategori.setText("Kategori : " + menuMod.getKategori());
         holder.txKatering.setText(menuMod.getKatering());
 
         final String currentJudul = menuMod.getJudul();

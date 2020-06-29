@@ -9,7 +9,95 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID  : "
+                android:textSize="16dp"/>
+            <TextView
+                android:id="@+id/textIdPesanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_textview"
+                android:layout_marginRight="100dp"
+                android:layout_marginLeft="75dp"
+                android:padding="5dp"
+                android:text="ID"
+                android:textSize="16dp"
+                android:textColor="@android:color/black"
+                android:textAllCaps="true"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Judul : "
+                android:textSize="16dp"/>
+            <TextView
+                android:id="@+id/textJudulPesanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_textview"
+                android:layout_marginRight="100dp"
+                android:layout_marginLeft="101dp"
+                android:padding="5dp"
+                android:text="Ayam geprek"
+                android:textSize="16dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jumlah : "
+                android:textSize="16dp"/>
+            <TextView
+                android:id="@+id/textJumlahPesanan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_textview"
+                android:layout_marginRight="100dp"
+                android:layout_marginLeft="94dp"
+                android:padding="5dp"
+                android:text="50"
+                android:textSize="16dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total : "
+                android:textSize="16dp"/>
+            <TextView
+                android:id="@+id/textTotalPesanan"
+                android:background="@drawable/border_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="100dp"
+                android:text="15000"
+                android:textSize="16dp"
+                android:padding="5dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

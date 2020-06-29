@@ -56,13 +56,12 @@ public class DataTransaksi extends AppCompatActivity {
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, selectFragment).commit();
-                }
+            }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
             });
-
     }
 }
