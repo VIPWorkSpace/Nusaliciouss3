@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,9 @@ import java.util.ArrayList;
 public class PembayaranFragment extends Fragment {
 
     RecyclerView rvPembayaran;
-    DatabaseReference dbPembayaran;
     ArrayList<pembayaranModel> pembayaranList;
+    DatabaseReference dbPembayaran = FirebaseDatabase.getInstance().getReference("Data");
+    DatabaseReference transRef = dbPembayaran.child("Transaksi");
     pembayaranAdapter adapter;
     String userId = "";
 
@@ -46,23 +48,27 @@ public class PembayaranFragment extends Fragment {
         pembayaranList = new ArrayList<>();
 
 
-        dbPembayaran = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran");
-        dbPembayaran.addListenerForSingleValueEvent(new ValueEventListener() {
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds:dataSnapshot.getChildren()){
-                    pembayaranModel pembayaranMod = ds.getValue(pembayaranModel.class);
-                    pembayaranList.add(pembayaranMod);
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String mPembayaran = ds.getKey();
+                    Log.d("TAG", mPembayaran);
+
+                    for(DataSnapshot dSnapshot : dataSnapshot.child(mPembayaran).child("Pembayaran").getChildren()){
+                        String mPembayaran1 = dSnapshot.getKey();
+                        Log.d("TAG", "    " + mPembayaran1);
+                    }
                 }
-                adapter = new pembayaranAdapter(pembayaranList, getContext());
-                rvPembayaran.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        };
+
+        transRef.addListenerForSingleValueEvent(valueEventListener);
 
         return v;
     }

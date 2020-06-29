@@ -32,6 +32,7 @@ public class DataUserActivity extends AppCompatActivity {
     private userData userAdapter;
     private ArrayList<userModel> userModels;
     private SwipeRefreshLayout srlSecond;
+    private String userId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class DataUserActivity extends AppCompatActivity {
         rvdUser.addItemDecoration(divider);
     }
     private void retrieveData(){
-        dataRef = FirebaseDatabase.getInstance().getReference().child("User");
+        dataRef = FirebaseDatabase.getInstance().getReference("Data").child("User").child("pribadi");
         dataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -74,7 +75,7 @@ public class DataUserActivity extends AppCompatActivity {
         searchData();
     }
     private void searchData(){
-        dataRef = FirebaseDatabase.getInstance().getReference().child("User");
+        dataRef = FirebaseDatabase.getInstance().getReference("Data").child("User");
         svdUser.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
