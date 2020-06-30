@@ -1,6 +1,9 @@
 package com.workspace.adminpanels.Model;
 
+import android.content.Intent;
+
 public class pembayaranModel {
+    Integer id;
     String namaPenerima;
     String nomerPenerima;
     String alamatPenerima;
@@ -13,7 +16,8 @@ public class pembayaranModel {
     public pembayaranModel() {
     }
 
-    public pembayaranModel(String namaPenerima, String nomerPenerima, String alamatPenerima, String petunjuk, String jumlah, String total, String metodeBayar) {
+    public pembayaranModel(Integer id, String namaPenerima, String nomerPenerima, String alamatPenerima, String petunjuk, String jumlah, String total, String metodeBayar) {
+        this.id = id;
         this.namaPenerima = namaPenerima;
         this.nomerPenerima = nomerPenerima;
         this.alamatPenerima = alamatPenerima;
@@ -30,6 +34,14 @@ public class pembayaranModel {
 
     public void setExpanded(boolean expanded) {
         this.expanded = expanded;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNamaPenerima() {

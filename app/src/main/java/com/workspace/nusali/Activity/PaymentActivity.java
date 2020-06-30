@@ -176,6 +176,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                             public void onComplete(@NonNull Task<Void> task) {
                                 referencePayment = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran");
                                 final HashMap<String, Object> paymentMap = new HashMap<>();
+                                Integer idPembayaran = Integer.parseInt(idTransaksi);
+                                paymentMap.put("id", idPembayaran);
                                 paymentMap.put("jumlah", jumlahItem);
                                 paymentMap.put("total", totalHarga);
                                 paymentMap.put("namaPenerima", namaPenerima);
@@ -183,7 +185,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                                 paymentMap.put("nomerPenerima", nomerPenerima);
                                 paymentMap.put("petunjuk", petunjuk);
                                 String metodeBayar = "Gpay";
-                                paymentMap.put("metodeBayar", metodeBayar+ " "+saveCurrentDate+ ""+saveCurrentTime);
+                                paymentMap.put("metodeBayar", metodeBayar);
+                                paymentMap.put("tanggalBayar", saveCurrentDate);
+                                paymentMap.put("jamBayar", saveCurrentTime);
                                 referencePayment.child(idTransaksi).updateChildren(paymentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
