@@ -74,7 +74,7 @@ public class ListMenuModel implements Parcelable {
         dest.writeString(this.katering);
         dest.writeString(this.gambar);
         dest.writeValue(this.minimal);
-        dest.writeValue(this.keterangan);
+        dest.writeString(this.keterangan);
 
     }
 

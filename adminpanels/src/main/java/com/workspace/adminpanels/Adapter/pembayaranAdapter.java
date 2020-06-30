@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.workspace.adminpanels.Model.pembayaranModel;
 import com.workspace.adminpanels.R;
 
@@ -38,6 +40,8 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
 
     @Override
     public void onBindViewHolder(@NonNull pembayaranAdapter.pembayaranHolder holder, final int position) {
+       DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
+        String key1 = dbRef.getKey();
         pembayaranModel pembayaranMod = pembayaranList.get(position);
         holder.namaPembayar.setText(pembayaranMod.getNamaPenerima());
         holder.nomorPembayar.setText(pembayaranMod.getnomerPenerima());
