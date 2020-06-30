@@ -66,6 +66,8 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         detailToolbar = findViewById(R.id.toolbar_detail_menu);
         setSupportActionBar(detailToolbar);
         getSupportActionBar().setTitle("Makanan");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         getUsernameLocal();
