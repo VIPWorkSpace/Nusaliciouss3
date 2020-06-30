@@ -5,19 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.workspace.adminpanels.Model.pembayaranModel;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pembayaranHolder> {
 
@@ -43,7 +39,7 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
     public void onBindViewHolder(@NonNull pembayaranAdapter.pembayaranHolder holder, final int position) {
 
         pembayaranModel pembayaranMod = pembayaranList.get(position);
-        holder.IdBayar.setText(pembayaranMod.getId().toString());
+        holder.IdBayar.setText("#" + pembayaranMod.getId().toString());
         holder.namaPembayar.setText(pembayaranMod.getNamaPenerima());
         holder.nomorPembayar.setText(pembayaranMod.getnomerPenerima());
         holder.jumlahBayar.setText(pembayaranMod.getJumlah());
