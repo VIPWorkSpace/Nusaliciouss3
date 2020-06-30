@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,10 +28,10 @@ public class PembayaranFragment extends Fragment {
 
     RecyclerView rvPembayaran;
     ArrayList<pembayaranModel> pembayaranList;
-    DatabaseReference dbPembayaran = FirebaseDatabase.getInstance().getReference("Data");
-    DatabaseReference transRef = dbPembayaran.child("Transaksi");
+    DatabaseReference dbRef;
+//    DatabaseReference dbPembayaran = FirebaseDatabase.getInstance().getReference("Data");
+//    DatabaseReference transRef = dbPembayaran.child("Transaksi");
     pembayaranAdapter adapter;
-    String userId = "";
 
     public PembayaranFragment() {
         // Required empty public constructor
@@ -46,19 +47,51 @@ public class PembayaranFragment extends Fragment {
         rvPembayaran.setHasFixedSize(true);
         rvPembayaran.setLayoutManager(new LinearLayoutManager(getContext()));
         pembayaranList = new ArrayList<>();
+        RecyclerView.ItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        rvPembayaran.addItemDecoration(divider);
+        retrieveData();
 
+//        ValueEventListener valueEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for(DataSnapshot ds : dataSnapshot.getChildren()){
+//                    String mPembayaran = ds.getKey();
+//                    Log.d("TAG", mPembayaran);
+//
+//                    for(DataSnapshot dSnapshot : dataSnapshot.child(mPembayaran).child("Pembayaran").getChildren()){
+//                        String mPembayaran1 = dSnapshot.getKey();
+//                        Log.d("TAG", "    " + mPembayaran1);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        };
+//
+//        transRef.addListenerForSingleValueEvent(valueEventListener);
 
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        return v;
+    }
+    private void retrieveData(){
+        dbRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
+        dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
                     String mPembayaran = ds.getKey();
                     Log.d("TAG", mPembayaran);
 
-                    for(DataSnapshot dSnapshot : dataSnapshot.child(mPembayaran).child("Pembayaran").getChildren()){
-                        String mPembayaran1 = dSnapshot.getKey();
-                        Log.d("TAG", "    " + mPembayaran1);
+                    for (DataSnapshot dSnap : dataSnapshot.child(mPembayaran).child("Pembayaran").getChildren()){
+                        String mPembayaran1 = dSnap.getKey();
+                        pembayaranModel pembayaranMod = dSnap.getValue(pembayaranModel.class);
+                        pembayaranList.add(pembayaranMod);
+                        Log.d("TAG", mPembayaran1);
                     }
+                    adapter = new pembayaranAdapter(pembayaranList);
+                    rvPembayaran.setAdapter(adapter);
                 }
             }
 
@@ -66,10 +99,6 @@ public class PembayaranFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        };
-
-        transRef.addListenerForSingleValueEvent(valueEventListener);
-
-        return v;
+        });
     }
 }

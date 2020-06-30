@@ -4,13 +4,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -52,50 +60,140 @@
                 android:textSize="16dp"
                 android:textColor="@android:color/black"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jumlah : "
-                android:textSize="16dp"/>
-            <TextView
-                android:id="@+id/textJumlahPembayaran"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_textview"
-                android:layout_marginRight="100dp"
-                android:layout_marginLeft="94dp"
-                android:padding="5dp"
-                android:text="50"
-                android:textSize="16dp"
-                android:textColor="@android:color/black"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Metode Pembayaran : "
-                android:textSize="16dp"/>
-            <TextView
-                android:id="@+id/textMetodePembayaran"
-                android:background="@drawable/border_textview"
+                android:id="@+id/linear_layout_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="100dp"
-                android:text="Gpay"
-                android:textSize="16dp"
-                android:padding="5dp"
-                android:textColor="@android:color/black"/>
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_below="@id/linear_layout"
+                android:layout_marginLeft="5dp"
+                android:visibility="visible"
+                android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jumlah : "
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/textJumlahPembayaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="94dp"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/border_textview"
+                    android:padding="5dp"
+                    android:text="50"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total : "
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/textTotalPembayaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="111dp"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/border_textview"
+                    android:padding="5dp"
+                    android:text="150"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Metode Pembayaran : "
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/textMetodePembayaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/border_textview"
+                    android:padding="5dp"
+                    android:text="Gpay"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Petunjuk : "
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/textPetunjukPembayaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="84dp"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/border_textview"
+                    android:padding="5dp"
+                    android:text="dpn warung"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat : "
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/textAlamatPembayaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="95dp"
+                    android:layout_marginRight="100dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border_textview"
+                    android:padding="5dp"
+                    android:text="Jl kenangan"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp" />
+            </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
 </androidx.cardview.widget.CardView>

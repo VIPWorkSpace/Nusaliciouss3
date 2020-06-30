@@ -2,24 +2,34 @@ package com.workspace.adminpanels.Model;
 
 public class pembayaranModel {
     String namaPenerima;
-    String nomorPenerima;
+    String nomerPenerima;
     String alamatPenerima;
     String petunjuk;
     String jumlah;
     String total;
     String metodeBayar;
+    boolean expanded;
 
     public pembayaranModel() {
     }
 
-    public pembayaranModel(String namaPenerima, String nomorPenerima, String alamatPenerima, String petunjuk, String jumlah, String total, String metodeBayar) {
+    public pembayaranModel(String namaPenerima, String nomerPenerima, String alamatPenerima, String petunjuk, String jumlah, String total, String metodeBayar) {
         this.namaPenerima = namaPenerima;
-        this.nomorPenerima = nomorPenerima;
+        this.nomerPenerima = nomerPenerima;
         this.alamatPenerima = alamatPenerima;
         this.petunjuk = petunjuk;
         this.jumlah = jumlah;
         this.total = total;
         this.metodeBayar = metodeBayar;
+        this.expanded = false;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 
     public String getNamaPenerima() {
@@ -30,12 +40,12 @@ public class pembayaranModel {
         this.namaPenerima = namaPenerima;
     }
 
-    public String getNomorPenerima() {
-        return nomorPenerima;
+    public String getnomerPenerima() {
+        return nomerPenerima;
     }
 
-    public void setNomorPenerima(String nomorPenerima) {
-        this.nomorPenerima = nomorPenerima;
+    public void setnomerPenerima(String nomerPenerima) {
+        this.nomerPenerima = nomerPenerima;
     }
 
     public String getAlamatPenerima() {
