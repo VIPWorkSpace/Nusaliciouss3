@@ -47,7 +47,6 @@ public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MyView
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailMenuActivity.class);
                 intent.putExtra("judul", menuList.get(position));
-                intent.putExtra("gambar", menuList.get(position));
                 context.startActivity(intent);
             }
         });

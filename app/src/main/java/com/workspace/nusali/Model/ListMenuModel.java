@@ -4,37 +4,44 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ListMenuModel implements Parcelable {
-    String judul;
     String desc;
+    String gambar;
     Integer harga;
+    String judul;
     String kategori;
     String katering;
-    String gambar;
+    String keterangan;
     Integer minimal;
+
 
     public ListMenuModel() {
     }
 
-    public ListMenuModel(String judul, String desc, Integer harga, String kategori, String katering, String gambar, Integer minimal) {
-        this.judul = judul;
+    public ListMenuModel(String desc, String gambar, Integer harga, String judul, String kategori, String katering, String keterangan, Integer minimal) {
         this.desc = desc;
+        this.gambar = gambar;
         this.harga = harga;
+        this.judul = judul;
         this.kategori = kategori;
         this.katering = katering;
-        this.gambar = gambar;
+        this.keterangan = keterangan;
         this.minimal = minimal;
-    }
-
-    public String getJudul() {
-        return judul;
     }
 
     public String getDesc() {
         return desc;
     }
 
+    public String getGambar() {
+        return gambar;
+    }
+
     public Integer getHarga() {
         return harga;
+    }
+
+    public String getJudul() {
+        return judul;
     }
 
     public String getKategori() {
@@ -45,8 +52,8 @@ public class ListMenuModel implements Parcelable {
         return katering;
     }
 
-    public String getGambar() {
-        return gambar;
+    public String getKeterangan() {
+        return keterangan;
     }
 
     public Integer getMinimal() {
@@ -67,6 +74,7 @@ public class ListMenuModel implements Parcelable {
         dest.writeString(this.katering);
         dest.writeString(this.gambar);
         dest.writeValue(this.minimal);
+        dest.writeValue(this.keterangan);
 
     }
 
@@ -78,7 +86,7 @@ public class ListMenuModel implements Parcelable {
         this.katering = in.readString();
         this.gambar = in.readString();
         this.minimal = (Integer) in.readValue(Integer.class.getClassLoader());
-
+        this.keterangan = in.readString();
     }
 
     public static final Parcelable.Creator<ListMenuModel> CREATOR = new Parcelable.Creator<ListMenuModel>() {

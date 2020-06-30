@@ -43,7 +43,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
     String userIdKey = "";
     String userId = "";
     CardView cardTanggal;
-    TextView judulHalaman, namaKatering, jenisMenu, judulMenu, descMenu, hargaMenu, totalHarga, minimalBeli;
+    TextView judulHalaman, namaKatering, jenisMenu, judulMenu, descMenu, hargaMenu, totalHarga, minimalBeli, keteranganMenu;
     EditText tanggal, waktu, jumlahPesanan;
     ImageView fotoMenu, btnMinus, btnPlus;
     Button btnKeranjang;
@@ -70,6 +70,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         hargaMenu = findViewById(R.id.harga_detail_menu);
         totalHarga = findViewById(R.id.total_price);
         minimalBeli = findViewById(R.id.tv_minimal_beli);
+        keteranganMenu = findViewById(R.id.text_keterangan_menu);
         //Edit Text
         tanggal = findViewById(R.id.tv_tanggal);
         waktu = findViewById(R.id.tv_time);
@@ -97,7 +98,9 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         String harga = listMenuModel.getHarga().toString();
         final int hargaDetailMenu = Integer.parseInt(harga);
         hargaMenu.setText("Rp." +Integer.toString(hargaDetailMenu)+ ",-");
-
+        //setting keterangan
+        String keterangan = listMenuModel.getKeterangan();
+        keteranganMenu.setText(keterangan);
         //setting desc
         String desc = listMenuModel.getDesc();
         descMenu.setText(desc);
