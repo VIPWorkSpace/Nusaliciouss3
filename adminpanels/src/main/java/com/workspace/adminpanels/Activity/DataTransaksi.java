@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.workspace.adminpanels.Fragments.PembayaranFragment;
 import com.workspace.adminpanels.Fragments.PesananFragment;
@@ -18,7 +17,7 @@ import com.workspace.adminpanels.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DataPesanan extends AppCompatActivity {
+public class DataTransaksi extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private Spinner spinner;
@@ -26,11 +25,14 @@ public class DataPesanan extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_pesanan);
+        setContentView(R.layout.activity_data_transaksi);
 
         mToolbar = findViewById(R.id.toolbarPesanan);
         setSupportActionBar(mToolbar);
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.md_white_1000));
         getSupportActionBar().setTitle("Transaksi");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         spinner = findViewById(R.id.spin_transaksi);
         mTransaction();
     }
@@ -54,13 +56,12 @@ public class DataPesanan extends AppCompatActivity {
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, selectFragment).commit();
-                }
+            }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
             });
-
     }
 }

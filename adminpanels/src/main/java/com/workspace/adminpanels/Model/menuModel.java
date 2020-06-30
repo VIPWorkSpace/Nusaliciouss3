@@ -5,20 +5,28 @@ public class menuModel {
     String judul;
     String desc;
     Integer harga;
+    Integer minimal;
+    String keterangan;
     String kategori;
     String katering;
     String gambar;
 
+
+
     public menuModel() {
     }
 
-    public menuModel(String judul, String desc, Integer harga, String kategori, String katering, String gambar) {
+    public menuModel(String judul, String desc, Integer harga, Integer minimal, String keterangan, String kategori, String katering, String gambar) {
         this.judul = judul;
         this.desc = desc;
         this.harga = harga;
+        this.minimal = minimal;
+        this.keterangan = keterangan;
         this.kategori = kategori;
         this.katering = katering;
         this.gambar = gambar;
+
+
     }
 
     public String getJudul() {
@@ -67,5 +75,21 @@ public class menuModel {
 
     public void setGambar(String gambar) {
         this.gambar = gambar;
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    public Integer getMinimal() {
+        return minimal;
+    }
+
+    public void setMinimal(Integer minimal) {
+        this.minimal = minimal;
     }
 }

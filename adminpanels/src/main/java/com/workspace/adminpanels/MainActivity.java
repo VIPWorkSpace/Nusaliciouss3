@@ -1,38 +1,19 @@
 package com.workspace.adminpanels;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.workspace.adminpanels.Activity.DataAddMenuActivity;
 import com.workspace.adminpanels.Activity.DataMenuActivity;
-import com.workspace.adminpanels.Activity.DataPesanan;
+import com.workspace.adminpanels.Activity.DataTransaksi;
 import com.workspace.adminpanels.Activity.DataUserActivity;
-import com.workspace.adminpanels.Model.adminModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent dataUser = new Intent(MainActivity.this, DataUserActivity.class);
                         startActivity(dataUser);
                     } else if (finals == 3) {
-                        Intent transaction = new Intent(MainActivity.this, DataPesanan.class);
+                        Intent transaction = new Intent(MainActivity.this, DataTransaksi.class);
                         startActivity(transaction);
                     }
                 }

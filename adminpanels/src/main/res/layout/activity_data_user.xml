@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.DataUserActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <androidx.appcompat.widget.Toolbar
         style="@style/MyActionBar"
         android:id="@+id/dToolbar"
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.appbar.MaterialToolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchData"
