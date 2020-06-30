@@ -302,11 +302,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Keterangan : "
-                    android:textColor="@android:color/black"/>
-                <TextView
                     android:id="@+id/text_keterangan_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -314,6 +309,7 @@
                     android:layout_marginBottom="5dp"/>
             </LinearLayout>
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 
@@ -362,6 +358,7 @@
                     android:textColor="@android:color/black"
                     tools:ignore="HardcodedText" />
                 <LinearLayout
+                    android:id="@+id/linear_minimal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/harga_detail_menu"
@@ -488,13 +485,13 @@
 
              <Button
                  android:id="@+id/btn_chart"
-                 android:layout_width="200dp"
+                 android:layout_width="150dp"
                  android:layout_height="50dp"
                  android:background="@drawable/btn_orange"
                  android:text="Masuk Keranjang"
                  android:textAllCaps="false"
                  android:textColor="@color/White"
-                 android:textSize="18sp"
+                 android:textSize="17sp"
                  tools:ignore="HardcodedText" />
          </LinearLayout>
      </RelativeLayout>
