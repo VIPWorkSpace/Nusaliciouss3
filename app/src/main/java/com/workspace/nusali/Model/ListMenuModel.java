@@ -4,39 +4,44 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class ListMenuModel implements Parcelable {
-    String judul;
     String desc;
+    String gambar;
     Integer harga;
+    String judul;
     String kategori;
     String katering;
-    String gambar;
-    Integer minimal;
     String keterangan;
+    Integer minimal;
+
 
     public ListMenuModel() {
     }
 
-    public ListMenuModel(String judul, String desc, Integer harga, String kategori, String katering, String gambar, Integer minimal, String keterangan) {
-        this.judul = judul;
+    public ListMenuModel(String desc, String gambar, Integer harga, String judul, String kategori, String katering, String keterangan, Integer minimal) {
         this.desc = desc;
+        this.gambar = gambar;
         this.harga = harga;
+        this.judul = judul;
         this.kategori = kategori;
         this.katering = katering;
-        this.gambar = gambar;
-        this.minimal = minimal;
         this.keterangan = keterangan;
-    }
-
-    public String getJudul() {
-        return judul;
+        this.minimal = minimal;
     }
 
     public String getDesc() {
         return desc;
     }
 
+    public String getGambar() {
+        return gambar;
+    }
+
     public Integer getHarga() {
         return harga;
+    }
+
+    public String getJudul() {
+        return judul;
     }
 
     public String getKategori() {
@@ -47,20 +52,12 @@ public class ListMenuModel implements Parcelable {
         return katering;
     }
 
-    public String getGambar() {
-        return gambar;
-    }
-
-    public Integer getMinimal() {
-        return minimal;
-    }
-
     public String getKeterangan() {
         return keterangan;
     }
 
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
+    public Integer getMinimal() {
+        return minimal;
     }
 
     @Override
@@ -77,7 +74,7 @@ public class ListMenuModel implements Parcelable {
         dest.writeString(this.katering);
         dest.writeString(this.gambar);
         dest.writeValue(this.minimal);
-        dest.writeString((this.keterangan));
+        dest.writeString(this.keterangan);
 
     }
 
@@ -90,7 +87,6 @@ public class ListMenuModel implements Parcelable {
         this.gambar = in.readString();
         this.minimal = (Integer) in.readValue(Integer.class.getClassLoader());
         this.keterangan = in.readString();
-
     }
 
     public static final Parcelable.Creator<ListMenuModel> CREATOR = new Parcelable.Creator<ListMenuModel>() {

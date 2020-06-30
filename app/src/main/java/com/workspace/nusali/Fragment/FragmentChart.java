@@ -99,13 +99,12 @@ public class FragmentChart extends Fragment {
         recyclerViewChart.setHasFixedSize(true);
         recyclerViewChart.setLayoutManager(new LinearLayoutManager(getContext()));
         chartList = new ArrayList<>();
-
         //LOAD RECYCLER KERANJANG
         referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId);
         referenceChart.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        chartList.clear();
+
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
                     chartList.add(chartModel);

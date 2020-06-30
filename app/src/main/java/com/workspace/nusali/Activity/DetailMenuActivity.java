@@ -80,7 +80,6 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         totalHarga = findViewById(R.id.total_price);
         minimalBeli = findViewById(R.id.tv_minimal_beli);
         keteranganMenu = findViewById(R.id.text_keterangan_menu);
-
         //Edit Text
         tanggal = findViewById(R.id.tv_tanggal);
         waktu = findViewById(R.id.tv_time);
@@ -108,7 +107,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         String harga = listMenuModel.getHarga().toString();
         final int hargaDetailMenu = Integer.parseInt(harga);
         hargaMenu.setText("Rp." +Integer.toString(hargaDetailMenu)+ ",-");
-        //setting Keterangan
+        //setting keterangan
         String keterangan = listMenuModel.getKeterangan();
         keteranganMenu.setText(keterangan);
         //setting desc

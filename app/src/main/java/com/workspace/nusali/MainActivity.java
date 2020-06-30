@@ -1,6 +1,7 @@
 package com.workspace.nusali;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navigationListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new FragmentHome()).commit();
-
+        
         PagerOrderAdapter pagerOrderAdapter = new PagerOrderAdapter(getSupportFragmentManager(), tab.getTabCount());
 
         viewPager.setAdapter(pagerOrderAdapter);
