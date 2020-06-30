@@ -11,11 +11,12 @@ public class ListMenuModel implements Parcelable {
     String katering;
     String gambar;
     Integer minimal;
+    String keterangan;
 
     public ListMenuModel() {
     }
 
-    public ListMenuModel(String judul, String desc, Integer harga, String kategori, String katering, String gambar, Integer minimal) {
+    public ListMenuModel(String judul, String desc, Integer harga, String kategori, String katering, String gambar, Integer minimal, String keterangan) {
         this.judul = judul;
         this.desc = desc;
         this.harga = harga;
@@ -23,34 +24,7 @@ public class ListMenuModel implements Parcelable {
         this.katering = katering;
         this.gambar = gambar;
         this.minimal = minimal;
-    }
-
-    public String getJudul() {
-        return judul;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public Integer getHarga() {
-        return harga;
-    }
-
-    public String getKategori() {
-        return kategori;
-    }
-
-    public String getKatering() {
-        return katering;
-    }
-
-    public String getGambar() {
-        return gambar;
-    }
-
-    public Integer getMinimal() {
-        return minimal;
+        this.keterangan = keterangan;
     }
 
     @Override
@@ -67,6 +41,7 @@ public class ListMenuModel implements Parcelable {
         dest.writeString(this.katering);
         dest.writeString(this.gambar);
         dest.writeValue(this.minimal);
+        dest.writeValue(this.keterangan);
 
     }
 
@@ -78,6 +53,7 @@ public class ListMenuModel implements Parcelable {
         this.katering = in.readString();
         this.gambar = in.readString();
         this.minimal = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.keterangan = in.readString();
 
     }
 
