@@ -1,6 +1,7 @@
 package com.workspace.nusali.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 
@@ -42,6 +43,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
 
     String userIdKey = "";
     String userId = "";
+    Toolbar detailToolbar;
     CardView cardTanggal;
     TextView judulHalaman, namaKatering, jenisMenu, judulMenu, descMenu, hargaMenu, totalHarga, minimalBeli, keteranganMenu;
     EditText tanggal, waktu, jumlahPesanan;
@@ -59,10 +61,17 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_menu);
+
+        //Toolbar
+        detailToolbar = findViewById(R.id.toolbar_detail_menu);
+        setSupportActionBar(detailToolbar);
+        getSupportActionBar().setTitle("Makanan");
+
+
         getUsernameLocal();
          loadingDialog = new LoadingDialog(DetailMenuActivity.this);
         //TextView
-        judulHalaman = findViewById(R.id.tv_judul_menu);
+        //judulHalaman = findViewById(R.id.tv_judul_menu);
         namaKatering = findViewById(R.id.nama_katering);
         jenisMenu = findViewById(R.id.jenis_menu);
         judulMenu = findViewById(R.id.judul_detail_menu);

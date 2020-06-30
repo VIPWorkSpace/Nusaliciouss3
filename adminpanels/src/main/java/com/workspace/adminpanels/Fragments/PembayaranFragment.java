@@ -82,7 +82,7 @@ public class PembayaranFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     String mPembayaran = ds.getKey();
-                    Log.d("TAG", mPembayaran);
+                    Log.d("IND", mPembayaran);
 
                     for (DataSnapshot dSnap : dataSnapshot.child(mPembayaran).child("Pembayaran").getChildren()){
                         String mPembayaran1 = dSnap.getKey();

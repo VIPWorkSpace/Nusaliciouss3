@@ -11,10 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.workspace.adminpanels.Model.IdModel;
 import com.workspace.adminpanels.Model.pembayaranModel;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pembayaranHolder> {
 
@@ -39,6 +41,7 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
     @Override
     public void onBindViewHolder(@NonNull pembayaranAdapter.pembayaranHolder holder, final int position) {
         pembayaranModel pembayaranMod = pembayaranList.get(position);
+
         holder.namaPembayar.setText(pembayaranMod.getNamaPenerima());
         holder.nomorPembayar.setText(pembayaranMod.getnomerPenerima());
         holder.jumlahBayar.setText(pembayaranMod.getJumlah());
@@ -66,7 +69,7 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
     }
 
     public class pembayaranHolder extends RecyclerView.ViewHolder {
-        TextView namaPembayar, nomorPembayar, jumlahBayar, metodeBayar, alamatBayar, petunjukBayar, totalBayar;
+        TextView namaPembayar, nomorPembayar, jumlahBayar, metodeBayar, alamatBayar, petunjukBayar, totalBayar, IdBayar;
         LinearLayout expandLayout;
         public pembayaranHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,15 +81,6 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
             alamatBayar = itemView.findViewById(R.id.textAlamatPembayaran);
             petunjukBayar = itemView.findViewById(R.id.textPetunjukPembayaran);
             expandLayout = itemView.findViewById(R.id.linear_layout_2);
-//
-//            namaPembayar.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    pembayaranModel mPembayaranMod = pembayaranList.get(getAdapterPosition());
-//                    mPembayaranMod.setExpanded(!mPembayaranMod.isExpanded());
-//                    notifyItemChanged(getAdapterPosition());
-//                }
-//            });
         }
     }
 }
