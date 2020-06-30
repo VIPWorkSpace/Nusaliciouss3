@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.workspace.adminpanels.Model.IdModel;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.workspace.adminpanels.Model.pembayaranModel;
 import com.workspace.adminpanels.R;
 
@@ -40,8 +41,9 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
 
     @Override
     public void onBindViewHolder(@NonNull pembayaranAdapter.pembayaranHolder holder, final int position) {
-        pembayaranModel pembayaranMod = pembayaranList.get(position);
 
+        pembayaranModel pembayaranMod = pembayaranList.get(position);
+        holder.IdBayar.setText(pembayaranMod.getId().toString());
         holder.namaPembayar.setText(pembayaranMod.getNamaPenerima());
         holder.nomorPembayar.setText(pembayaranMod.getnomerPenerima());
         holder.jumlahBayar.setText(pembayaranMod.getJumlah());
@@ -49,6 +51,7 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
         holder.metodeBayar.setText(pembayaranMod.getMetodeBayar());
         holder.petunjukBayar.setText(pembayaranMod.getPetunjuk());
         holder.alamatBayar.setText(pembayaranMod.getAlamatPenerima());
+
 
         boolean isExpanded = pembayaranList.get(position).isExpanded();
         holder.expandLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
@@ -81,6 +84,7 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
             alamatBayar = itemView.findViewById(R.id.textAlamatPembayaran);
             petunjukBayar = itemView.findViewById(R.id.textPetunjukPembayaran);
             expandLayout = itemView.findViewById(R.id.linear_layout_2);
+            IdBayar = itemView.findViewById(R.id.textID);
         }
     }
 }
