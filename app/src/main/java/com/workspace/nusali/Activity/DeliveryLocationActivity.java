@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,15 +28,15 @@ import com.workspace.nusali.R;
 import java.util.HashMap;
 
 public class DeliveryLocationActivity extends AppCompatActivity {
-    String userIdKey = "";
-    String userId = "";
+   FirebaseAuth firebaseAuth;
+    String USER = "";
     TextView namaPenerima, nomerPenerima, alamatPenerima, petunjuk;
     DatabaseReference referenceDelivery, referenceData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_location);
-        getUsernameLocal();
+        getUserID();
         namaPenerima = findViewById(R.id.nama_delivery);
         nomerPenerima = findViewById(R.id.nomer_delivery);
         alamatPenerima = findViewById(R.id.alamat_delivery);
@@ -44,7 +46,7 @@ public class DeliveryLocationActivity extends AppCompatActivity {
 
 
         //load data yang ada
-        referenceData = FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pengiriman");
+        referenceData = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pengiriman");
         referenceData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -84,7 +86,7 @@ public class DeliveryLocationActivity extends AppCompatActivity {
         deliveryMap.put("alamatPenerima", alamatPenerima.getText().toString());
         deliveryMap.put("petunjuk", petunjuk.getText().toString());
 
-        referenceDelivery.child(userId).child("pengiriman").updateChildren(deliveryMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        referenceDelivery.child(USER).child("pengiriman").updateChildren(deliveryMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         CharSequence[] options = new CharSequence[]
@@ -108,10 +110,16 @@ public class DeliveryLocationActivity extends AppCompatActivity {
 
     }
 
-    public void getUsernameLocal() {
-
-        SharedPreferences sharedPreferences = getSharedPreferences(userIdKey, MODE_PRIVATE);
-        userId = sharedPreferences.getString("firebaseKey", "");
-
+    public void getUserID(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        USER = firebaseUser.getUid();
     }
+
+//    public void getUsernameLocal() {
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences(userIdKey, MODE_PRIVATE);
+//        userId = sharedPreferences.getString("firebaseKey", "");
+//
+//    }
 }

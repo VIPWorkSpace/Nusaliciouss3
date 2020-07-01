@@ -22,7 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -40,9 +41,8 @@ import java.util.Objects;
 import java.util.Random;
 
 public class DetailMenuActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-
-    String userIdKey = "";
-    String userId = "";
+    String USER = "";
+    FirebaseAuth firebaseAuth;
     Toolbar detailToolbar;
     CardView cardTanggal;
     TextView judulHalaman, namaKatering, jenisMenu, judulMenu, descMenu, hargaMenu, totalHarga, minimalBeli, keteranganMenu;
@@ -67,8 +67,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         setSupportActionBar(detailToolbar);
         getSupportActionBar().setTitle("Makanan");
 
-
-        getUsernameLocal();
+        getUserID();
          loadingDialog = new LoadingDialog(DetailMenuActivity.this);
         //TextView
         //judulHalaman = findViewById(R.id.tv_judul_menu);
@@ -201,7 +200,7 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calForDate.getTime());
 
-        DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId).child(idMenu);
+        DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER).child(idMenu);
         Integer menuId = Integer.parseInt(idMenu);
         cartListRef.getRef().child("id").setValue(menuId);
         cartListRef.getRef().child("judul").setValue(judulMenu.getText().toString());
@@ -253,12 +252,13 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
     }
 
 
-    public void getUsernameLocal() {
-
-        SharedPreferences sharedPreferences = getSharedPreferences(userIdKey, MODE_PRIVATE);
-        userId = sharedPreferences.getString("firebaseKey", "");
-
+    public void getUserID(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        USER = firebaseUser.getUid();
     }
+
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -286,4 +286,10 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
                 break;
         }
     }
+    //    public void getUsernameLocal() {
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences(userIdKey, MODE_PRIVATE);
+//        userId = sharedPreferences.getString("firebaseKey", "");
+//
+//    }
 }

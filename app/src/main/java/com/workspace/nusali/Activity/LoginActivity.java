@@ -72,14 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingDialog.startLoadingDialog();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingDialog.dismissDialog();
-                    }
-                }, 4500);
+
 
                 String email = String.valueOf(textEmail.getText());
                 String password = String.valueOf(textPassword.getText());
@@ -101,6 +94,14 @@ public class LoginActivity extends AppCompatActivity {
                                     if (!task.isSuccessful()) {
                                         Toast.makeText(LoginActivity.this, "Maaf Anda Gagal Masuk, Silahkan Ulangi", Toast.LENGTH_SHORT).show();
                                     } else {
+                                        loadingDialog.startLoadingDialog();
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                loadingDialog.dismissDialog();
+                                            }
+                                        }, 4500);
                                         Intent login = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(login);
                                         finish();

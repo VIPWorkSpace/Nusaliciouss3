@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,26 +46,22 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 public class FragmentChart extends Fragment {
-    private String userIdKey = "";
-    private String userId = "";
     TextView namaPenerima, alamatPenerima, nomerPenerima, hint, ubahAlamat;
     DatabaseReference referenceChart, referenceDataDelivery;
     DatabaseReference referenceOrder;
     DatabaseReference referencePay;
-
+    FirebaseAuth firebaseAuth;
     Task<Void> referenceRemove;
-
     RecyclerView recyclerViewChart;
     ArrayList<ChartModel> chartList;
     ChartAdapter chartAdapter;
-
     int totalKeranjang = 0;
     int jumlahPesan = 0;
-
     Integer belanjaID = new Random().nextInt();
     String idTransaksi = belanjaID.toString();
     String totalHarga;
     String jumlahBeli;
+    String USER = "";
 
     public FragmentChart() {
         // Required empty public constructor
@@ -75,7 +73,7 @@ public class FragmentChart extends Fragment {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_chart, container, false);
 
-        getUsernameLocal();
+        getUserID();
 
         //set button
         Button btnProses = v.findViewById(R.id.btn_proses_chart);
@@ -100,7 +98,7 @@ public class FragmentChart extends Fragment {
         recyclerViewChart.setLayoutManager(new LinearLayoutManager(getContext()));
         chartList = new ArrayList<>();
         //LOAD RECYCLER KERANJANG
-        referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId);
+        referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER);
         referenceChart.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -171,7 +169,7 @@ public class FragmentChart extends Fragment {
 
     public void getDataDelivery() {
         //load data yang ada
-        referenceDataDelivery = FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pengiriman");
+        referenceDataDelivery = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pengiriman");
         referenceDataDelivery.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -196,12 +194,14 @@ public class FragmentChart extends Fragment {
         });
     }
 
-
-    public void getUsernameLocal() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(userIdKey, MODE_PRIVATE);
-        userId = sharedPreferences.getString("firebaseKey", "");
-
+    public void getUserID(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        USER = firebaseUser.getUid();
     }
+
+
+//
 
 
     public void goToPayment() {
@@ -215,7 +215,7 @@ public class FragmentChart extends Fragment {
         final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calForDate.getTime());
 
-        referencePay = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId).child("Pembayaran");
+        referencePay = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(USER).child("Pembayaran");
         referencePay.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -244,7 +244,7 @@ public class FragmentChart extends Fragment {
 
         final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calForDate.getTime());
-        referenceOrder = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId);
+        referenceOrder = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(USER);
         referenceOrder.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -309,6 +309,12 @@ public class FragmentChart extends Fragment {
         });
 
     }
+//
+//    public void getUsernameLocal() {
+////        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(userIdKey, MODE_PRIVATE);
+////        userId = sharedPreferences.getString("firebaseKey", "");
+////
+////    }
 
 //    public void goToOrder(){
 //

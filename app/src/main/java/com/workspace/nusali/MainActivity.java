@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,11 +28,8 @@ import com.workspace.nusali.Fragment.FragmentPayment;
 public class MainActivity extends AppCompatActivity {
     private long backPressedTime;
     private Toast backToast;
-    String userIdKey = "";
-    String userId = "";
     FirebaseAuth mAuth;
-    SharedPreferences sharedPreferences;
-
+    String USER = "";
     FrameLayout frameLayout;
     TabLayout tab;
     LinearLayout frameTab;
@@ -44,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getUsernameLocal();
+      //  getUserID();
         frameLayout = findViewById(R.id.container);
         tab = findViewById(R.id.tab);
         frameTab = findViewById(R.id.frame_tab);
@@ -116,17 +112,10 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void getUsernameLocal() {
+    public void getUserID(){
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            userId = currentUser.getUid();
-            sharedPreferences = getSharedPreferences(userIdKey, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("firebaseKey", userId);
-            editor.apply();
-
-        }
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        USER = firebaseUser.getUid();
     }
 
     @Override

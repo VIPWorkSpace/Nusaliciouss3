@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,10 +34,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class PaymentActivity extends AppCompatActivity implements View.OnClickListener {
+    String USER = "";
+    FirebaseAuth firebaseAuth;
     ArrayList<ChartModel> chartList;
     DatabaseReference referenceOrder, referenceChart, referenceUser;
-    private String userIdKey = "";
-    private String userId = "";
     DatabaseReference referencePayment;
     Task<Void> referenceRemove;
     TextView totalTagihan, jumlahPesanan, totalBayar, saldoUser;
@@ -46,7 +48,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        getUsernameLocal();
+        getUserID();
         totalTagihan = findViewById(R.id.total_tagihan_payment);
         jumlahPesanan = findViewById(R.id.jumlah_item_payment4);
         totalBayar = findViewById(R.id.total_bayar_payment);
@@ -85,8 +87,9 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.btn_g_pay:
-
-                goToPesanan();
+                 {
+                    goToPesanan();
+                }
 
                 break;
 
@@ -98,7 +101,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void getSaldoUser(){
-        referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pribadi");
+        referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi");
 
         referenceUser.addValueEventListener(new ValueEventListener() {
             @Override
@@ -117,7 +120,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
     public void recycler(){
         //LOAD RECYCLER KERANJANG
-        referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId);
+        referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER);
         referenceChart.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -145,7 +148,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     public void goToPesanan() {
 
 
-        referenceOrder = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId);
+        referenceOrder = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER);
         referenceOrder.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -174,7 +177,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                         referenceOrder.child("Pesanan").child(idTransaksi).child(menuId).setValue(orderModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                referencePayment = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran");
+                                referencePayment = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER).child("Pembayaran");
                                 final HashMap<String, Object> paymentMap = new HashMap<>();
                                 Integer idPembayaran = Integer.parseInt(idTransaksi);
                                 paymentMap.put("id", idPembayaran);
@@ -191,7 +194,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                                 referencePayment.child(idTransaksi).updateChildren(paymentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        referenceRemove = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(userId).removeValue();
+                                        referenceRemove = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER).removeValue();
                                         Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }
@@ -216,14 +219,20 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
-    public void getUsernameLocal() {
-        SharedPreferences sharedPreferences = getSharedPreferences(userIdKey, MODE_PRIVATE);
-        userId = sharedPreferences.getString("firebaseKey", "");
-
+    public void getUserID(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        USER = firebaseUser.getUid();
     }
+
+//    public void getUsernameLocal() {
+//        SharedPreferences sharedPreferences = getSharedPreferences(userIdKey, MODE_PRIVATE);
+//        userId = sharedPreferences.getString("firebaseKey", "");
+//
+//    }
     public void getDataPembayaran() {
 
-        referencePayment = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi);
+        referencePayment = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(USER).child("Pembayaran").child(idTransaksi);
         referencePayment.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

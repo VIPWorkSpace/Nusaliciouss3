@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,11 +36,14 @@ import com.workspace.nusali.R;
 import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentHome extends Fragment {
+//    String userIdKey = "";
+//    String userId = "";
     //    BillingProcessor bp;
+    FirebaseAuth firebaseAuth;
     TextView nameUser, saldoUser;
     DatabaseReference referenceUser;
-    String userIdKey = "";
-    String userId = "";
+
+    String USER = "";
     private int[] mImages = new int[]{
             R.drawable.spanduk1, R.drawable.spanduk2, R.drawable.spanduk3
     };
@@ -52,8 +57,6 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
-        getUsernameLocal();
 
         nameUser = v.findViewById(R.id.name_user);
         saldoUser = v.findViewById(R.id.saldo_user);
@@ -118,7 +121,8 @@ public class FragmentHome extends Fragment {
     }
 
     public void getSaldo() {
-        referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(userId).child("pribadi");
+        getUserID();
+        referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi");
 
         referenceUser.addValueEventListener(new ValueEventListener() {
             @Override
@@ -135,11 +139,17 @@ public class FragmentHome extends Fragment {
 
     }
 
-    public void getUsernameLocal() {
-
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(userIdKey, MODE_PRIVATE);
-        userId = sharedPreferences.getString("firebaseKey", "");
+    public void getUserID(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        USER = firebaseUser.getUid();
     }
+
+//    public void getUsernameLocal() {
+//
+//        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(userIdKey, MODE_PRIVATE);
+//        userId = sharedPreferences.getString("firebaseKey", "");
+//    }
 
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, Intent data) {
