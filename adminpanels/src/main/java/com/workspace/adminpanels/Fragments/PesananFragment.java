@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PesananFragment extends Fragment {
-
+    private callbackidModel callMod;
     private RecyclerView rvPesanan;
     private DatabaseReference dbPesanan;
     private pesananAdapter adapters;
@@ -53,11 +53,27 @@ public class PesananFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    callbackidModel callMod = ds.getValue(callbackidModel.class);
+                     callMod = ds.getValue(callbackidModel.class);
                     callMod.key = ds.getKey();
                     mCall.add(callMod);
-
                 }
+//                dbPesanan.child(callMod.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        for(DataSnapshot dSnap: dataSnapshot.getChildren()){
+//                            callMod = dSnap.getValue(callbackidModel.class);
+//                            callMod.idPesanan = dSnap.getKey();
+//                            mCall.add(callMod);
+//                        }
+
+  //                  }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+
                 adapters = new pesananAdapter(mCall);
                 rvPesanan.setAdapter(adapters);
             }

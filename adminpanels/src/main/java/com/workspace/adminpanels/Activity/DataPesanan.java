@@ -30,6 +30,7 @@ public class DataPesanan extends AppCompatActivity {
     dataPesanAdapter adapterPesanan;
     DatabaseReference pesananRef;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +67,8 @@ public class DataPesanan extends AppCompatActivity {
                     String keys = dSnap.getKey();
                     for (DataSnapshot ds1 : dataSnapshot.child(key).child("Pesanan").child(keys).getChildren()){
                         String Unix = ds1.getKey();
-                        dataPesanModel dataMod = ds1.getValue(dataPesanModel.class);
+                        dataPesanModel dataMod= ds1.getValue(dataPesanModel.class);
+                       dataMod.key = keys;
                         pesanModeList.add(dataMod);
                     }
                 }

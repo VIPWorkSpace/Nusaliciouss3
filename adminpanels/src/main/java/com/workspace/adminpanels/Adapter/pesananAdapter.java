@@ -38,7 +38,7 @@ public class pesananAdapter extends RecyclerView.Adapter<pesananAdapter.pesananH
 
     @Override
     public void onBindViewHolder(@NonNull final pesananAdapter.pesananHolders holder, int position) {
-        callbackidModel callMod = callList.get(position);
+        final callbackidModel callMod = callList.get(position);
         holder.NoUnix.setText(callMod.getKey());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

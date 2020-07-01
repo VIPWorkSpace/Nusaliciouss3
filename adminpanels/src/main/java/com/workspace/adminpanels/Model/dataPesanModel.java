@@ -2,23 +2,20 @@ package com.workspace.adminpanels.Model;
 
 public class dataPesanModel {
 
-    public String keys;
-    Integer id;
-    String judul;
-    String katering;
-    Integer jumlah;
-    Integer total;
-    String tanggal;
-    String waktu;
+    public String key;
+    public Integer id;
+    public String judul;
+    public String katering;
+    public Integer jumlah;
+    public Integer total;
+    public String tanggal;
+    public String waktu;
 
     public dataPesanModel() {
     }
 
-    public dataPesanModel(String keys) {
-        this.keys = keys;
-    }
-
-    public dataPesanModel(Integer id, String judul, String katering, Integer jumlah, Integer total, String tanggal, String waktu) {
+    public dataPesanModel(String key, Integer id, String judul, String katering, Integer jumlah, Integer total, String tanggal, String waktu) {
+        this.key = key;
         this.id = id;
         this.judul = judul;
         this.katering = katering;
@@ -28,12 +25,12 @@ public class dataPesanModel {
         this.waktu = waktu;
     }
 
-    public String getKeys() {
-        return keys;
+    public String getKey() {
+        return key;
     }
 
-    public void setKeys(String keys) {
-        this.keys = keys;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Integer getId() {

@@ -1,5 +1,6 @@
 package com.workspace.adminpanels.Adapter;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.workspace.adminpanels.Model.callbackidModel;
 import com.workspace.adminpanels.Model.dataPesanModel;
 import com.workspace.adminpanels.R;
 
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHolder> {
 
     ArrayList<dataPesanModel>modelList;
+    ArrayList<callbackidModel>models;
 
     public dataPesanAdapter(ArrayList<dataPesanModel> modelList) {
         this.modelList = modelList;
@@ -31,8 +34,8 @@ public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHo
     @Override
     public void onBindViewHolder(@NonNull dataPesanAdapter.myHolder holder, final int position) {
     dataPesanModel pesanMods = modelList.get(position);
-    holder.key.setText(pesanMods.getKeys());
-
+ //   callbackidModel callBack = models.get(position);
+    holder.key.setText(pesanMods.getKey());
     holder.noPesan.setText(pesanMods.getId().toString());
     holder.judulPesan.setText(pesanMods.getJudul());
     holder.kateringPesan.setText(pesanMods.getKatering());
