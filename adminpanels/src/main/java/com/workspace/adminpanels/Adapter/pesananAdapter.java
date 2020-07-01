@@ -1,6 +1,7 @@
 package com.workspace.adminpanels.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +10,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.workspace.adminpanels.Model.pesananModel;
+import com.workspace.adminpanels.Activity.DataPesanan;
+import com.workspace.adminpanels.Model.callbackidModel;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
 
 public class pesananAdapter extends RecyclerView.Adapter<pesananAdapter.pesananHolders> {
 
-    ArrayList<pesananModel> pesananList;
-    Context context;
+    ArrayList<callbackidModel> callList;
+    Context ctx;
 
-    public pesananAdapter(ArrayList<pesananModel> pesananList, Context context) {
-        this.context = context;
-        this.pesananList = pesananList;
+    public pesananAdapter(ArrayList<callbackidModel> callList, Context ctx) {
+        this.callList = callList;
+        this.ctx = ctx;
+    }
+
+    public pesananAdapter(ArrayList<callbackidModel> callList) {
+        this.callList = callList;
     }
 
     @NonNull
@@ -31,27 +37,29 @@ public class pesananAdapter extends RecyclerView.Adapter<pesananAdapter.pesananH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull pesananAdapter.pesananHolders holder, int position) {
-    pesananModel pesananMod = pesananList.get(position);
-    holder.textId.setText(pesananMod.getId().toString());
-    holder.textJudul.setText(pesananMod.getJudul());
-    holder.textJumlah.setText(pesananMod.getJumlah().toString());
-    holder.textTotal.setText(pesananMod.getTotal().toString());
+    public void onBindViewHolder(@NonNull final pesananAdapter.pesananHolders holder, int position) {
+        callbackidModel callMod = callList.get(position);
+        holder.NoUnix.setText(callMod.getKey());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent send = new Intent(view.getContext(), DataPesanan.class);
+                view.getContext().startActivity(send);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        return pesananList.size();
+        return callList.size();
     }
 
     public class pesananHolders extends RecyclerView.ViewHolder {
-        TextView textId, textJudul, textJumlah, textTotal;
+        TextView NoUnix;
         public pesananHolders(@NonNull View itemView) {
             super(itemView);
-            textId = itemView.findViewById(R.id.textIdPesanan);
-            textJudul = itemView.findViewById(R.id.textJudulPesanan);
-            textJumlah = itemView.findViewById(R.id.textJumlahPesanan);
-            textTotal = itemView.findViewById(R.id.textTotalPesanan);
+            NoUnix = itemView.findViewById(R.id.noUnix);
         }
     }
 }

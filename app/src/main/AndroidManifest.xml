@@ -18,7 +18,8 @@
         <activity android:name=".Activity.PaymentActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".Activity.Equipment" />
-        <activity android:name=".Activity.DetailMenuActivity" />
+        <activity android:name=".Activity.DetailMenuActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".Activity.ListMenuActivity" />
         <activity android:name=".Activity.WelcomeActivity" />
         <activity android:name=".Activity.SplashActivity" />

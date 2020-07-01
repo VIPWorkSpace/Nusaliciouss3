@@ -51,28 +51,6 @@ public class PembayaranFragment extends Fragment {
         rvPembayaran.addItemDecoration(divider);
         retrieveData();
 
-//        ValueEventListener valueEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for(DataSnapshot ds : dataSnapshot.getChildren()){
-//                    String mPembayaran = ds.getKey();
-//                    Log.d("TAG", mPembayaran);
-//
-//                    for(DataSnapshot dSnapshot : dataSnapshot.child(mPembayaran).child("Pembayaran").getChildren()){
-//                        String mPembayaran1 = dSnapshot.getKey();
-//                        Log.d("TAG", "    " + mPembayaran1);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        };
-//
-//        transRef.addListenerForSingleValueEvent(valueEventListener);
-
         return v;
     }
     private void retrieveData(){
@@ -82,13 +60,11 @@ public class PembayaranFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     String mPembayaran = ds.getKey();
-                    Log.d("IND", mPembayaran);
 
                     for (DataSnapshot dSnap : dataSnapshot.child(mPembayaran).child("Pembayaran").getChildren()){
                         String mPembayaran1 = dSnap.getKey();
                         pembayaranModel pembayaranMod = dSnap.getValue(pembayaranModel.class);
                         pembayaranList.add(pembayaranMod);
-                        Log.d("TAG", mPembayaran1);
                     }
                     adapter = new pembayaranAdapter(pembayaranList);
                     rvPembayaran.setAdapter(adapter);
