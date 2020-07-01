@@ -37,8 +37,8 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
 
     @Override
     public void onBindViewHolder(@NonNull pembayaranAdapter.pembayaranHolder holder, final int position) {
-
         pembayaranModel pembayaranMod = pembayaranList.get(position);
+
         holder.IdBayar.setText("#" + pembayaranMod.getId().toString());
         holder.namaPembayar.setText(pembayaranMod.getNamaPenerima());
         holder.nomorPembayar.setText(pembayaranMod.getnomerPenerima());

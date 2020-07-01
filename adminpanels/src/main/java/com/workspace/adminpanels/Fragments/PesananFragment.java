@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +18,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.workspace.adminpanels.Adapter.pesananAdapter;
+import com.workspace.adminpanels.Model.callbackidModel;
 import com.workspace.adminpanels.Model.pesananModel;
 import com.workspace.adminpanels.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PesananFragment extends Fragment {
 
     private RecyclerView rvPesanan;
     private DatabaseReference dbPesanan;
-    private String userId = "";
-    private String userKey= "";
-    private ArrayList<pesananModel> pesananList;
-    private pesananAdapter adapter;
+    private pesananAdapter adapters;
+    private ArrayList<callbackidModel> mCall;
 
     public PesananFragment() {
         // Required empty public constructor
@@ -44,18 +46,20 @@ public class PesananFragment extends Fragment {
         rvPesanan = v.findViewById(R.id.rvd_pesanan);
         rvPesanan.setHasFixedSize(true);
         rvPesanan.setLayoutManager(new LinearLayoutManager(getContext()));
-        pesananList = new ArrayList<>();
+        mCall = new ArrayList<>();
 
-        dbPesanan = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pesanan");
-        dbPesanan.addValueEventListener(new ValueEventListener() {
+        dbPesanan = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
+        dbPesanan.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    pesananModel pesananMod = ds.getValue(pesananModel.class);
-                    pesananList.add(pesananMod);
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    callbackidModel callMod = ds.getValue(callbackidModel.class);
+                    callMod.key = ds.getKey();
+                    mCall.add(callMod);
+
                 }
-                adapter = new pesananAdapter(pesananList, getContext());
-                rvPesanan.setAdapter(adapter);
+                adapters = new pesananAdapter(mCall);
+                rvPesanan.setAdapter(adapters);
             }
 
             @Override
