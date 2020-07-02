@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +22,7 @@ import com.workspace.adminpanels.Activity.DataAddMenuActivity;
 import com.workspace.adminpanels.Activity.DataMenuActivity;
 import com.workspace.adminpanels.Activity.DataTransaksi;
 import com.workspace.adminpanels.Activity.DataUserActivity;
+import com.workspace.adminpanels.Activity.adminLogin;
 import com.workspace.adminpanels.Model.mainModel;
 
 import java.util.List;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private GridLayout gridDashboard;
     private TextView mUsername;
     private DatabaseReference dRef;
+    ImageView logout;
     List<mainModel> mainList;
 
     @Override
@@ -38,7 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
         mUsername = findViewById(R.id.textID);
         gridDashboard = findViewById(R.id.gridL);
+        logout = findViewById(R.id.image_admin);
         setSingleEvent(gridDashboard);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent log = new Intent(MainActivity.this, adminLogin.class);
+                startActivity(log);
+            }
+        });
 
         dRef = FirebaseDatabase.getInstance().getReference("Data").child("Admin");
         dRef.addValueEventListener(new ValueEventListener() {

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,19 +16,22 @@ import com.workspace.adminpanels.Model.pembayaranModel;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pembayaranHolder> {
+public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pembayaranHolder> implements Filterable {
 
     ArrayList<pembayaranModel> pembayaranList;
+    ArrayList<pembayaranModel> listFull;
     Context context;
-
-    public pembayaranAdapter(ArrayList<pembayaranModel> pembayaranList, Context context) {
-        this.pembayaranList = pembayaranList;
-        this.context = context;
-    }
+//
+//    public pembayaranAdapter(ArrayList<pembayaranModel> pembayaranList, Context context) {
+//        this.pembayaranList = pembayaranList;
+//        this.context = context;
+//    }
 
     public pembayaranAdapter(ArrayList<pembayaranModel> pembayaranList) {
         this.pembayaranList = pembayaranList;
+        this.listFull = new ArrayList<>(pembayaranList);
     }
 
     @NonNull
@@ -66,6 +71,36 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
     public int getItemCount() {
         return pembayaranList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filters;
+    }
+    private Filter filters = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            ArrayList<pembayaranModel> filteredList = new ArrayList<>();
+            if (charSequence == null || charSequence.length() ==0){
+                filteredList.addAll(listFull);
+            }else {
+                String filterPatern = charSequence.toString().toLowerCase().trim();
+                for (pembayaranModel item : listFull){
+                    if (item.getId().toString().contains(filterPatern) || item.getNamaPenerima().toLowerCase().contains(filterPatern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            pembayaranList.clear();
+            pembayaranList.addAll((List)filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class pembayaranHolder extends RecyclerView.ViewHolder {
         TextView namaPembayar, nomorPembayar, jumlahBayar, metodeBayar, alamatBayar, petunjukBayar, totalBayar, IdBayar;

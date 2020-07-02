@@ -3,6 +3,8 @@ package com.workspace.adminpanels.Fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,8 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,8 +35,6 @@ public class PembayaranFragment extends Fragment {
     RecyclerView rvPembayaran;
     ArrayList<pembayaranModel> pembayaranList;
     DatabaseReference dbRef;
-//    DatabaseReference dbPembayaran = FirebaseDatabase.getInstance().getReference("Data");
-//    DatabaseReference transRef = dbPembayaran.child("Transaksi");
     pembayaranAdapter adapter;
 
     public PembayaranFragment() {
@@ -42,16 +46,21 @@ public class PembayaranFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pembayaran, container, false);
 
-        rvPembayaran = v.findViewById(R.id.rvd_pembayaran);
 
+        rvPembayaran = v.findViewById(R.id.rvd_pembayaran);
+        //get Data Firebase
+        retrieveData();
+        //Recycler Setting
+        recyclerSettings();
+
+        return v;
+    }
+    private void recyclerSettings(){
         rvPembayaran.setHasFixedSize(true);
         rvPembayaran.setLayoutManager(new LinearLayoutManager(getContext()));
         pembayaranList = new ArrayList<>();
         RecyclerView.ItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         rvPembayaran.addItemDecoration(divider);
-        retrieveData();
-
-        return v;
     }
     private void retrieveData(){
         dbRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
@@ -70,7 +79,6 @@ public class PembayaranFragment extends Fragment {
                     rvPembayaran.setAdapter(adapter);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

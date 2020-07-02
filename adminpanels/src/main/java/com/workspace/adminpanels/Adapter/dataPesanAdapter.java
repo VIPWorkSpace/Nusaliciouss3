@@ -1,28 +1,30 @@
 package com.workspace.adminpanels.Adapter;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.workspace.adminpanels.Model.callbackidModel;
 import com.workspace.adminpanels.Model.dataPesanModel;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHolder> {
+public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHolder> implements Filterable {
 
     ArrayList<dataPesanModel>modelList;
-    ArrayList<callbackidModel>models;
+    ArrayList<dataPesanModel> modelFull;
 
     public dataPesanAdapter(ArrayList<dataPesanModel> modelList) {
         this.modelList = modelList;
+        this.modelFull = new ArrayList<>(modelList);
     }
 
     @NonNull
@@ -34,7 +36,7 @@ public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHo
     @Override
     public void onBindViewHolder(@NonNull dataPesanAdapter.myHolder holder, final int position) {
     dataPesanModel pesanMods = modelList.get(position);
- //   callbackidModel callBack = models.get(position);
+
     holder.key.setText(pesanMods.getKey());
     holder.noPesan.setText(pesanMods.getId().toString());
     holder.judulPesan.setText(pesanMods.getJudul());
@@ -44,12 +46,55 @@ public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHo
     holder.tanggalPesan.setText(pesanMods.getTanggal());
     holder.jamPesan.setText(pesanMods.getWaktu());
 
+    boolean isExpand = modelList.get(position).isXpand();
+    holder.expand.setVisibility(isExpand ? View.VISIBLE : View.GONE);
+
+    holder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            dataPesanModel dataMods  = modelList.get(position);
+            dataMods.setXpand(!dataMods.isXpand());
+            notifyItemChanged(position);
+        }
+    });
     }
 
     @Override
     public int getItemCount() {
         return modelList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            ArrayList<dataPesanModel> filterList = new ArrayList<>();
+            if (charSequence == null || charSequence.length() ==0 ){
+                filterList.addAll(modelFull);
+            }else {
+                String filterPatern = charSequence.toString().toLowerCase().trim();
+                for (dataPesanModel item : modelFull){
+                    if (item.getId().toString().contains(filterPatern) || item.getKey().toString().contains(filterPatern)){
+                        filterList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filterList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            modelList.clear();
+            modelList.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class myHolder extends RecyclerView.ViewHolder {
         TextView key, noPesan, judulPesan, kateringPesan, jumlahPesan, totalPesan, tanggalPesan, jamPesan;

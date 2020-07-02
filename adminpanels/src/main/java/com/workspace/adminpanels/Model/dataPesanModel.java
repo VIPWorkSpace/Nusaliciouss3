@@ -10,6 +10,7 @@ public class dataPesanModel {
     public Integer total;
     public String tanggal;
     public String waktu;
+    boolean xpand;
 
     public dataPesanModel() {
     }
@@ -23,6 +24,15 @@ public class dataPesanModel {
         this.total = total;
         this.tanggal = tanggal;
         this.waktu = waktu;
+        this.xpand = false;
+    }
+
+    public boolean isXpand() {
+        return xpand;
+    }
+
+    public void setXpand(boolean xpand) {
+        this.xpand = xpand;
     }
 
     public String getKey() {

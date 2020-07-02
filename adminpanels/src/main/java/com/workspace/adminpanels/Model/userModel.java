@@ -1,9 +1,9 @@
 package com.workspace.adminpanels.Model;
 
 public class userModel {
-    private String name;
-    private String email;
-    private String phone;
+    public String name;
+    public String email;
+    public String phone;
 
     public userModel() {
     }
