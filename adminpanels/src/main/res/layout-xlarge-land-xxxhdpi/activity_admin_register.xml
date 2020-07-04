@@ -12,14 +12,14 @@
         android:layout_marginBottom="24dp"
         android:text="@string/register_1"
         android:textColor="@android:color/white"
-        android:textSize="42sp"
+        android:textSize="46sp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="@+id/cardView" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="320dp"
+        android:layout_width="400dp"
         android:layout_height="350dp"
         android:elevation="6dp"
         app:cardCornerRadius="10dp"
@@ -41,6 +41,7 @@
                     android:id="@+id/txtSurename"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,6 +55,7 @@
                     android:id="@+id/txtUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,6 +70,7 @@
                     android:id="@+id/txtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:inputType="textPassword"
                     android:maxLength="6" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -90,8 +93,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
                     android:clickable="true"
                     android:text="@string/register"
                     android:textSize="20sp"
@@ -101,24 +104,14 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/copyright"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-        android:contentDescription="@string/todo" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="54dp"
-        android:textSize="14sp"
         android:text="@string/copyright_2020_nusalicious"
         android:textColor="@android:color/white"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

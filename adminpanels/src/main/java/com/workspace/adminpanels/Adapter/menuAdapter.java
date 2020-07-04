@@ -81,12 +81,6 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
 //                view.getContext().startActivity(move);
             }
         });
-        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
     @Override
     public int getItemCount() {
@@ -96,7 +90,7 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
     public class myHolder extends RecyclerView.ViewHolder {
         TextView txNama, txDesc, txHarga, txKategori, txKatering, txMinimum, txKet;
         ImageView picPreview;
-        Button btnEdit, btnDelete;
+        Button btnDelete;
         public myHolder(@NonNull View itemView) {
             super(itemView);
             txNama = itemView.findViewById(R.id.textNamaMenu);
@@ -107,7 +101,6 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
             txKategori = itemView.findViewById(R.id.textCat);
             txKatering = itemView.findViewById(R.id.textCatering);
             picPreview = itemView.findViewById(R.id.imgMenuItem2);
-            btnEdit = itemView.findViewById(R.id.btn_edit);
             btnDelete = itemView.findViewById(R.id.btn_delete);
         }
     }

@@ -28,7 +28,7 @@
             <ImageView
                 android:id="@+id/imgPreview"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="300dp"
                 android:layout_marginBottom="10dp"
                 android:cropToPadding="true"
                 android:src="@drawable/nophoto"
@@ -40,7 +40,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="0dp"
                 android:hint="@string/nama_paket">
 
@@ -53,7 +53,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="5dp"
                 android:hint="@string/isi_menu">
 
@@ -66,7 +66,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="5dp"
                 android:hint="@string/harga">
 
@@ -80,7 +80,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="5dp"
                 android:hint="@string/minimal_order">
 
@@ -93,7 +93,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="95dp"
                 android:layout_marginTop="5dp"
                 android:hint="@string/keterangan">
 
@@ -175,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/save_data"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:background="@drawable/button_shape"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

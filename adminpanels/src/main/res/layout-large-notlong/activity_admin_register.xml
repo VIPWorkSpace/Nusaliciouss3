@@ -12,7 +12,7 @@
         android:layout_marginBottom="24dp"
         android:text="@string/register_1"
         android:textColor="@android:color/white"
-        android:textSize="42sp"
+        android:textSize="46sp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="@+id/cardView" />

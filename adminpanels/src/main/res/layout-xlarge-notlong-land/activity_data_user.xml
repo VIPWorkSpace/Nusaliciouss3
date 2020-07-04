@@ -17,10 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
     </androidx.appcompat.widget.Toolbar>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvd_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dToolbar"
-            tools:listitem="@layout/carduser_item" />
+            android:layout_marginStart="120dp"
+            android:layout_marginEnd="120dp"
+            tools:listitem="@layout/carduser_item"
+            android:layout_below="@id/dToolbar"/>
 </RelativeLayout>
