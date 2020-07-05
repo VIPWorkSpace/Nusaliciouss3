@@ -49,7 +49,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/ic_power" />
         </RelativeLayout>
     </LinearLayout>
     <RelativeLayout
@@ -79,7 +79,7 @@
                     android:layout_width="280dp"
                     android:layout_height="200dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginLeft="380dp"
+                    android:layout_marginLeft="350dp"
                     android:layout_marginBottom="5dp"
                     app:cardElevation="8dp"
                     app:cardCornerRadius="10dp">
@@ -132,13 +132,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="@string/tambah_menu"
+                            android:text="@string/data_user"
                             android:textSize="30sp"
                             android:textColor="@android:color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/add_menu"
+                            android:text="@string/list_user"
                             android:textSize="28sp"
                             android:layout_gravity="center"/>
                     </LinearLayout>
@@ -146,7 +146,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="280dp"
                     android:layout_height="200dp"
-                    android:layout_marginStart="380dp"
+                    android:layout_marginStart="350dp"
                     android:layout_marginTop="30dp"
                     app:cardElevation="8dp"
                     app:cardCornerRadius="10dp">
@@ -165,13 +165,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="@string/data_user"
+                            android:text="@string/data_income"
                             android:textSize="30sp"
                             android:textColor="@android:color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/list_user"
+                            android:text="@string/total_income"
                             android:layout_gravity="center"
                             android:textSize="28sp"/>
                     </LinearLayout>

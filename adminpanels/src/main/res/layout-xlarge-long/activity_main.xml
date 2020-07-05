@@ -132,13 +132,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="@string/tambah_menu"
+                            android:text="@string/data_user"
                             android:textSize="30sp"
                             android:textColor="@android:color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/add_menu"
+                            android:text="@string/list_user"
                             android:textSize="28sp"
                             android:layout_gravity="center"/>
                     </LinearLayout>
@@ -165,13 +165,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="@string/data_user"
+                            android:text="@string/data_income"
                             android:textSize="30sp"
                             android:textColor="@android:color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/list_user"
+                            android:text="@string/total_income"
                             android:layout_gravity="center"
                             android:textSize="28sp"/>
                     </LinearLayout>

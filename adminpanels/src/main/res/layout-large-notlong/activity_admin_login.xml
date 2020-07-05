@@ -39,7 +39,7 @@
                 style="@style/outline_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username">
+                android:hint="username">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtUsrname"
                     android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 style="@style/outline_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
+                android:hint="password"
                 app:passwordToggleEnabled="true"
                 app:counterMaxLength="6">
                 <com.google.android.material.textfield.TextInputEditText

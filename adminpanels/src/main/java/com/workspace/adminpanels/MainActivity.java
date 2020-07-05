@@ -19,12 +19,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.workspace.adminpanels.Activity.DataAddMenuActivity;
+import com.workspace.adminpanels.Activity.DataIncome;
 import com.workspace.adminpanels.Activity.DataMenuActivity;
 import com.workspace.adminpanels.Activity.DataTransaksi;
 import com.workspace.adminpanels.Activity.DataUserActivity;
 import com.workspace.adminpanels.Activity.adminLogin;
 import com.workspace.adminpanels.Model.mainModel;
 
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,18 +35,25 @@ public class MainActivity extends AppCompatActivity {
     private TextView mUsername;
     private DatabaseReference dRef;
     ImageView logout;
-    List<mainModel> mainList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mUsername = findViewById(R.id.textID);
-        gridDashboard = findViewById(R.id.gridL);
-        logout = findViewById(R.id.image_admin);
+        init();
         setSingleEvent(gridDashboard);
+        logoutClick();
+        retrieveData();
 
+        String currentDateTime = java.text.DateFormat.getDateInstance().format(new Date());
+        mUsername.setText(currentDateTime);
+    }
+
+    private void retrieveData() {
+    }
+
+    private void logoutClick() {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,24 +63,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        dRef = FirebaseDatabase.getInstance().getReference("Data").child("Admin");
-        dRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    String surenames = ds.getKey();
-                    if (dataSnapshot.exists()){
-                        mUsername.setText(dataSnapshot.child(surenames).child("surename").getValue().toString());
-                    }
-                    Log.d("NAME", surenames);
-                }
-            }
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+    private void init() {
+        mUsername = findViewById(R.id.textID);
+        gridDashboard = findViewById(R.id.gridL);
+        logout = findViewById(R.id.image_admin);
     }
 
     private void setSingleEvent(GridLayout gridDashboard) {
@@ -85,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
                         Intent dataMenu = new Intent(MainActivity.this, DataMenuActivity.class);
                         startActivity(dataMenu);
                     } else if (finals == 1) {
-                        Intent addMenu = new Intent(MainActivity.this, DataAddMenuActivity.class);
-                        startActivity(addMenu);
-                    } else if (finals == 2) {
                         Intent dataUser = new Intent(MainActivity.this, DataUserActivity.class);
                         startActivity(dataUser);
+                    } else if (finals == 2) {
+                        Intent dataIncome = new Intent(MainActivity.this, DataIncome.class);
+                        startActivity(dataIncome);
                     } else if (finals == 3) {
                         Intent transaction = new Intent(MainActivity.this, DataTransaksi.class);
                         startActivity(transaction);

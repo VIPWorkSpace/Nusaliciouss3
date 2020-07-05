@@ -16,7 +16,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
                 android:id="@+id/textID"
                 android:layout_width="wrap_content"
@@ -26,9 +25,9 @@
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="0dp"
-                android:text="@string/welcome"
+                android:text="Nama"
                 android:textColor="@android:color/white"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/dashboard"
@@ -37,10 +36,10 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="25dp"
                 android:text="@string/dashboard"
                 android:textColor="@android:color/white"
-                android:textSize="26dp" />
+                android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_admin"
@@ -49,8 +48,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="30dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:layout_marginEnd="25dp"
+                android:src="@drawable/ic_power" />
         </RelativeLayout>
     </LinearLayout>
     <RelativeLayout
@@ -73,14 +72,14 @@
                 android:id="@+id/gridL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:rowCount="2"
+                android:rowCount="3"
                 android:columnCount="2"
                 android:padding="10dp">
                 <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="135dp"
+                    android:layout_width="135dp"
+                    android:layout_height="120dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginLeft="40dp"
+                    android:layout_marginLeft="55dp"
                     android:layout_marginBottom="5dp"
                     app:cardElevation="8dp"
                     app:cardCornerRadius="10dp">
@@ -100,19 +99,19 @@
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
                             android:text="@string/data_menu"
-                            android:textSize="18dp"
+                            android:textSize="16sp"
                             android:textColor="@android:color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/list_menu"
-                            android:textSize="16dp"
+                            android:textSize="14sp"
                             android:layout_gravity="center"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="135dp"
+                    android:layout_width="135dp"
+                    android:layout_height="120dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="5dp"
@@ -133,21 +132,21 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="@string/tambah_menu"
-                            android:textSize="18dp"
+                            android:text="@string/data_user"
+                            android:textSize="16sp"
                             android:textColor="@android:color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/add_menu"
-                            android:textSize="16dp"
+                            android:text="@string/list_menu"
+                            android:textSize="14sp"
                             android:layout_gravity="center"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="135dp"
-                    android:layout_marginLeft="40dp"
+                    android:layout_width="135dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="55dp"
                     android:layout_marginTop="20dp"
                     app:cardElevation="8dp"
                     app:cardCornerRadius="10dp">
@@ -166,20 +165,20 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
-                            android:text="@string/data_user"
-                            android:textSize="18dp"
+                            android:text="@string/data_income"
+                            android:textSize="16sp"
                             android:textColor="@android:color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/list_user"
+                            android:text="@string/total_income"
                             android:layout_gravity="center"
-                            android:textSize="16dp"/>
+                            android:textSize="14sp"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="135dp"
+                    android:layout_width="135dp"
+                    android:layout_height="120dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
                     app:cardElevation="8dp"
@@ -200,18 +199,17 @@
                             android:layout_marginTop="5dp"
                             android:layout_gravity="center"
                             android:text="@string/transaksi"
-                            android:textSize="18dp"
+                            android:textSize="16sp"
                             android:textColor="@android:color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/transaksi_pesanan"
-                            android:textSize="16dp"
+                            android:textSize="14sp"
                             android:layout_gravity="center"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </GridLayout>
         </RelativeLayout>
     </FrameLayout>
-
 </RelativeLayout>
