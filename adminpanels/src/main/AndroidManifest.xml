@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DataIncome"></activity>
+        <activity android:name=".Activity.editDataMenu"></activity>
+        <activity android:name=".Activity.DataIncome" />
         <activity android:name=".Activity.DataPesanan" />
         <activity android:name=".Activity.adminRegister" />
         <activity android:name=".MainActivity" />

@@ -57,22 +57,6 @@ public class PesananFragment extends Fragment {
                     callMod.key = ds.getKey();
                     mCall.add(callMod);
                 }
-//                dbPesanan.child(callMod.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        for(DataSnapshot dSnap: dataSnapshot.getChildren()){
-//                            callMod = dSnap.getValue(callbackidModel.class);
-//                            callMod.idPesanan = dSnap.getKey();
-//                            mCall.add(callMod);
-//                        }
-
-  //                  }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
 
                 adapters = new pesananAdapter(mCall);
                 rvPesanan.setAdapter(adapters);

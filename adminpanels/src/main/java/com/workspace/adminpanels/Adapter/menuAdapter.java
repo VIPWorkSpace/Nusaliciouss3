@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.workspace.adminpanels.Activity.editDataMenu;
 import com.workspace.adminpanels.MainActivity;
 import com.workspace.adminpanels.Model.menuModel;
 import com.workspace.adminpanels.R;
@@ -49,7 +50,7 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
     @Override
     public void onBindViewHolder(@NonNull final menuAdapter.myHolder holder, final int position) {
         final menuModel menuMod = menulist.get(position);
-        Picasso.get().load(menuMod.getGambar()).noFade().into(holder.picPreview);
+        Picasso.get().load(menuMod.getGambar()).fit().into(holder.picPreview);
         holder.txNama.setText(menuMod.getJudul());
         holder.txDesc.setText(menuMod.getDesc());
         holder.txHarga.setText("Harga : Rp " + menuMod.getHarga().toString());
@@ -57,6 +58,15 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
         holder.txKet.setText(menuMod.getKeterangan().toString());
         holder.txKategori.setText("Kategori : " + menuMod.getKategori());
         holder.txKatering.setText(menuMod.getKatering());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent moveData = new Intent(view.getContext(), editDataMenu.class);
+                moveData.putExtra("judul", menulist.get(position));
+                view.getContext().startActivity(moveData);
+            }
+        });
 
         final String currentJudul = menuMod.getJudul();
         dRef = FirebaseDatabase.getInstance().getReference("Data").child("Menu");

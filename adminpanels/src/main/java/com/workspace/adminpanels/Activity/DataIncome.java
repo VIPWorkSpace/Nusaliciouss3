@@ -3,10 +3,12 @@ package com.workspace.adminpanels.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,14 +38,26 @@ public class DataIncome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_income);
+        //inisiasi
+        init();
+        //RecyclerSettings
+        recyclerSet();
+        //RetrieveData
+        retrieveData();
+        //ToolbarSettings
+        toolbarSet();
+    }
 
-        incomeToolbar = findViewById(R.id.toolbar_data_income);
-        textTotal = findViewById(R.id.text_total_income_all);
-        rvIncome = findViewById(R.id.rvd_income);
-        rvIncome.setHasFixedSize(true);
-        rvIncome.setLayoutManager(new LinearLayoutManager(this));
-        iList = new ArrayList<>();
+    private void toolbarSet() {
+        setSupportActionBar(incomeToolbar);
+        incomeToolbar.setSubtitleTextColor(getResources().getColor(R.color.md_white_1000));
+        getSupportActionBar().setTitle("TOTAL INCOME");
+        getSupportActionBar().setSubtitle("Laporan hasil pendapatan");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
+    private void retrieveData() {
         incomeRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
         incomeRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,17 +76,29 @@ public class DataIncome extends AppCompatActivity {
                     for (int i = 0; i < iList.size(); i++){
                         totalIncome += iList.get(i).getTotal();
                         totalHarga = Integer.toString(totalIncome);
-                        Log.d("TAG", String.valueOf(iList.size()));
                     }
-                    textTotal.setText(totalHarga);
+                    textTotal.setText("Rp " + totalHarga);
                 }
-                }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(DataIncome.this, "Error " + databaseError, Toast.LENGTH_LONG).show();
             }
         });
+    }
 
+    private void recyclerSet() {
+        rvIncome.setHasFixedSize(true);
+        rvIncome.setLayoutManager(new LinearLayoutManager(this));
+        iList = new ArrayList<>();
+        RecyclerView.ItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        rvIncome.addItemDecoration(divider);
+    }
+
+    private void init() {
+        incomeToolbar = findViewById(R.id.toolbar_data_income);
+        textTotal = findViewById(R.id.text_total_income_all);
+        rvIncome = findViewById(R.id.rvd_income);
     }
 }

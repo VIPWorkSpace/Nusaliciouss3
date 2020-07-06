@@ -137,7 +137,6 @@ public class DataAddMenuActivity extends AppCompatActivity {
                                     String kategori = textKategori.getSelectedItem().toString();
                                     String kateriing = spinCatering.getSelectedItem().toString();
 
-
                                     Toast.makeText(DataAddMenuActivity.this, "Save Successful", Toast.LENGTH_LONG).show();
                                     menuAdd = new addmenuModel(textPaket, textDescs, textharga, textMin, textKet,kategori, kateriing, mImage);
                                     String imageId = mAddMenu.push().getKey();
