@@ -11,7 +11,7 @@ public class WaitingDialog {
     Activity activity;
     AlertDialog dialog;
 
-    WaitingDialog(Activity myActivity){
+    public WaitingDialog(Activity myActivity){
         activity = myActivity;
     }
     @SuppressLint("InflateParams")

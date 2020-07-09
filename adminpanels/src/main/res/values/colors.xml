@@ -7,4 +7,5 @@
     <!--Color Gradient-->
     <color name="colorBot">#6dd5ed</color>
     <color name="colorTop">#2193b0</color>
+    <color name="colorWhite">#fff</color>
 </resources>

@@ -12,13 +12,19 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorTop">
     </androidx.appcompat.widget.Toolbar>
+    <CheckBox
+        android:id="@+id/checkboxSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select All"
+        android:layout_marginEnd="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/toolbar_data_pesanan"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvd_data_pesanan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="150dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         tools:listitem="@layout/card_data_pesanan_item"
         android:layout_below="@id/toolbar_data_pesanan" />
 </RelativeLayout>

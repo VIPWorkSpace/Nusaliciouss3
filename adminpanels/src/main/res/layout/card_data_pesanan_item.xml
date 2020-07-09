@@ -9,9 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <TextView
             android:id="@+id/text_key"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -19,6 +22,18 @@
             android:text="Key"
             android:textStyle="bold"
             android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/btn_update_datapesanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_update"
+                android:textColor="@color/colorWhite"
+                android:text="Update"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"/>
+        </RelativeLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -43,11 +58,18 @@
                 android:layout_marginLeft="25dp"
                 android:text="12387984"
                 android:textSize="18sp"/>
+            <ImageView
+                android:id="@+id/btn_arrow_down"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_arrow_down"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
@@ -160,6 +182,26 @@
                 android:text="09.00"
                 android:textSize="18sp"/>
         </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Status "
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/text_status_pesanan"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Sudah Terkirim"
+                    android:textSize="18sp"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -7,14 +7,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,23 +26,27 @@ import com.workspace.adminpanels.Model.dataPesanModel;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataPesanan extends AppCompatActivity {
+
 
     private Toolbar toolbarPesan;
     private RecyclerView rvDataPesan;
     ArrayList<dataPesanModel> pesanModeList;
     dataPesanAdapter adapterPesanan;
     DatabaseReference pesananRef;
+    DatabaseReference mTest;
+    ArrayList<dataPesanModel> selectList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_pesanan);
-
         init();
         retrieveRecycler();
+        setTest();
 
     }
 
@@ -52,7 +56,7 @@ public class DataPesanan extends AppCompatActivity {
         toolbarAction();
     }
     private void toolbarAction(){
-        toolbarPesan.setTitleTextColor(getResources().getColor(R.color.md_white_1000));
+        toolbarPesan.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         setSupportActionBar(toolbarPesan);
         getSupportActionBar().setTitle("PESANAN");
     }
@@ -70,22 +74,20 @@ public class DataPesanan extends AppCompatActivity {
                 for (DataSnapshot dSnap : dataSnapshot.child(key).child("Pesanan").getChildren()){
                     String keys = dSnap.getKey();
                     for (DataSnapshot ds1 : dataSnapshot.child(key).child("Pesanan").child(keys).getChildren()){
-                        String Unix = ds1.getKey();
                         dataPesanModel dataMod= ds1.getValue(dataPesanModel.class);
                         dataMod.key = keys;
                         pesanModeList.add(dataMod);
                     }
                 }
             }
-            adapterPesanan = new dataPesanAdapter(pesanModeList);
-            rvDataPesan.setAdapter(adapterPesanan);
         }
-
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            Toast.makeText(DataPesanan.this, "Failed Load : " + databaseError, Toast.LENGTH_SHORT).show();
         }
     });
+        adapterPesanan = new dataPesanAdapter(pesanModeList, this);
+        rvDataPesan.setAdapter(adapterPesanan);
     }
 
     @Override
@@ -94,7 +96,7 @@ public class DataPesanan extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setQueryHint("Input key");
-        searchView.setBackgroundColor(getResources().getColor(R.color.md_white_1000));
+        searchView.setBackgroundColor(getResources().getColor(R.color.colorWhite));
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -109,5 +111,22 @@ public class DataPesanan extends AppCompatActivity {
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+    private void setTest(){
+        mTest = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
+        mTest.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds:dataSnapshot.getChildren()){
+                    String xtag = ds.getKey();
+                    Log.i("TAG", xtag);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

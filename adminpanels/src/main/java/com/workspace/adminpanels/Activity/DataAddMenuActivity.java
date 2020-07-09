@@ -75,7 +75,7 @@ public class DataAddMenuActivity extends AppCompatActivity {
         textKeterangan = findViewById(R.id.txtKeteranganMenu);
         textMinimal = findViewById(R.id.txtMinimalMenu);
         spinCatering = findViewById(R.id.spin_catering);
-        selectCategory = findViewById(R.id.select_category);
+        //selectCategory = findViewById(R.id.select_category);
         selectCatering = findViewById(R.id.select_catering);
         mProgress = findViewById(R.id.pb_menu);
 

@@ -1,48 +1,35 @@
 package com.workspace.adminpanels.Model;
 
-public class dataPesanModel {
-
-    public String key;
+public class riwayatModel {
+    public String xkey;
     private Integer id;
     private String judul;
-    private String katering;
     private Integer jumlah;
     private Integer total;
     private String tanggal;
     private String waktu;
     private String status;
-    boolean xpand;
 
-    public dataPesanModel() {
+    public riwayatModel() {
     }
 
-    public dataPesanModel(String key, Integer id, String judul, String katering, Integer jumlah, Integer total, String tanggal, String waktu, String status) {
-        this.key = key;
+    public riwayatModel(String xkey, Integer id, String judul, Integer jumlah, Integer total, String tanggal, String waktu, String status) {
+        this.xkey = xkey;
         this.id = id;
         this.judul = judul;
-        this.katering = katering;
         this.jumlah = jumlah;
         this.total = total;
         this.tanggal = tanggal;
         this.waktu = waktu;
         this.status = status;
-        this.xpand = false;
     }
 
-    public boolean isXpand() {
-        return xpand;
+    public String getXkey() {
+        return xkey;
     }
 
-    public void setXpand(boolean xpand) {
-        this.xpand = xpand;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
+    public void setXkey(String xkey) {
+        this.xkey = xkey;
     }
 
     public Integer getId() {
@@ -59,14 +46,6 @@ public class dataPesanModel {
 
     public void setJudul(String judul) {
         this.judul = judul;
-    }
-
-    public String getKatering() {
-        return katering;
-    }
-
-    public void setKatering(String katering) {
-        this.katering = katering;
     }
 
     public Integer getJumlah() {

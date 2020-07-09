@@ -100,7 +100,7 @@ public class DataUserActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setQueryHint("Search . . .");
-        searchView.setBackgroundColor(getResources().getColor(R.color.md_white_1000));
+        searchView.setBackgroundColor(getResources().getColor(R.color.colorWhite));
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

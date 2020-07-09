@@ -42,41 +42,19 @@ public class editDataMenu extends AppCompatActivity {
         init();
         parceableSet();
         saveClick();
+
+        menuList = new ArrayList<>();
     }
 
     private void saveClick() {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                menuList = new ArrayList<>();
-                database = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
-                database.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ds:dataSnapshot.getChildren()){
-                            String value = ds.getKey();
-
-                            String names = textNamaPaket.getText().toString().trim();
-                            String descp = textDescPaket.getText().toString().trim();
-                            Integer harga = Integer.valueOf(textHargaPaket.getText().toString().trim());
-                            Integer minim = Integer.valueOf(textMinPaket.getText().toString().trim());
-
-                            menuModel menumods = new menuModel(names, descp, harga, minim);
-                            database.setValue(menumods);
-
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
             }
         });
     }
 
-    private void parceableSet() {
+    public void parceableSet() {
         Intent intent = getIntent();
         menuModel menuMods = intent.getParcelableExtra("judul");
         final String judul = Objects.requireNonNull(menuMods).getJudul();

@@ -50,7 +50,7 @@ public class DataIncome extends AppCompatActivity {
 
     private void toolbarSet() {
         setSupportActionBar(incomeToolbar);
-        incomeToolbar.setSubtitleTextColor(getResources().getColor(R.color.md_white_1000));
+        incomeToolbar.setSubtitleTextColor(getResources().getColor(R.color.colorWhite));
         getSupportActionBar().setTitle("TOTAL INCOME");
         getSupportActionBar().setSubtitle("Laporan hasil pendapatan");
         getSupportActionBar().setDisplayShowHomeEnabled(true);

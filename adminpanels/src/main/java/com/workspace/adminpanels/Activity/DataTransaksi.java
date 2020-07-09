@@ -29,7 +29,7 @@ public class DataTransaksi extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.toolbarPesanan);
         setSupportActionBar(mToolbar);
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.md_white_1000));
+        mToolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         getSupportActionBar().setTitle("Transaksi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -52,6 +52,9 @@ public class DataTransaksi extends AppCompatActivity {
                         selectFragment = new PembayaranFragment();
                         break;
                     case 1:
+                        selectFragment = new PesananFragment();
+                        break;
+                    default:
                         selectFragment = new PesananFragment();
                         break;
                 }
