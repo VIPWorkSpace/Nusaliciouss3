@@ -94,14 +94,8 @@ public class LoginActivity extends AppCompatActivity {
                                     if (!task.isSuccessful()) {
                                         Toast.makeText(LoginActivity.this, "Maaf Anda Gagal Masuk, Silahkan Ulangi", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        loadingDialog.startLoadingDialog();
-                                        Handler handler = new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                loadingDialog.dismissDialog();
-                                            }
-                                        }, 4500);
+                                        btnLogin.setText("Loading...");
+                                        btnLogin.setEnabled(false);
                                         Intent login = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(login);
                                         finish();

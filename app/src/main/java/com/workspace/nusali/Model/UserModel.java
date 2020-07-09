@@ -5,18 +5,19 @@ public class UserModel {
     String phone;
     String email;
     String password;
-
-
+    Integer saldo;
+    String url_foto;
 
     public UserModel() {
     }
 
-    public UserModel(String name, String phone, String email, String password) {
+    public UserModel(String name, String phone, String email, String password, Integer saldo, String url_foto) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.password = password;
-
+        this.saldo = saldo;
+        this.url_foto = url_foto;
     }
 
     public String getName() {
@@ -51,5 +52,19 @@ public class UserModel {
         this.password = password;
     }
 
+    public Integer getSaldo() {
+        return saldo;
+    }
 
+    public void setSaldo(Integer saldo) {
+        this.saldo = saldo;
+    }
+
+    public String getUrl_foto() {
+        return url_foto;
+    }
+
+    public void setUrl_foto(String url_foto) {
+        this.url_foto = url_foto;
+    }
 }

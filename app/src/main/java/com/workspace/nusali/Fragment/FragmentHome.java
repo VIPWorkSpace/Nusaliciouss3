@@ -1,5 +1,6 @@
 package com.workspace.nusali.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,18 +32,21 @@ import com.workspace.nusali.Activity.DetailMenuActivity;
 import com.workspace.nusali.Activity.Equipment;
 import com.workspace.nusali.Activity.ListMenuActivity;
 import com.workspace.nusali.Activity.PaymentActivity;
+import com.workspace.nusali.Model.UserModel;
 import com.workspace.nusali.R;
+
+import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentHome extends Fragment {
 //    String userIdKey = "";
 //    String userId = "";
-    //    BillingProcessor bp;
+    BillingProcessor bp;
     FirebaseAuth firebaseAuth;
     TextView nameUser, saldoUser;
     DatabaseReference referenceUser;
-
+    UserModel userModel;
     String USER = "";
     private int[] mImages = new int[]{
             R.drawable.spanduk1, R.drawable.spanduk2, R.drawable.spanduk3
@@ -60,6 +64,7 @@ public class FragmentHome extends Fragment {
 
         nameUser = v.findViewById(R.id.name_user);
         saldoUser = v.findViewById(R.id.saldo_user);
+
         getSaldo();
 //        bp = new BillingProcessor(getContext(), "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyEzA2MHjOd3y0ubv7AZf5xZKW9OzszQYDmZbRCFBHV6FQYKkCaMyqP0paT8eck8AJ32BYY8L0jnbIV0DdM3Ejok2nkFRZx7pnNd9v7zwPlRGgN9bFo12GHJ5CTwLRoKz+bjl1tQmdPjbvs9MtzzacQRShN1jZNAt6kBA8OZifHf1Nn+JPZjTOzs1CMlUTSmfruqV6wan8bYNvBC0LMqNqLPjQ/Mve/bpwNnl5/PypjksufxXhUp4vbnVnMZvY8TbfLT8orMXD6j0NUOmYPX4+bNhR0lLF64zLKK4Fy2btYNR/uUfmUA+KtHx1eZEKY9L8XQmIe/zFIVq3iOz5CxbsQIDAQAB", (BillingProcessor.IBillingHandler) getActivity());
 //        bp.initialize();
@@ -125,10 +130,12 @@ public class FragmentHome extends Fragment {
         referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi");
 
         referenceUser.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                nameUser.setText(String.format("Hi, %s", dataSnapshot.child("name").getValue()));
-                saldoUser.setText(String.format("Rp.%s", dataSnapshot.child("saldo").getValue().toString()));
+                UserModel userModel = dataSnapshot.getValue(UserModel.class);
+                saldoUser.setText(userModel.getSaldo().toString());
+                nameUser.setText(userModel.getName());
             }
 
             @Override
@@ -145,45 +152,5 @@ public class FragmentHome extends Fragment {
         USER = firebaseUser.getUid();
     }
 
-//    public void getUsernameLocal() {
-//
-//        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(userIdKey, MODE_PRIVATE);
-//        userId = sharedPreferences.getString("firebaseKey", "");
-//    }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
-//            super.onActivityResult(requestCode, resultCode, data);
-//        }
-//    }
-//
-//        @Override
-//    public void onDestroy() {
-//        if (bp != null) {
-//            bp.release();
-//        }
-//        super.onDestroy();
-//    }
-
-
-//    @Override
-//    public void onProductPurchased(String productId, TransactionDetails details) {
-//
-//    }
-//
-//    @Override
-//    public void onPurchaseHistoryRestored() {
-//
-//    }
-//
-//    @Override
-//    public void onBillingError(int errorCode, Throwable error) {
-//
-//    }
-//
-//    @Override
-//    public void onBillingInitialized() {
-//
-//    }
 }

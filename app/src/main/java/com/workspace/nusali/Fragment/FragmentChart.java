@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -102,27 +103,32 @@ public class FragmentChart extends Fragment {
         referenceChart.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
+                        chartList.add(chartModel);
+                        chartAdapter = new ChartAdapter(getActivity(), chartList);
+                        recyclerViewChart.setAdapter(chartAdapter);
 
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
-                    chartList.add(chartModel);
-                    chartAdapter = new ChartAdapter(getActivity(), chartList);
-                    recyclerViewChart.setAdapter(chartAdapter);
+                    }
+
+                    for (int i = 0; i < chartList.size(); i++) {
+                        totalKeranjang += chartList.get(i).getTotal();
+                        TextView tvTotal = v.findViewById(R.id.tv_total_chart);
+                        totalHarga = Integer.toString(totalKeranjang);
+                        tvTotal.setText(totalHarga);
+                        jumlahPesan += chartList.get(i).getJumlah();
+                        TextView jumlahItem = v.findViewById(R.id.jumlah_pesanan_chart);
+                        jumlahBeli = Integer.toString(jumlahPesan);
+                        jumlahItem.setText(jumlahBeli);
+
+                    }
 
                 }
-
-                for (int i = 0; i < chartList.size(); i++) {
-                    totalKeranjang += chartList.get(i).getTotal();
-                    TextView tvTotal = v.findViewById(R.id.tv_total_chart);
-                    totalHarga = Integer.toString(totalKeranjang);
-                    tvTotal.setText(totalHarga);
-                    jumlahPesan += chartList.get(i).getJumlah();
-                    TextView jumlahItem = v.findViewById(R.id.jumlah_pesanan_chart);
-                    jumlahBeli = Integer.toString(jumlahPesan);
-                    jumlahItem.setText(jumlahBeli);
-
+                else{
+                    Toast.makeText(getContext(), "Keranjang Kosong",
+                            Toast.LENGTH_LONG).show();
                 }
-
 
             }
 
@@ -139,8 +145,6 @@ public class FragmentChart extends Fragment {
             public void onClick(View v) {
 
                 gotoPembayaran();
-
-
             }
         });
         return v;
@@ -156,15 +160,33 @@ public class FragmentChart extends Fragment {
 
 
     public void gotoPembayaran() {
-        Intent intent = new Intent(getContext(), PaymentActivity.class);
-        intent.putExtra("idTrans", idTransaksi);
-        intent.putExtra("pesanan", jumlahBeli);
-        intent.putExtra("total", totalHarga);
-        intent.putExtra("namaPenerima", namaPenerima.getText().toString());
-        intent.putExtra("alamatPenerima", alamatPenerima.getText().toString());
-        intent.putExtra("nomerPenerima", nomerPenerima.getText().toString());
-        intent.putExtra("petunjuk", hint.getText().toString());
-        startActivity(intent);
+        referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER);
+        referenceChart.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    Intent intent = new Intent(getContext(), PaymentActivity.class);
+                    intent.putExtra("idTrans", idTransaksi);
+                    intent.putExtra("pesanan", jumlahBeli);
+                    intent.putExtra("total", totalHarga);
+                    intent.putExtra("namaPenerima", namaPenerima.getText().toString());
+                    intent.putExtra("alamatPenerima", alamatPenerima.getText().toString());
+                    intent.putExtra("nomerPenerima", nomerPenerima.getText().toString());
+                    intent.putExtra("petunjuk", hint.getText().toString());
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(getContext(), "Keranjang Kosong",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void getDataDelivery() {

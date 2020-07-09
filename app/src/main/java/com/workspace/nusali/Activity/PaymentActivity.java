@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,7 +27,7 @@ import com.workspace.nusali.Adapter.ChartAdapter;
 import com.workspace.nusali.MainActivity;
 import com.workspace.nusali.Model.ChartModel;
 import com.workspace.nusali.Model.OrderModel;
-import com.workspace.nusali.Model.PaymentModel;
+import com.workspace.nusali.Model.UserModel;
 import com.workspace.nusali.R;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +39,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     String USER = "";
     FirebaseAuth firebaseAuth;
     ArrayList<ChartModel> chartList;
+
     DatabaseReference referenceOrder, referenceChart, referenceUser;
     DatabaseReference referencePayment;
     Task<Void> referenceRemove;
@@ -44,6 +47,11 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     String idTransaksi, totalHarga, jumlahItem, namaPenerima, alamatPenerima, nomerPenerima, petunjuk;
     RecyclerView recyclerViewChart;
     ChartAdapter chartAdapter;
+    Button btnGpay;
+    Integer userBalance = 0;
+    Integer priceTotal = 0;
+    Integer sisaBalance = 0;
+    String saldo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +74,21 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         jumlahPesanan.setText(jumlahItem);
         totalBayar.setText(totalHarga);
         getSaldoUser();
+        //convert uang dari string
+//         String mSaldo = String.valueOf(saldoUser);
+//         userBalance = Integer.parseInt(mSaldo);
+//         priceTotal = Integer.valueOf(totalHarga);
 //        getDataPembayaran();
         chartList = new ArrayList<>();
-        Button btnGpay = findViewById(R.id.btn_g_pay);
+         btnGpay = findViewById(R.id.btn_g_pay);
         Button mPay = findViewById(R.id.btn_m_pay);
+
+        // inisiasi harga
+        priceTotal = Integer.parseInt(totalHarga);
+
+
+      //  Toast.makeText(PaymentActivity.this, priceTotal.toString(), Toast.LENGTH_SHORT).show();
+
         btnGpay.setOnClickListener(this);
 
         //set Recycler
@@ -88,7 +107,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.btn_g_pay:
                  {
-                    goToPesanan();
+                     goToPesanan();
+                     referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo");
+                     sisaBalance = userBalance - priceTotal;
+                     referenceUser.setValue(sisaBalance);
+                     Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                     startActivity(intent);
                 }
 
                 break;
@@ -104,9 +128,12 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi");
 
         referenceUser.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                saldoUser.setText(String.format("Rp.%s", dataSnapshot.child("saldo").getValue().toString()));
+               UserModel userModel = dataSnapshot.getValue(UserModel.class);
+               saldoUser.setText(userModel.getSaldo().toString());
+               userBalance = userModel.getSaldo();
             }
 
             @Override
@@ -146,76 +173,86 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void goToPesanan() {
+            if( priceTotal > userBalance){
+                Toast.makeText(PaymentActivity.this, "Saldo tidak cukup", Toast.LENGTH_SHORT).show();
+            }
+            else if (priceTotal <= userBalance){
+                referenceOrder = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER);
+                referenceOrder.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final String saveCurrentTime, saveCurrentDate;
 
+                        Calendar calForDate = Calendar.getInstance();
+                        final SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+                        saveCurrentDate = currentDate.format(calForDate.getTime());
 
-        referenceOrder = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER);
-        referenceOrder.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final String saveCurrentTime, saveCurrentDate;
+                        final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+                        saveCurrentTime = currentTime.format(calForDate.getTime());
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
+                            chartList.add(chartModel);
+                            for (int i = 0; i < chartList.size(); i++) {
+                                Integer idMenu = chartList.get(i).getId();
+                                String menuId = String.valueOf(idMenu);
+                                String judul = chartList.get(i).getJudul();
+                                final Integer jumlah = chartList.get(i).getJumlah();
+                                String katering = chartList.get(i).getKatering();
+                                String tanggal = chartList.get(i).getTanggal();
+                                Integer total = chartList.get(i).getTotal();
+                                String waktu = chartList.get(i).getWaktu();
 
-                Calendar calForDate = Calendar.getInstance();
-                final SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-                saveCurrentDate = currentDate.format(calForDate.getTime());
-
-                final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-                saveCurrentTime = currentTime.format(calForDate.getTime());
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
-                    chartList.add(chartModel);
-                    for (int i = 0; i < chartList.size(); i++) {
-                        Integer idMenu = chartList.get(i).getId();
-                        String menuId = String.valueOf(idMenu);
-                        String judul = chartList.get(i).getJudul();
-                        final Integer jumlah = chartList.get(i).getJumlah();
-                        String katering = chartList.get(i).getKatering();
-                        String tanggal = chartList.get(i).getTanggal();
-                        Integer total = chartList.get(i).getTotal();
-                        String waktu = chartList.get(i).getWaktu();
-
-                        OrderModel orderModel = new OrderModel(idMenu, judul, jumlah, katering, tanggal, total, waktu);
-                        referenceOrder.child("Pesanan").child(idTransaksi).child(menuId).setValue(orderModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                referencePayment = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER).child("Pembayaran");
-                                final HashMap<String, Object> paymentMap = new HashMap<>();
-                                Integer idPembayaran = Integer.parseInt(idTransaksi);
-                                paymentMap.put("id", idPembayaran);
-                                paymentMap.put("jumlah", jumlahItem);
-                                paymentMap.put("total", totalHarga);
-                                paymentMap.put("namaPenerima", namaPenerima);
-                                paymentMap.put("alamatPenerima", alamatPenerima);
-                                paymentMap.put("nomerPenerima", nomerPenerima);
-                                paymentMap.put("petunjuk", petunjuk);
-                                String metodeBayar = "Gpay";
-                                paymentMap.put("metodeBayar", metodeBayar);
-                                paymentMap.put("tanggalBayar", saveCurrentDate);
-                                paymentMap.put("jamBayar", saveCurrentTime);
-                                referencePayment.child(idTransaksi).updateChildren(paymentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                OrderModel orderModel = new OrderModel(idMenu, judul, jumlah, katering, tanggal, total, waktu);
+                                referenceOrder.child("Pesanan").child(idTransaksi).child(menuId).setValue(orderModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        referenceRemove = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER).removeValue();
-                                        Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                                        startActivity(intent);
+                                        referencePayment = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER).child("Pembayaran");
+                                        final HashMap<String, Object> paymentMap = new HashMap<>();
+                                        Integer idPembayaran = Integer.parseInt(idTransaksi);
+                                        paymentMap.put("id", idPembayaran);
+                                        paymentMap.put("jumlah", jumlahItem);
+                                        paymentMap.put("total", totalHarga);
+                                        paymentMap.put("namaPenerima", namaPenerima);
+                                        paymentMap.put("alamatPenerima", alamatPenerima);
+                                        paymentMap.put("nomerPenerima", nomerPenerima);
+                                        paymentMap.put("petunjuk", petunjuk);
+                                        String metodeBayar = "Gpay";
+                                        paymentMap.put("metodeBayar", metodeBayar);
+                                        paymentMap.put("tanggalBayar", saveCurrentDate);
+                                        paymentMap.put("jamBayar", saveCurrentTime);
+                                        referencePayment.child(idTransaksi).updateChildren(paymentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                referenceRemove = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER).removeValue();
+
+                                            }
+                                        });
                                     }
                                 });
+
+
+
                             }
-                        });
 
-
-
+                        }
                     }
 
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+            else {
+                Toast.makeText(PaymentActivity.this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
 
     }
+
+
 
 
 

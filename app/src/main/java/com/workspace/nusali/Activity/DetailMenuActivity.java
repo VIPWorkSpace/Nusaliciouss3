@@ -249,7 +249,6 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         }, 1000);
         FragmentDialogDetailMenu fragmentDialogDetailMenu = new FragmentDialogDetailMenu();
         fragmentDialogDetailMenu.show(getSupportFragmentManager(), "Success");
-        Intent intent= new Intent(DetailMenuActivity.this, ListMenuActivity.class);
 
     }
 
