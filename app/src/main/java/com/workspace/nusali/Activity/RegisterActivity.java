@@ -20,9 +20,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.workspace.nusali.Model.PaymentModel;
 import com.workspace.nusali.Model.UserModel;
 import com.workspace.nusali.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -49,20 +52,25 @@ public class RegisterActivity extends AppCompatActivity {
         textPassword = findViewById(R.id.text_password);
         btnRegister = findViewById(R.id.btn_register);
 
+        //load pertama karena bug
+        final String alamatPenerima = "NULL";
+        //load pertama karena bug
 
         referenceRegister = FirebaseDatabase.getInstance().getReference().child("Data").child("User");
         firebaseAuth = FirebaseAuth.getInstance();
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingDialog.startLoadingDialog();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingDialog.dismissDialog();
-                    }
-                }, 4500);
+//                loadingDialog.startLoadingDialog();
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        loadingDialog.dismissDialog();
+//                    }
+//                }, 4500);
+                btnRegister.setEnabled(false);
+                btnRegister.setText("Loading...");
                 final String name = String.valueOf(textName.getText());
                 final String phone = String.valueOf(textPhone.getText());
                 final String email = String.valueOf(textEmail.getText());
@@ -100,7 +108,17 @@ public class RegisterActivity extends AppCompatActivity {
                                         String userId = "";
                                         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                                         userId = currentUser.getUid();
+
                                        FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("id").setValue(menuId);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("alamatPenerima").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("jamBayar").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("jumlah").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("metodeBayar").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("namaPenerima").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("nomerPenerima").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("petunjuk").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("tanggalBayar").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("total").setValue(alamatPenerima);
 
 
 

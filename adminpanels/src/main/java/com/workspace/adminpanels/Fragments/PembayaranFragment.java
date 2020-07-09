@@ -67,18 +67,20 @@ public class PembayaranFragment extends Fragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String mPembayaran = ds.getKey();
+
                         for (DataSnapshot dSnap : dataSnapshot.child(mPembayaran).child("Pembayaran").getChildren()) {
                             String mPembayaran1 = dSnap.getKey();
                             pembayaranModel pembayaranMod = dSnap.getValue(pembayaranModel.class);
                             pembayaranList.add(pembayaranMod);
                         }
-                        adapter = new pembayaranAdapter(pembayaranList, getContext());
+                        adapter = new pembayaranAdapter(pembayaranList);
                         rvPembayaran.setAdapter(adapter);
                     }
-                }
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

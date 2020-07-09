@@ -226,36 +226,6 @@ public class FragmentChart extends Fragment {
 //
 
 
-    public void goToPayment() {
-
-        final String saveCurrentTime, saveCurrentDate;
-
-        Calendar calForDate = Calendar.getInstance();
-        final SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-        saveCurrentDate = currentDate.format(calForDate.getTime());
-
-        final SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-        saveCurrentTime = currentTime.format(calForDate.getTime());
-
-        referencePay = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(USER).child("Pembayaran");
-        referencePay.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Integer jumlahPax = Integer.parseInt(jumlahBeli);
-                Integer totalBayar = Integer.parseInt(totalHarga);
-                Integer idTrans = Integer.parseInt(idTransaksi);
-                PaymentModel payModel = new PaymentModel(idTrans, jumlahPax, totalBayar, "");
-                referencePay.getRef().child(idTransaksi).setValue(payModel);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 
     public void goToPesanan() {
         final String saveCurrentTime, saveCurrentDate;

@@ -108,11 +108,8 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_g_pay:
                  {
                      goToPesanan();
-                     referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo");
-                     sisaBalance = userBalance - priceTotal;
-                     referenceUser.setValue(sisaBalance);
-                     Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
-                     startActivity(intent);
+
+
                 }
 
                 break;
@@ -226,6 +223,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
                                                 referenceRemove = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER).removeValue();
 
                                             }
+
                                         });
                                     }
                                 });
@@ -242,12 +240,15 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 
                     }
                 });
-
+                referenceUser = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo");
+                sisaBalance = userBalance - priceTotal;
+                referenceUser.setValue(sisaBalance);
+                Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                startActivity(intent);
             }
             else {
                 Toast.makeText(PaymentActivity.this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
             }
-
 
 
     }
