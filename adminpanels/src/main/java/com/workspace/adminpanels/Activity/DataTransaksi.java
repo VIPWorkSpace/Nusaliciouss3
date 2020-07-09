@@ -12,6 +12,7 @@ import android.widget.Spinner;
 
 import com.workspace.adminpanels.Fragments.PembayaranFragment;
 import com.workspace.adminpanels.Fragments.PesananFragment;
+import com.workspace.adminpanels.Fragments.RiwayatFragment;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class DataTransaksi extends AppCompatActivity {
     }
 
     private void mTransaction() {
-        String[] mList = {"PEMBAYARAN","PESANAN"};
+        String[] mList = {"PEMBAYARAN","PESANAN", "RIWAYAT"};
         ArrayList<String> aL = new ArrayList<>(Arrays.asList(mList));
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.spin_layout, aL);
         spinner.setAdapter(arrayAdapter);
@@ -54,8 +55,8 @@ public class DataTransaksi extends AppCompatActivity {
                     case 1:
                         selectFragment = new PesananFragment();
                         break;
-                    default:
-                        selectFragment = new PesananFragment();
+                    case 2 :
+                        selectFragment = new RiwayatFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.contentLayout, selectFragment).commit();
@@ -63,7 +64,6 @@ public class DataTransaksi extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
             });
     }

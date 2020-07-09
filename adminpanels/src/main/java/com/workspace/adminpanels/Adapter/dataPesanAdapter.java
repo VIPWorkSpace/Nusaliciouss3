@@ -40,9 +40,6 @@ import java.util.List;
 
 public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHolder> implements Filterable {
     DatabaseReference riwayatRef;
-    String userId = "";
-    FirebaseAuth firebaseAuth;
-    ArrayList<dataPesanModel> listmod;
     ArrayList<dataPesanModel>modelList;
     ArrayList<dataPesanModel> modelFull;
     Context context;
@@ -51,13 +48,6 @@ public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHo
         this.context = c;
         this.modelList = modelList;
         this.modelFull = new ArrayList<>(modelList);
-    }
-
-    public FirebaseAuth getFirebaseAuth() {
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        userId = firebaseUser.getUid();
-        return firebaseAuth;
     }
 
     @NonNull
@@ -87,9 +77,9 @@ public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHo
         holder.imgDown.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            dataPesanModel dataMods  = modelList.get(position);
-            dataMods.setXpand(!dataMods.isXpand());
-            notifyItemChanged(position);
+                dataPesanModel dataMods  = modelList.get(position);
+                dataMods.setXpand(!dataMods.isXpand());
+                notifyItemChanged(position);
         }
         });
 
@@ -185,9 +175,9 @@ public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHo
             if (charSequence == null || charSequence.length() ==0 ){
                 filterList.addAll(modelFull);
             }else {
-                String filterPatern = charSequence.toString().toLowerCase().trim();
+                String FilterType = charSequence.toString().toLowerCase().trim();
                 for (dataPesanModel item : modelFull){
-                    if (item.getId().toString().contains(filterPatern) || item.getKey().toString().contains(filterPatern)){
+                    if (item.getId().toString().contains(FilterType) || item.getKey().contains(FilterType)){
                         filterList.add(item);
                     }
                 }

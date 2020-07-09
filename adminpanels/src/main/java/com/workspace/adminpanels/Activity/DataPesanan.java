@@ -36,8 +36,6 @@ public class DataPesanan extends AppCompatActivity {
     ArrayList<dataPesanModel> pesanModeList;
     dataPesanAdapter adapterPesanan;
     DatabaseReference pesananRef;
-    DatabaseReference mTest;
-    ArrayList<dataPesanModel> selectList;
 
 
     @Override
@@ -46,7 +44,6 @@ public class DataPesanan extends AppCompatActivity {
         setContentView(R.layout.activity_data_pesanan);
         init();
         retrieveRecycler();
-        setTest();
 
     }
 
@@ -90,43 +87,25 @@ public class DataPesanan extends AppCompatActivity {
         rvDataPesan.setAdapter(adapterPesanan);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setQueryHint("Input key");
-        searchView.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapterPesanan.getFilter().filter(newText);
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
-    private void setTest(){
-        mTest = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
-        mTest.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds:dataSnapshot.getChildren()){
-                    String xtag = ds.getKey();
-                    Log.i("TAG", xtag);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu, menu);
+//        MenuItem item = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) item.getActionView();
+//        searchView.setQueryHint("Input key");
+//        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                adapterPesanan.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//        return super.onCreateOptionsMenu(menu);
+//    }
 }
