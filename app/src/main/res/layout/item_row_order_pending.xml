@@ -16,80 +16,119 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/img_item_photo"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="4dp"
-            android:contentDescription="@string/todo"
-            android:scaleType="centerCrop"
-            android:src="@drawable/loading" />
-
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_no_order"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="4dp"
-            android:layout_toEndOf="@id/img_item_photo"
-            android:text="@string/title_menu"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
-
-
-        <TextView
-            android:id="@+id/quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_title"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@id/img_item_photo"
-            android:textColor="@android:color/black"
-            android:text="@string/_100_pcs" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/quantity"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@android:color/black"
-            android:layout_toEndOf="@id/img_item_photo"
-            android:text="Dalam proses"
+            android:layout_height="25dp"
+            android:text="ID PESANAN : "
+            android:background="@color/Pink"
+            android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
-
-
-
-        <LinearLayout
-            android:id="@+id/layout_button"
+        <TextView
+            android:id="@+id/nomer_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="12dp"
-            android:layout_toEndOf="@id/img_item_photo"
-            android:orientation="horizontal">
+            android:gravity="right"
+            android:text="123220"
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/title_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/title_menu"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/quantity_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_below="@id/tv_no_order"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            android:text="@string/_100_pcs"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/date_delivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_order"
+            android:text="@string/date"/>
+
+        <TextView
+            android:id="@+id/time_delivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_below="@id/title_order"
+            android:layout_marginTop="2dp"
+            android:text="@string/waktu"/>
+
+        <TextView
+            android:id="@+id/tv_rp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_delivery"
+            android:text="Harga :"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/price_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_below="@id/time_delivery"
+            android:layout_toEndOf="@id/tv_rp"
+            android:text="@string/harga"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Status Pengiriman : "
+            android:textStyle="bold"
+            android:layout_below="@id/tv_rp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/delivery_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_below="@id/tv_rp"
+            android:text="Dalam Proses"
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+
+
 
 
             <Button
                 android:id="@+id/btn_buy"
                 android:background="@drawable/bg_btn_orange"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:textColor="@color/Orange"
                 android:text="Selesai"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tv_status"
                 android:textSize="12sp"
                 tools:ignore="HardcodedText" />
-        </LinearLayout>
+
     </RelativeLayout>
 
 

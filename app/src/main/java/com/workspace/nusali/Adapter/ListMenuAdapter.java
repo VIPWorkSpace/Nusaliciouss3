@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,14 +20,17 @@ import com.workspace.nusali.Model.ListMenuModel;
 import com.workspace.nusali.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MyViewHolder> {
+public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MyViewHolder>implements Filterable {
     Context context;
     ArrayList<ListMenuModel> menuList;
+    private List<ListMenuModel> listMenuFull;
 
     public ListMenuAdapter(Context context, ArrayList<ListMenuModel> menuList) {
         this.context = context;
         this.menuList = menuList;
+        listMenuFull = new ArrayList<>(menuList);
     }
 
     @NonNull
@@ -57,6 +62,8 @@ public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MyView
         return menuList.size();
     }
 
+
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView fotoMenu;
         TextView judulMenu, hargaMenu;
@@ -68,4 +75,37 @@ public class ListMenuAdapter extends RecyclerView.Adapter<ListMenuAdapter.MyView
 
         }
     }
+    @Override
+    public Filter getFilter() {
+        return menuFilter;
+    }
+
+    private Filter menuFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<ListMenuModel>filterMenu = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0)
+                filterMenu.addAll(listMenuFull);
+            else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for(ListMenuModel item : listMenuFull){
+                    if (item.getJudul().toLowerCase().contains(filterPattern)){
+                        filterMenu.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filterMenu;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+                menuList.clear();
+                menuList.addAll((List)results.values);
+                notifyDataSetChanged();
+        }
+    };
 }

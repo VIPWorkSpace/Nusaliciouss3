@@ -81,6 +81,7 @@ public class FragmentHome extends Fragment {
         //Set GridLayout
         homeGrid = v.findViewById(R.id.homeGrid);
         setSingleEvent(homeGrid);
+
         //Return
         return v;
     }
@@ -88,7 +89,7 @@ public class FragmentHome extends Fragment {
     //Gridlayout Click Listener
     private void setSingleEvent(GridLayout homeGrid) {
         for (int i = 0; i < homeGrid.getChildCount(); i++) {
-            CardView mCardView = (CardView) homeGrid.getChildAt(i);
+            final CardView mCardView = (CardView) homeGrid.getChildAt(i);
             final int finall = i;
             mCardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,23 +103,23 @@ public class FragmentHome extends Fragment {
                         intent.putExtra("jenis_menu", "Prasmanan");
                         startActivity(intent);
                     } else if (finall == 2) {
-                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
-                        startActivity(intent);
+                       Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
+                       mCardView.setEnabled(false);
                     } else if (finall == 3) {
-                        Intent intent = new Intent(getContext(), PaymentActivity.class);
-                        startActivity(intent);
+                        Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
+                        mCardView.setEnabled(false);
                     } else if (finall == 4) {
-                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
-                        startActivity(intent);
+                        Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
+                        mCardView.setEnabled(false);
                     } else if (finall == 5) {
-                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
-                        startActivity(intent);
+                        Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
+                        mCardView.setEnabled(false);
                     } else if (finall == 6) {
-                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
-                        startActivity(intent);
+                        Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
+                        mCardView.setEnabled(false);
                     } else if (finall == 7) {
-                        Intent intent = new Intent(getContext(), Equipment.class);
-                        startActivity(intent);
+                        Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
+                        mCardView.setEnabled(false);
                     }
                 }
             });
@@ -134,8 +135,8 @@ public class FragmentHome extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                saldoUser.setText(userModel.getSaldo().toString());
-                nameUser.setText(userModel.getName());
+                saldoUser.setText("Rp."+userModel.getSaldo().toString());
+                nameUser.setText("Hi, "+userModel.getName());
             }
 
             @Override

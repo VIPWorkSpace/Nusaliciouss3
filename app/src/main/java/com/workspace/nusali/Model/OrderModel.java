@@ -1,7 +1,7 @@
 package com.workspace.nusali.Model;
 
 public class OrderModel {
-    Integer id;
+   public Integer id;
     String judul;
     Integer jumlah;
     String katering;
@@ -9,9 +9,8 @@ public class OrderModel {
     Integer total;
     String waktu;
 
-
-
-
+    public OrderModel() {
+    }
 
     public OrderModel(Integer id, String judul, Integer jumlah, String katering, String tanggal, Integer total, String waktu) {
         this.id = id;

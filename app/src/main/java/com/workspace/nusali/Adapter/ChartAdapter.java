@@ -81,7 +81,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
                        referenceDelete = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER).child(String.valueOf(chartModel.getId())).removeValue();
                         Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);
-                       Toast.makeText(context, "Removed " +referenceDelete, Toast.LENGTH_SHORT).show();
+                       Toast.makeText(context, "Removed  " +chartModel.getJudul(), Toast.LENGTH_SHORT).show();
                    }
 
                 });

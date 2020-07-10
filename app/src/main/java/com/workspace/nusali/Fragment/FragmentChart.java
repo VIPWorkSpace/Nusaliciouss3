@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import com.workspace.nusali.Activity.DeliveryLocationActivity;
+import com.workspace.nusali.Activity.ListMenuActivity;
 import com.workspace.nusali.Activity.PaymentActivity;
 import com.workspace.nusali.Adapter.ChartAdapter;
 import com.workspace.nusali.Model.ChartModel;
@@ -46,7 +50,7 @@ import java.util.Random;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class FragmentChart extends Fragment {
+public class FragmentChart extends Fragment implements View.OnClickListener {
     TextView namaPenerima, alamatPenerima, nomerPenerima, hint, ubahAlamat;
     DatabaseReference referenceChart, referenceDataDelivery;
     DatabaseReference referenceOrder;
@@ -63,7 +67,10 @@ public class FragmentChart extends Fragment {
     String totalHarga;
     String jumlahBeli;
     String USER = "";
-
+    private LinearLayout intro;
+    ScrollView frameChart1;
+    CardView frameChart2;
+    Button btnBuy;
     public FragmentChart() {
         // Required empty public constructor
     }
@@ -77,22 +84,27 @@ public class FragmentChart extends Fragment {
         getUserID();
 
         //set button
-        Button btnProses = v.findViewById(R.id.btn_proses_chart);
+        intro = v.findViewById(R.id.intro);
+        frameChart1 = v.findViewById(R.id.frame_chart1);
+        frameChart2 = v.findViewById(R.id.frame_chart2);
+        final Button btnProses = v.findViewById(R.id.btn_proses_chart);
         namaPenerima = v.findViewById(R.id.nama_penerima);
         alamatPenerima = v.findViewById(R.id.alamat_penerima);
         nomerPenerima = v.findViewById(R.id.nomer_penerima);
         hint = v.findViewById(R.id.hint);
         ubahAlamat = v.findViewById(R.id.change_location);
+        btnBuy = v.findViewById(R.id.btnBuy);
+        frameChart1.setVisibility(View.GONE);
+        frameChart2.setVisibility(View.GONE);
+        btnProses.setVisibility(View.GONE);
+        intro.setVisibility(View.VISIBLE);
         getDataDelivery();
         //ganti alamat
-        ubahAlamat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), DeliveryLocationActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        ubahAlamat.setOnClickListener(this);
+        //PROSES PEMBAYARAN
+        btnProses.setOnClickListener(this);
+        //ketika fragment kosong
+        btnBuy.setOnClickListener(this);
         //set Recycler
         recyclerViewChart = v.findViewById(R.id.CheckoutRecycler);
         recyclerViewChart.setHasFixedSize(true);
@@ -104,6 +116,10 @@ public class FragmentChart extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
+                    intro.setVisibility(View.GONE);
+                    frameChart1.setVisibility(View.VISIBLE);
+                    frameChart2.setVisibility(View.VISIBLE);
+                    btnProses.setVisibility(View.VISIBLE);
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
                         chartList.add(chartModel);
@@ -126,8 +142,11 @@ public class FragmentChart extends Fragment {
 
                 }
                 else{
-                    Toast.makeText(getContext(), "Keranjang Kosong",
-                            Toast.LENGTH_LONG).show();
+                    frameChart1.setVisibility(View.GONE);
+                    frameChart2.setVisibility(View.GONE);
+                    btnProses.setVisibility(View.GONE);
+                    intro.setVisibility(View.VISIBLE);
+
                 }
 
             }
@@ -139,91 +158,97 @@ public class FragmentChart extends Fragment {
         });
 
 
-        //PROSES PEMBAYARAN
-        btnProses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                gotoPembayaran();
-            }
-        });
-        return v;
+                return v;
 
-    }
+        }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
 
 
-    }
+        }
 
 
-    public void gotoPembayaran() {
-        referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER);
-        referenceChart.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    Intent intent = new Intent(getContext(), PaymentActivity.class);
-                    intent.putExtra("idTrans", idTransaksi);
-                    intent.putExtra("pesanan", jumlahBeli);
-                    intent.putExtra("total", totalHarga);
-                    intent.putExtra("namaPenerima", namaPenerima.getText().toString());
-                    intent.putExtra("alamatPenerima", alamatPenerima.getText().toString());
-                    intent.putExtra("nomerPenerima", nomerPenerima.getText().toString());
-                    intent.putExtra("petunjuk", hint.getText().toString());
+        public void gotoPembayaran() {
+            referenceChart = FirebaseDatabase.getInstance().getReference("Data").child("Keranjang").child(USER);
+            referenceChart.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        Intent intent = new Intent(getContext(), PaymentActivity.class);
+                        intent.putExtra("idTrans", idTransaksi);
+                        intent.putExtra("pesanan", jumlahBeli);
+                        intent.putExtra("total", totalHarga);
+                        intent.putExtra("namaPenerima", namaPenerima.getText().toString());
+                        intent.putExtra("alamatPenerima", alamatPenerima.getText().toString());
+                        intent.putExtra("nomerPenerima", nomerPenerima.getText().toString());
+                        intent.putExtra("petunjuk", hint.getText().toString());
+                        startActivity(intent);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+
+        public void getDataDelivery() {
+            //load data yang ada
+            referenceDataDelivery = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pengiriman");
+            referenceDataDelivery.addValueEventListener(new ValueEventListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        namaPenerima.setText(dataSnapshot.child("namaPenerima").getValue().toString());
+                        nomerPenerima.setText(dataSnapshot.child("nomerPenerima").getValue().toString());
+                        alamatPenerima.setText(dataSnapshot.child("alamatPenerima").getValue().toString());
+                        hint.setText(dataSnapshot.child("petunjuk").getValue().toString());
+                    } else {
+                        namaPenerima.setText("wegy");
+                        nomerPenerima.setText("087788661921");
+                        alamatPenerima.setText("jl hj naim");
+                        hint.setText("no 32");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        public void getUserID(){
+            firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            USER = firebaseUser.getUid();
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btnBuy:
+                    Intent intent = new Intent(getContext(), ListMenuActivity.class);
+                    intent.putExtra("jenis_menu", "Nasi Kotak");
                     startActivity(intent);
-                }
-                else{
-                    Toast.makeText(getContext(), "Keranjang Kosong",
-                            Toast.LENGTH_LONG).show();
-                }
+                    break;
+                case R.id.change_location:
+                    Intent intent1 = new Intent(getContext(), DeliveryLocationActivity.class);
+                    startActivity(intent1);
+                    break;
+                case R.id.btn_proses_chart:
+                    gotoPembayaran();
+                    break;
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
-
-    public void getDataDelivery() {
-        //load data yang ada
-        referenceDataDelivery = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pengiriman");
-        referenceDataDelivery.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    namaPenerima.setText(dataSnapshot.child("namaPenerima").getValue().toString());
-                    nomerPenerima.setText(dataSnapshot.child("nomerPenerima").getValue().toString());
-                    alamatPenerima.setText(dataSnapshot.child("alamatPenerima").getValue().toString());
-                    hint.setText(dataSnapshot.child("petunjuk").getValue().toString());
-                } else {
-                    namaPenerima.setText("wegy");
-                    nomerPenerima.setText("087788661921");
-                    alamatPenerima.setText("jl hj naim");
-                    hint.setText("no 32");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void getUserID(){
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        USER = firebaseUser.getUid();
-    }
-
-
-//
 
 
 
@@ -301,6 +326,7 @@ public class FragmentChart extends Fragment {
         });
 
     }
+
 //
 //    public void getUsernameLocal() {
 ////        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(userIdKey, MODE_PRIVATE);

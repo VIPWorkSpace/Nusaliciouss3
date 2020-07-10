@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,7 +50,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     Integer userBalance = 0;
     Integer priceTotal = 0;
     Integer sisaBalance = 0;
-    String saldo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,11 +73,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         jumlahPesanan.setText(jumlahItem);
         totalBayar.setText(totalHarga);
         getSaldoUser();
-        //convert uang dari string
-//         String mSaldo = String.valueOf(saldoUser);
-//         userBalance = Integer.parseInt(mSaldo);
-//         priceTotal = Integer.valueOf(totalHarga);
-//        getDataPembayaran();
+
         chartList = new ArrayList<>();
          btnGpay = findViewById(R.id.btn_g_pay);
         Button mPay = findViewById(R.id.btn_m_pay);
@@ -87,7 +82,6 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         priceTotal = Integer.parseInt(totalHarga);
 
 
-      //  Toast.makeText(PaymentActivity.this, priceTotal.toString(), Toast.LENGTH_SHORT).show();
 
         btnGpay.setOnClickListener(this);
 
@@ -108,14 +102,11 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btn_g_pay:
                  {
                      goToPesanan();
-
-
                 }
-
                 break;
 
             case R.id.btn_m_pay:
-
+                Toast.makeText(PaymentActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -268,23 +259,23 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
 //        userId = sharedPreferences.getString("firebaseKey", "");
 //
 //    }
-    public void getDataPembayaran() {
-
-        referencePayment = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(USER).child("Pembayaran").child(idTransaksi);
-        referencePayment.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                jumlahPesanan.setText(dataSnapshot.child("jumlah").getValue().toString());
-                totalTagihan.setText(dataSnapshot.child("total").getValue().toString());
-                totalBayar.setText(dataSnapshot.child("total").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
+//    public void getDataPembayaran() {
+//
+//        referencePayment = FirebaseDatabase.getInstance().getReference().child("Transaksi").child(USER).child("Pembayaran").child(idTransaksi);
+//        referencePayment.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                jumlahPesanan.setText(dataSnapshot.child("jumlah").getValue().toString());
+//                totalTagihan.setText(dataSnapshot.child("total").getValue().toString());
+//                totalBayar.setText(dataSnapshot.child("total").getValue().toString());
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//
+//    }
 }

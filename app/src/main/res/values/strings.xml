@@ -77,4 +77,10 @@
     <string name="profile_detail">Profile Detail</string>
     <string name="number_phone">Nomer Handphone</string>
     <string name="hint">pager hijau ada boneka gundam</string>
+    <string name="search">cari menu</string>
+    <string name="empty">Keranjang Kosong, Yuk Pesan</string>
+    <string name="order_empty">Belum ada pesanan, Yuk Pesan !</string>
+    <string name="riwayat_order">Belum ada riwayat sobat Nusa</string>
+    <string name="waktu">Waktu Pengiriman*</string>
+    <string name="harga">2550000</string>
 </resources>

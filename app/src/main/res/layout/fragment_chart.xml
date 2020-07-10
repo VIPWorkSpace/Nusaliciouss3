@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#EBEBEB"
+    android:background="@color/White"
     android:orientation="vertical"
     tools:context=".Fragment.FragmentChart">
 
@@ -13,7 +13,7 @@
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/White"
+        android:background="@color/Red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,12 +25,59 @@
             android:text="@string/chart"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/intro"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintTop_toBottomOf="@+id/view1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="65dp"
+            android:src="@drawable/shopingchart"
+            tools:ignore="ContentDescription,MissingConstraints"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <Button
+            android:id="@+id/btnBuy"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="10dp"
+            android:text="Pesan"
+            android:textColor="@color/White"
+            android:fontFamily="@font/reg"
+            android:background="@drawable/bg_btn_red"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
     <ScrollView
+        android:id="@+id/frame_chart1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="55dp"
@@ -265,6 +312,8 @@
     </ScrollView>
 
     <androidx.cardview.widget.CardView
+        android:visibility="gone"
+        android:id="@+id/frame_chart2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/Pink"
@@ -377,6 +426,7 @@
 
     <Button
         android:id="@+id/btn_proses_chart"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Red"

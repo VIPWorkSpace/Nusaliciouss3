@@ -18,8 +18,8 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"
             android:layout_width="match_parent"
-            android:background="@color/White"
-            app:tabTextColor="@android:color/black"
+            android:background="@color/Red"
+            app:tabTextColor="@android:color/white"
             android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
