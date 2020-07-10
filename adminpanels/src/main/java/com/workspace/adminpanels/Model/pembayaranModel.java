@@ -11,12 +11,13 @@ public class pembayaranModel {
     String jumlah;
     String total;
     String metodeBayar;
+    String  tanggalBayar;
     boolean expanded;
 
     public pembayaranModel() {
     }
 
-    public pembayaranModel(Integer id, String namaPenerima, String nomerPenerima, String alamatPenerima, String petunjuk, String jumlah, String total, String metodeBayar) {
+    public pembayaranModel(Integer id, String namaPenerima, String nomerPenerima, String alamatPenerima, String petunjuk, String jumlah, String total, String metodeBayar, String tanggalBayar) {
         this.id = id;
         this.namaPenerima = namaPenerima;
         this.nomerPenerima = nomerPenerima;
@@ -25,6 +26,7 @@ public class pembayaranModel {
         this.jumlah = jumlah;
         this.total = total;
         this.metodeBayar = metodeBayar;
+        this.tanggalBayar = tanggalBayar;
         this.expanded = false;
     }
 
@@ -98,5 +100,13 @@ public class pembayaranModel {
 
     public void setMetodeBayar(String metodeBayar) {
         this.metodeBayar = metodeBayar;
+    }
+
+    public String getTanggalBayar() {
+        return tanggalBayar;
+    }
+
+    public void setTanggalBayar(String tanggalBayar) {
+        this.tanggalBayar = tanggalBayar;
     }
 }
