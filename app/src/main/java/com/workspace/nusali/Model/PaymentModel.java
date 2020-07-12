@@ -9,7 +9,7 @@ public class PaymentModel {
     String alamatPenerima;
     String petunjuk;
     String jumlah;
-    String total;
+    Integer total;
     String metodeBayar;
     String saveCurrentDate;
     String saveCurrentTime;
@@ -20,7 +20,7 @@ public class PaymentModel {
 
 
 
-    public PaymentModel(Integer id, String jumlah, String total, String namaPenerima, String alamatPenerima, String nomerPenerima, String petunjuk, String metodeBayar, String saveCurrentDate, String saveCurrentTime) {
+    public PaymentModel(Integer id, String jumlah, Integer total, String namaPenerima, String alamatPenerima, String nomerPenerima, String petunjuk, String metodeBayar, String saveCurrentDate, String saveCurrentTime) {
         this.id = id;
         this.namaPenerima = namaPenerima;
         this.nomerPenerima = nomerPenerima;
@@ -90,11 +90,11 @@ public class PaymentModel {
         this.jumlah = jumlah;
     }
 
-    public String getTotal() {
+    public Integer getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Integer total) {
         this.total = total;
     }
 

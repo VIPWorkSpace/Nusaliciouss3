@@ -82,6 +82,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.MyViewHolder
                         Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);
                        Toast.makeText(context, "Removed  " +chartModel.getJudul(), Toast.LENGTH_SHORT).show();
+
                    }
 
                 });

@@ -509,26 +509,26 @@
                             android:layout_width="150dp"
                             android:layout_height="65dp"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/spanduk1"
+                            android:src="@drawable/sushi"
                             android:contentDescription="@string/todo" />
                         <ImageView
                             android:layout_width="150dp"
                             android:layout_height="65dp"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/spanduk2"
+                            android:src="@drawable/bento"
                             android:contentDescription="@string/todo"/>
                         <ImageView
                             android:layout_width="150dp"
                             android:layout_height="65dp"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/spanduk3"
+                            android:src="@drawable/japanese"
                             android:contentDescription="@string/todo"/>
 
                         <ImageView
                             android:layout_width="150dp"
                             android:layout_height="65dp"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/spanduk2"
+                            android:src="@drawable/sushi"
                             android:contentDescription="@string/todo"/>
                     </LinearLayout>
                 </HorizontalScrollView>
