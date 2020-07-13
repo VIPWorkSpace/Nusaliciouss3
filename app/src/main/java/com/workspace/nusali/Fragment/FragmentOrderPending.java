@@ -34,9 +34,10 @@ public class FragmentOrderPending extends Fragment implements View.OnClickListen
     OrderPendingAdapter orderAdapter;
     RecyclerView recyclerOrder;
     DatabaseReference referenceOrder;
-    ArrayList<OrderModel>orderList;
+    ArrayList<OrderModel> orderList;
     FirebaseAuth firebaseAuth;
     String USER = "";
+
     public FragmentOrderPending() {
         // Required empty public constructor
     }
@@ -49,8 +50,8 @@ public class FragmentOrderPending extends Fragment implements View.OnClickListen
         getUserID();
         intro = v.findViewById(R.id.intro);
         Button btnBuy = v.findViewById(R.id.btnBuyOrder);
-         recyclerOrder = v.findViewById(R.id.recycler_list_order);
-         orderList = new ArrayList<>();
+        recyclerOrder = v.findViewById(R.id.recycler_list_order);
+        orderList = new ArrayList<>();
         recyclerOrder.setHasFixedSize(true);
         recyclerOrder.setLayoutManager(new LinearLayoutManager(getContext()));
         btnBuy.setOnClickListener(this);
@@ -58,12 +59,13 @@ public class FragmentOrderPending extends Fragment implements View.OnClickListen
         loadData();
         return v;
     }
-    public void loadData(){
+
+    public void loadData() {
         referenceOrder = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER).child("Pesanan");
         referenceOrder.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     intro.setVisibility(View.GONE);
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String key = ds.getKey();
@@ -74,8 +76,7 @@ public class FragmentOrderPending extends Fragment implements View.OnClickListen
                             recyclerOrder.setAdapter(orderAdapter);
                         }
                     }
-                }
-                else{
+                } else {
                     recyclerOrder.setVisibility(View.GONE);
                     intro.setVisibility(View.VISIBLE);
                 }
@@ -99,7 +100,8 @@ public class FragmentOrderPending extends Fragment implements View.OnClickListen
                 break;
         }
     }
-    public void getUserID(){
+
+    public void getUserID() {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         USER = firebaseUser.getUid();

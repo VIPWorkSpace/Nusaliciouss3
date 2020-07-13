@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,16 +34,27 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull PaymentAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PaymentAdapter.MyViewHolder holder, final int position) {
         final PaymentModel paymentModel = payList.get(position);
         holder.idOrder.setText(paymentModel.getId().toString());
         holder.nameUser.setText(paymentModel.getNamaPenerima());
-        holder.phoneUser.setText(paymentModel.getnomerPenerima());
+        holder.phoneUser.setText(paymentModel.getNomerPenerima());
         holder.jumlahPesan.setText(paymentModel.getJumlah());
         holder.totalHarga.setText(paymentModel.getTotal().toString());
         holder.metode.setText(paymentModel.getMetodeBayar());
         holder.hint.setText(paymentModel.getPetunjuk());
         holder.alamat.setText(paymentModel.getAlamatPenerima());
+
+        boolean isExpanded = payList.get(position).isExpanded();
+        holder.expandLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paymentModel.setExpanded(!paymentModel.isExpanded());
+                notifyItemChanged(position);
+            }
+        });
     }
 
     @Override
@@ -52,6 +64,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView idOrder, nameUser, phoneUser, jumlahPesan, totalHarga, metode, hint, alamat;
+        LinearLayout expandLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             idOrder = itemView.findViewById(R.id.tv_id);
@@ -62,6 +75,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
             metode = itemView.findViewById(R.id.tv_metode_bayar_pembayaran);
             hint = itemView.findViewById(R.id.tv_hint);
             alamat = itemView.findViewById(R.id.tv_alamat);
+            expandLayout = itemView.findViewById(R.id.linear_layout_2);
 
         }
     }

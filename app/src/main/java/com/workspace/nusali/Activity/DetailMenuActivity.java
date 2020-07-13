@@ -182,6 +182,9 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
                     else if (waktuKirim.isEmpty()){
                         Toast.makeText(getApplicationContext(), "Waktu Kosong ! ", Toast.LENGTH_SHORT).show();
                     }
+                    else if (jumlahBeli <= detailMinimalOrder){
+                        Toast.makeText(getApplicationContext(), "Minimal Beli kurang ! ", Toast.LENGTH_SHORT).show();
+                    }
                     else {
 
                         addToCartList();

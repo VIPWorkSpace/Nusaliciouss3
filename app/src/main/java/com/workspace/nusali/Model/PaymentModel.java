@@ -9,18 +9,16 @@ public class PaymentModel {
     String alamatPenerima;
     String petunjuk;
     String jumlah;
-    Integer total;
+    String total;
     String metodeBayar;
-    String saveCurrentDate;
-    String saveCurrentTime;
+    String tanggalBayar;
+    String jamBayar;
     boolean expanded;
 
     public PaymentModel() {
     }
 
-
-
-    public PaymentModel(Integer id, String jumlah, Integer total, String namaPenerima, String alamatPenerima, String nomerPenerima, String petunjuk, String metodeBayar, String saveCurrentDate, String saveCurrentTime) {
+    public PaymentModel(Integer id, String namaPenerima, String nomerPenerima, String alamatPenerima, String petunjuk, String jumlah, String total, String metodeBayar, String tanggalBayar, String jamBayar) {
         this.id = id;
         this.namaPenerima = namaPenerima;
         this.nomerPenerima = nomerPenerima;
@@ -29,8 +27,8 @@ public class PaymentModel {
         this.jumlah = jumlah;
         this.total = total;
         this.metodeBayar = metodeBayar;
-        this.saveCurrentDate = saveCurrentDate;
-        this.saveCurrentTime = saveCurrentTime;
+        this.tanggalBayar = tanggalBayar;
+        this.jamBayar = jamBayar;
         this.expanded = false;
     }
 
@@ -46,87 +44,39 @@ public class PaymentModel {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getNamaPenerima() {
         return namaPenerima;
-    }
-
-    public void setNamaPenerima(String namaPenerima) {
-        this.namaPenerima = namaPenerima;
-    }
-
-    public String getnomerPenerima() {
-        return nomerPenerima;
-    }
-
-    public void setnomerPenerima(String nomerPenerima) {
-        this.nomerPenerima = nomerPenerima;
-    }
-
-    public String getAlamatPenerima() {
-        return alamatPenerima;
-    }
-
-    public void setAlamatPenerima(String alamatPenerima) {
-        this.alamatPenerima = alamatPenerima;
-    }
-
-    public String getPetunjuk() {
-        return petunjuk;
-    }
-
-    public void setPetunjuk(String petunjuk) {
-        this.petunjuk = petunjuk;
-    }
-
-    public String getJumlah() {
-        return jumlah;
-    }
-
-    public void setJumlah(String jumlah) {
-        this.jumlah = jumlah;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    public String getMetodeBayar() {
-        return metodeBayar;
-    }
-
-    public void setMetodeBayar(String metodeBayar) {
-        this.metodeBayar = metodeBayar;
     }
 
     public String getNomerPenerima() {
         return nomerPenerima;
     }
 
-    public void setNomerPenerima(String nomerPenerima) {
-        this.nomerPenerima = nomerPenerima;
+    public String getAlamatPenerima() {
+        return alamatPenerima;
     }
 
-    public String getSaveCurrentDate() {
-        return saveCurrentDate;
+    public String getPetunjuk() {
+        return petunjuk;
     }
 
-    public void setSaveCurrentDate(String saveCurrentDate) {
-        this.saveCurrentDate = saveCurrentDate;
+    public String getJumlah() {
+        return jumlah;
     }
 
-    public String getSaveCurrentTime() {
-        return saveCurrentTime;
+    public String getTotal() {
+        return total;
     }
 
-    public void setSaveCurrentTime(String saveCurrentTime) {
-        this.saveCurrentTime = saveCurrentTime;
+    public String getMetodeBayar() {
+        return metodeBayar;
+    }
+
+    public String getTanggalBayar() {
+        return tanggalBayar;
+    }
+
+    public String getJamBayar() {
+        return jamBayar;
     }
 }

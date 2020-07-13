@@ -76,7 +76,7 @@ public class PembayaranFragment extends Fragment {
                             pembayaranModel pembayaranMod = dSnap.getValue(pembayaranModel.class);
                             pembayaranList.add(pembayaranMod);
                         }
-                        adapter = new pembayaranAdapter(pembayaranList);
+//                        adapter = new pembayaranAdapter(pembayaranList);
                         rvPembayaran.setAdapter(adapter);
                     }
 

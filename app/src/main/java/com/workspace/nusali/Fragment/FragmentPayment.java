@@ -46,11 +46,14 @@ public class FragmentPayment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_payment, container, false);
+        getUserID();
         intro = v.findViewById(R.id.introPay);
         recyclerPayment = v.findViewById(R.id.recycler_list_pembayaran);
         Button btnBuy = v.findViewById(R.id.btnBuyPay);
+        payList = new ArrayList<>();
         recyclerPayment.setHasFixedSize(true);
         recyclerPayment.setLayoutManager(new LinearLayoutManager(getContext()));
+        intro.setVisibility(View.VISIBLE);
         loadPayment();
         btnBuy.setOnClickListener(this);
 
@@ -58,18 +61,22 @@ public class FragmentPayment extends Fragment implements View.OnClickListener {
     }
 
     public void loadPayment(){
-        referencePay = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER).child("PembayaranSuccess");
+        referencePay = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER).child("Pembayaran");
         referencePay.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     intro.setVisibility(View.GONE);
                     for (DataSnapshot ds: dataSnapshot.getChildren()){
-                        PaymentModel paymentModel = ds.getValue(PaymentModel.class);
-                        payList.add(paymentModel);
+                        PaymentModel dataPayment = ds.getValue(PaymentModel.class);
+                        payList.add(dataPayment);
                         paymentAdapter = new PaymentAdapter(getActivity(), payList);
                         recyclerPayment.setAdapter(paymentAdapter);
                     }
+                }
+                else{
+                    recyclerPayment.setVisibility(View.GONE);
+                    intro.setVisibility(View.INVISIBLE);
                 }
             }
 

@@ -109,16 +109,16 @@ public class RegisterActivity extends AppCompatActivity {
                                         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                                         userId = currentUser.getUid();
 
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("id").setValue(menuId);
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("alamatPenerima").setValue(alamatPenerima);
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("jamBayar").setValue(alamatPenerima);
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("jumlah").setValue(alamatPenerima);
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("metodeBayar").setValue(alamatPenerima);
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("namaPenerima").setValue(alamatPenerima);
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("nomerPenerima").setValue(alamatPenerima);
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("petunjuk").setValue(alamatPenerima);
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("tanggalBayar").setValue(alamatPenerima);
-                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idTransaksi).child(idMenu).child("total").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("id").setValue(menuId);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("alamatPenerima").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("jamBayar").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("jumlah").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("metodeBayar").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("namaPenerima").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("nomerPenerima").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("petunjuk").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("tanggalBayar").setValue(alamatPenerima);
+                                       FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("total").setValue(alamatPenerima);
 
 
 
