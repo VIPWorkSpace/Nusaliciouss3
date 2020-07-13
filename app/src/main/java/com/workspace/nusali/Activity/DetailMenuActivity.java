@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -119,13 +121,17 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         Picasso.get().load(gambar).into(fotoMenu);
         //setting jumlah beli
         String minimalOrder = listMenuModel.getMinimal().toString();
+        final int minimalBelanja = Integer.parseInt(minimalOrder);
         final int detailMinimalOrder = Integer.parseInt(minimalOrder);
         minimalBeli.setText("Min" +Integer.toString(detailMinimalOrder)+ " Porsi");
         //Setting Jumlah Pesanan
         btnMinus.setEnabled(false);
-        jumlahBeli = Integer.valueOf(detailMinimalOrder);
-        jumlahPesanan.setText(jumlahBeli.toString());
 
+        //atur jumlah beli
+        jumlahPesanan.setText(String.valueOf(detailMinimalOrder));
+        jumlahPesanan.setEnabled(false);
+        String jumlahEdit = jumlahPesanan.getText().toString();
+        jumlahBeli = Integer.parseInt(jumlahEdit);
         //setting total harga
         total = jumlahBeli * hargaDetailMenu;
         totalHarga.setText(Integer.toString(total));
@@ -169,28 +175,31 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
 
         });
 
-
         //Setting button masuk keranjang dengan mangambil uid User dan memberikan uid item keranjang
         btnKeranjang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    String tanggalKirim = tanggal.getText().toString();
-                    String waktuKirim = waktu.getText().toString();
-                    if(tanggalKirim.isEmpty()){
-                        Toast.makeText(getApplicationContext(), "Tanggal Kosong ! ", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (waktuKirim.isEmpty()){
-                        Toast.makeText(getApplicationContext(), "Waktu Kosong ! ", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (jumlahBeli <= detailMinimalOrder){
-                        Toast.makeText(getApplicationContext(), "Minimal Beli kurang ! ", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-
-                        addToCartList();
-                    }
+                String tanggalKirim = tanggal.getText().toString();
+                String waktuKirim = waktu.getText().toString();
+                if(tanggalKirim.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Tanggal Kosong ! ", Toast.LENGTH_SHORT).show();
+                }
+                else if (waktuKirim.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Waktu Kosong ! ", Toast.LENGTH_SHORT).show();
+                }
+                else if (jumlahBeli < minimalBelanja){
+                    Toast.makeText(getApplicationContext(), "Minimal Beli kurang ! ", Toast.LENGTH_SHORT).show();
+                }
+                else if(jumlahBeli <= minimalBelanja){
+                    addToCartList();
+                }
+                else{
+                    addToCartList();
+                }
             }
         });
+
+
 
 
     }
