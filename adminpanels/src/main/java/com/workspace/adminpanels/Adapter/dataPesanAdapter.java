@@ -1,6 +1,10 @@
 package com.workspace.adminpanels.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
-import com.workspace.adminpanels.MainActivity;
+import com.workspace.adminpanels.Activity.DataPesanan;
 import com.workspace.adminpanels.Model.dataPesanModel;
 import com.workspace.adminpanels.Model.riwayatModel;
 import com.workspace.adminpanels.R;
@@ -39,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHolder> implements Filterable {
+
     DatabaseReference riwayatRef;
     ArrayList<dataPesanModel>modelList;
     ArrayList<dataPesanModel> modelFull;
@@ -49,7 +54,9 @@ public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHo
         this.modelList = modelList;
         this.modelFull = new ArrayList<>(modelList);
     }
-
+    private View getView(){
+        return getView();
+    }
     @NonNull
     @Override
     public dataPesanAdapter.myHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -108,41 +115,48 @@ public class dataPesanAdapter extends RecyclerView.Adapter<dataPesanAdapter.myHo
             updateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mSpin.setAdapter(updateAdapter);
 
+            Intent intent = ((Activity) context).getIntent();
+            intent.getBundleExtra("unix");
+            final String unix = intent.getStringExtra("unix");
+
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    riwayatRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
+                    riwayatRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(unix).child("Pesanan");
                     riwayatRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                                final String keys = dataSnapshot1.getKey();
+                            for (DataSnapshot ds : dataSnapshot.getChildren()){
+                                String nopem = ds.getKey();
+                                for (DataSnapshot dsn : dataSnapshot.child(nopem).getChildren()){
 
-                                final String key = pesanMods.getKey();
-                                Integer id = pesanMods.getId();
-                                final String idMenu = String.valueOf(id);
-                                String judul = pesanMods.getJudul();
-                                Integer total = pesanMods.getTotal();
-                                Integer jumlah = pesanMods.getJumlah();
-                                String tanggal = pesanMods.getTanggal();
-                                String waktu = pesanMods.getWaktu();
-                                String status = mSpin.getSelectedItem().toString();
+                                    String key = pesanMods.getKey();
+                                    Integer id = pesanMods.getId();
+                                    final String idMenu = String.valueOf(id);
+                                    String judul = pesanMods.getJudul();
+                                    Integer total = pesanMods.getTotal();
+                                    Integer jumlah = pesanMods.getJumlah();
+                                    String tanggal = pesanMods.getTanggal();
+                                    String waktu = pesanMods.getWaktu();
+                                    String status = mSpin.getSelectedItem().toString();
 
-                                riwayatModel riwayatMod = new riwayatModel(key, id, judul, total, jumlah, tanggal, waktu, status);
+                                    riwayatModel riwayatMod = new riwayatModel(key, id, judul, total, jumlah, tanggal, waktu, status);
 
-                                FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(keys).child("Riwayat")
-                                        .child(key).child(idMenu).setValue(riwayatMod).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(keys).child("Pesanan").child(key).child(idMenu).removeValue();
-                                        dialog.dismiss();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(context, "Failed" + e.toString(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                    FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(unix).child("Riwayat")
+                                            .child(key).child(idMenu).setValue(riwayatMod)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    //FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(keys).child("Pesanan").child(key).child(idMenu).removeValue();
+                                                    dialog.dismiss();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(context, "Failed" + e.toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
                             }
                         }
 

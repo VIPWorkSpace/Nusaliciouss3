@@ -2,6 +2,7 @@ package com.workspace.adminpanels.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.workspace.adminpanels.Activity.DataPesanan;
 import com.workspace.adminpanels.Model.callbackidModel;
 import com.workspace.adminpanels.R;
@@ -20,7 +22,6 @@ public class pesananAdapter extends RecyclerView.Adapter<pesananAdapter.pesananH
 
     ArrayList<callbackidModel> callList;
     Context ctx;
-
 
     public pesananAdapter(ArrayList<callbackidModel> callList, Context ctx) {
         this.callList = callList;
@@ -44,7 +45,12 @@ public class pesananAdapter extends RecyclerView.Adapter<pesananAdapter.pesananH
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String noUnix = callMod.getKey();
                 Intent send = new Intent(view.getContext(), DataPesanan.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("unix", noUnix);
+                send.putExtra(DataPesanan.EXTRA_UNIX, noUnix);
+                send.putExtras(bundle);
                 view.getContext().startActivity(send);
             }
         });

@@ -109,7 +109,6 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     dialog.dismiss();
-                                                    Log.i("TAG", "onComplete: ");
                                         }
                                     });
                                     tempPembayaran pemMods = new tempPembayaran(idPembayaran, total, tanggalBayar);

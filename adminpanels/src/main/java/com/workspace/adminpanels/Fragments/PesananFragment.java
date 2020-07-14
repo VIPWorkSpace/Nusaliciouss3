@@ -56,6 +56,9 @@ public class PesananFragment extends Fragment {
                      callMod = ds.getValue(callbackidModel.class);
                     callMod.key = ds.getKey();
                     mCall.add(callMod);
+                    for (int i = 0; i < mCall.size(); i++){
+                        callMod = mCall.get(i);
+                    }
                 }
 
                 adapters = new pesananAdapter(mCall);
