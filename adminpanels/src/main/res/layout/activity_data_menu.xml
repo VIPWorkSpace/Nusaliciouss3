@@ -12,26 +12,17 @@
         android:id="@+id/dToolbarMenu"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:elevation="8dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true">
-
     </androidx.appcompat.widget.Toolbar>
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchMenu"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/dToolbarMenu"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvd_Menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/searchMenu"
+        android:layout_below="@id/dToolbarMenu"
         tools:listitem="@layout/cardmenu_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

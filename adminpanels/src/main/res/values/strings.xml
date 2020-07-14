@@ -32,6 +32,15 @@
     <string name="loading">Loading. . .</string>
     <string name="data_income">Data Income</string>
     <string name="total_income">Total Income</string>
+    <string name="text_selesai">Selesai = Pembayaran telah masuk dan \npesanan akan diproses.</string>
+    <string name="text_batal">Batalkan = Transaksi dibatalkan oleh user\natau dari pihak katering</string>
+    <string name="text_note">Note :</string>
+    <string name="order">Order</string>
+    <string name="list_order">List Order</string>
+    <string name="ubah_nama_paket">Ubah nama paket</string>
+    <string name="ubah_deskripsi">Ubah deskripsi</string>
+    <string name="ubah_harga">Ubah harga</string>
+    <string name="edit_menu">Edit Menu</string>
     <string-array name="setStatus">
         <item>Sedang disiapkan</item>
         <item>Telah dikirim</item>

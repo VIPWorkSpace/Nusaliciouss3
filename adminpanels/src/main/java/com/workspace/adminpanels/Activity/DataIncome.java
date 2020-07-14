@@ -1,7 +1,6 @@
 package com.workspace.adminpanels.Activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,27 +57,22 @@ public class DataIncome extends AppCompatActivity {
     }
 
     private void retrieveData() {
-        incomeRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
+        incomeRef = FirebaseDatabase.getInstance().getReference("Data").child("Pendapatan");
         incomeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
                     String key = ds.getKey();
-                    for (DataSnapshot dSnap : dataSnapshot.child(key).child("Pesanan").getChildren()){
-                        String keys = dSnap.getKey();
-                        for (DataSnapshot ds1 : dataSnapshot.child(key).child("Pesanan").child(keys).getChildren()){
-                            IncomeModel iMods = ds1.getValue(IncomeModel.class);
-                            iList.add(iMods);
-                            adapter = new incomeAdapter(iList);
-                            rvIncome.setAdapter(adapter);
-                        }
-                    }
-                    for (int i = 0; i < iList.size(); i++){
-                        totalIncome += iList.get(i).getTotal();
-                        totalHarga = Integer.toString(totalIncome);
-                    }
-                    textTotal.setText("Rp " + totalHarga);
+                    IncomeModel iMods = ds.getValue(IncomeModel.class);
+                    iList.add(iMods);
                 }
+                for (int i = 0; i < iList.size(); i++){
+                    totalIncome += iList.get(i).getTotal();
+                    totalHarga = Integer.toString(totalIncome);
+                }
+                textTotal.setText("Rp " + totalHarga);
+                adapter = new incomeAdapter(iList);
+                rvIncome.setAdapter(adapter);
             }
 
             @Override

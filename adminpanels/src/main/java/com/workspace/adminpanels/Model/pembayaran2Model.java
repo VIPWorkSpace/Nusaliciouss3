@@ -1,8 +1,8 @@
 package com.workspace.adminpanels.Model;
 
-import android.content.Intent;
+public class pembayaran2Model {
 
-public class pembayaranModel {
+    public String uid;
     private Integer id;
     private String namaPenerima;
     private String nomerPenerima;
@@ -13,12 +13,10 @@ public class pembayaranModel {
     private String metodeBayar;
     private String  tanggalBayar;
 
-    boolean expanded;
-
-    public pembayaranModel() {
+    public pembayaran2Model() {
     }
 
-    public pembayaranModel(Integer id, String namaPenerima, String nomerPenerima, String alamatPenerima, String petunjuk, String jumlah, String total, String metodeBayar, String tanggalBayar) {
+    public pembayaran2Model(Integer id, String namaPenerima, String nomerPenerima, String alamatPenerima, String petunjuk, String jumlah, String total, String metodeBayar, String tanggalBayar) {
         this.id = id;
         this.namaPenerima = namaPenerima;
         this.nomerPenerima = nomerPenerima;
@@ -28,6 +26,21 @@ public class pembayaranModel {
         this.total = total;
         this.metodeBayar = metodeBayar;
         this.tanggalBayar = tanggalBayar;
+    }
+
+    public pembayaran2Model(String uid, Integer id, String namaPenerima, String total){
+        this.uid = uid;
+        this.id = id;
+        this.namaPenerima = namaPenerima;
+        this.total = total;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public Integer getId() {
@@ -46,11 +59,11 @@ public class pembayaranModel {
         this.namaPenerima = namaPenerima;
     }
 
-    public String getnomerPenerima() {
+    public String getNomerPenerima() {
         return nomerPenerima;
     }
 
-    public void setnomerPenerima(String nomerPenerima) {
+    public void setNomerPenerima(String nomerPenerima) {
         this.nomerPenerima = nomerPenerima;
     }
 
@@ -100,13 +113,5 @@ public class pembayaranModel {
 
     public void setTanggalBayar(String tanggalBayar) {
         this.tanggalBayar = tanggalBayar;
-    }
-
-    public boolean isExpanded() {
-        return expanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
     }
 }

@@ -1,14 +1,14 @@
 package com.workspace.adminpanels.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.workspace.adminpanels.Fragments.PembayaranFragment;
 import com.workspace.adminpanels.Fragments.PesananFragment;
@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 public class DataTransaksi extends AppCompatActivity {
 
+    public static final String EXTRA_UNIX = "extra_unix";
     private Toolbar mToolbar;
     private Spinner spinner;
 
@@ -28,14 +29,22 @@ public class DataTransaksi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_transaksi);
 
-        mToolbar = findViewById(R.id.toolbarPesanan);
+        init();
+        toolbarSet();
+        mTransaction();
+    }
+
+    private void toolbarSet() {
         setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         getSupportActionBar().setTitle("Transaksi");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    private void init() {
+        mToolbar = findViewById(R.id.toolbarPesanan);
         spinner = findViewById(R.id.spin_transaksi);
-        mTransaction();
     }
 
     private void mTransaction() {

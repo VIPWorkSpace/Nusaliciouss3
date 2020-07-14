@@ -1,33 +1,25 @@
 package com.workspace.adminpanels;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.workspace.adminpanels.Activity.DataAddMenuActivity;
 import com.workspace.adminpanels.Activity.DataIncome;
 import com.workspace.adminpanels.Activity.DataMenuActivity;
-import com.workspace.adminpanels.Activity.DataTransaksi;
+import com.workspace.adminpanels.Activity.DataOrderActivity;
+import com.workspace.adminpanels.Activity.DataTransactionActivity;
 import com.workspace.adminpanels.Activity.DataUserActivity;
 import com.workspace.adminpanels.Activity.adminLogin;
-import com.workspace.adminpanels.Model.mainModel;
 
 import java.util.Date;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,8 +80,11 @@ public class MainActivity extends AppCompatActivity {
                         Intent dataIncome = new Intent(MainActivity.this, DataIncome.class);
                         startActivity(dataIncome);
                     } else if (finals == 3) {
-                        Intent transaction = new Intent(MainActivity.this, DataTransaksi.class);
+                        Intent transaction = new Intent(MainActivity.this, DataTransactionActivity.class);
                         startActivity(transaction);
+                    }else if (finals == 4){
+                        Intent order = new Intent(MainActivity.this, DataOrderActivity.class);
+                        startActivity(order);
                     }
                 }
             });

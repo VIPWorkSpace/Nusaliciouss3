@@ -1,15 +1,15 @@
 package com.workspace.adminpanels.Model;
 
-public class callbackidModel {
+public class idModel {
 
 
     public String key;
 
-    public callbackidModel(String key) {
+    public idModel(String key) {
         this.key = key;
     }
 
-    public callbackidModel() {
+    public idModel() {
     }
 
     public String getKey() {

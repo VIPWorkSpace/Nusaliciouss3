@@ -1,37 +1,41 @@
 package com.workspace.adminpanels.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
-import com.workspace.adminpanels.Activity.editDataMenu;
-import com.workspace.adminpanels.MainActivity;
 import com.workspace.adminpanels.Model.menuModel;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
+public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder>{
 
-    Context ctx;
-    ArrayList<menuModel> menulist;
-    DatabaseReference dRef;
+    private Context ctx;
+    private ArrayList<menuModel> menulist;
+    private DatabaseReference dRef;
 
     public menuAdapter(Context ctx) {
         this.ctx = ctx;
@@ -62,9 +66,53 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent moveData = new Intent(view.getContext(), editDataMenu.class);
-                moveData.putExtra("judul", menulist.get(position));
-                view.getContext().startActivity(moveData);
+                final DialogPlus dialog = DialogPlus.newDialog(view.getContext())
+                        .setGravity(Gravity.CENTER)
+                        .setMargin(50,0,50,0)
+                        .setContentHolder(new ViewHolder(R.layout.dialog_edit_menu))
+                        .setExpanded(false)
+                        .create();
+
+                View holderView = (LinearLayout) dialog.getHolderView();
+                final TextInputEditText judul = holderView.findViewById(R.id.te_nama_paket);
+                final TextInputEditText desc = holderView.findViewById(R.id.te_desc);
+                final TextInputEditText harga = holderView.findViewById(R.id.te_harga);
+                Button btnsave = holderView.findViewById(R.id.btn_save_ubah);
+
+                judul.setText(menuMod.getJudul());
+                desc.setText(menuMod.getDesc());
+                harga.setText(menuMod.getHarga().toString());
+
+                btnsave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        final Map<String, Object> map = new HashMap<>();
+                        map.put("judul", judul.getText().toString().trim());
+                        map.put("desc", desc.getText().toString().trim());
+                        map.put("harga", Integer.valueOf(harga.getText().toString()));
+
+                        dRef = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
+                        Query query = dRef.orderByChild("judul").equalTo(menuMod.getJudul());
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                                    String uid = ds.getRef().getKey();
+
+                                    FirebaseDatabase.getInstance().getReference("Data").child("Menu").child(uid)
+                                            .updateChildren(map);
+                                    dialog.dismiss();
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                });
+            dialog.show();
             }
         });
 
@@ -87,8 +135,6 @@ public class menuAdapter extends RecyclerView.Adapter<menuAdapter.myHolder> {
 
                     }
                 });
-//                Intent move = new Intent(view.getContext(), MainActivity.class);
-//                view.getContext().startActivity(move);
             }
         });
     }

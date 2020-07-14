@@ -36,7 +36,7 @@ public class incomeAdapter extends RecyclerView.Adapter<incomeAdapter.myViewHold
     @Override
     public void onBindViewHolder(@NonNull incomeAdapter.myViewHolder holder, int position) {
         IncomeModel iMod = incomeList.get(position);
-        holder.textId.setText(iMod.getId().toString());
+        holder.textId.setText(iMod.getIdPembayaran().toString());
         holder.textTotal.setText("Rp " + iMod.getTotal().toString());
     }
 

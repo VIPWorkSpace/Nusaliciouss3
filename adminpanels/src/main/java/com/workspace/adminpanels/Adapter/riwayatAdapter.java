@@ -1,8 +1,8 @@
 package com.workspace.adminpanels.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,16 +91,17 @@ public class riwayatAdapter extends RecyclerView.Adapter<riwayatAdapter.myViewHo
                 updateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mSpin.setAdapter(updateAdapter);
 
+                Intent intent = ((Activity) context).getIntent();
+                final String unix = intent.getStringExtra("unix");
+
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dataRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
+                        dataRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(unix);
                         dataRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dsn : dataSnapshot.getChildren()){
-                                    String key = dsn.getKey();
-
                                     String xkey = riMod.getXkey();
                                     Integer id = riMod.getId();
                                     String idMenu = String.valueOf(id);
@@ -109,17 +110,10 @@ public class riwayatAdapter extends RecyclerView.Adapter<riwayatAdapter.myViewHo
                                     Map<String, Object> map = new HashMap<>();
                                     map.put("status", status);
 
-                                   FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(key).child("Riwayat")
+                                   FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(unix).child("Riwayat")
                                             .child(xkey).child(idMenu).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                        @Override
                                        public void onComplete(@NonNull Task<Void> task) {
-                                           Handler handler = new Handler();
-                                           handler.postDelayed(new Runnable() {
-                                               @Override
-                                               public void run() {
-                                                   holder.pbR.setVisibility(View.VISIBLE);
-                                               }
-                                           }, 7000);
                                            Intent main = new Intent(context, MainActivity.class);
                                            context.startActivity(main);
                                         dialog.dismiss();

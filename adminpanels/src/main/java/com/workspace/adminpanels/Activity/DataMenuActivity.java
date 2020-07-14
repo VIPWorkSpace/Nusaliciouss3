@@ -1,17 +1,15 @@
 package com.workspace.adminpanels.Activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -28,10 +26,8 @@ import java.util.ArrayList;
 public class DataMenuActivity extends AppCompatActivity {
 
     private Toolbar toolbarMenu;
-    private SearchView searchMenu;
     private RecyclerView rvdMenu;
     private FloatingActionButton fabMenu;
-    private ProgressBar pbMenu;
     private DatabaseReference menuRef;
     private ArrayList<menuModel> menuList;
     private menuAdapter adapter;
@@ -41,25 +37,34 @@ public class DataMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_menu);
 
-        toolbarMenu = findViewById(R.id.dToolbarMenu);
-        setSupportActionBar(toolbarMenu);
-//        toolbarMenu.setTitleTextColor(getResources().getColor(R.color.md_white_1000));
-        getSupportActionBar().setTitle("Menu");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        searchMenu = findViewById(R.id.searchMenu);
-        fabMenu = findViewById(R.id.fab_addMenu);
-        pbMenu = findViewById(R.id.pb_menu);
-        rvdMenu = findViewById(R.id.rvd_Menu);
+        init();
+        toolbarSet();
+        recyclerSet();
+        retrieveData();
+        fabListener();
+
+    }
+
+    private void recyclerSet() {
         rvdMenu.setHasFixedSize(true);
         rvdMenu.setLayoutManager(new LinearLayoutManager(this));
         RecyclerView.ItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rvdMenu.addItemDecoration(divider);
 
         menuList = new ArrayList<menuModel>();
-        retrieveData();
-        fabListener();
+    }
 
+    private void toolbarSet() {
+        setSupportActionBar(toolbarMenu);
+        getSupportActionBar().setTitle("Menu");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    private void init() {
+        toolbarMenu = findViewById(R.id.dToolbarMenu);
+        fabMenu = findViewById(R.id.fab_addMenu);
+        rvdMenu = findViewById(R.id.rvd_Menu);
     }
     private void retrieveData(){
         menuRef = FirebaseDatabase.getInstance().getReference("Data").child("Menu");

@@ -1,16 +1,16 @@
 package com.workspace.adminpanels.Fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,20 +18,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.workspace.adminpanels.Adapter.pesananAdapter;
-import com.workspace.adminpanels.Model.callbackidModel;
-import com.workspace.adminpanels.Model.pesananModel;
+import com.workspace.adminpanels.Model.dataPesanModel;
 import com.workspace.adminpanels.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PesananFragment extends Fragment {
-    private callbackidModel callMod;
+
+    public static final String EXTRA_UNIX = "extra_unix";
     private RecyclerView rvPesanan;
-    private DatabaseReference dbPesanan;
-    private pesananAdapter adapters;
-    private ArrayList<callbackidModel> mCall;
+    private ArrayList<dataPesanModel> pesanlist;
+    private pesananAdapter adapterPesanan;
+    private DatabaseReference pesananRef;
+    public String uid;
 
     public PesananFragment() {
         // Required empty public constructor
@@ -40,29 +39,33 @@ public class PesananFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_pesanan, container, false);
 
-        rvPesanan = v.findViewById(R.id.rvd_pesanan);
-        rvPesanan.setHasFixedSize(true);
-        rvPesanan.setLayoutManager(new LinearLayoutManager(getContext()));
-        mCall = new ArrayList<>();
+        init(v);
+        recyclerSet();
+        dataSet();
+        return v;
+    }
 
-        dbPesanan = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
-        dbPesanan.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void dataSet() {
+        Intent intent = ((Activity) getContext()).getIntent();
+        String unix = intent.getStringExtra(EXTRA_UNIX);;
+        uid = unix;
+        pesananRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
+        pesananRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()){
-                     callMod = ds.getValue(callbackidModel.class);
-                    callMod.key = ds.getKey();
-                    mCall.add(callMod);
-                    for (int i = 0; i < mCall.size(); i++){
-                        callMod = mCall.get(i);
+                pesanlist.clear();
+                for (DataSnapshot ds:dataSnapshot.child(uid).child("Pesanan").getChildren()){
+                    String keym = ds.getKey();
+                    for (DataSnapshot dsn : dataSnapshot.child(uid).child("Pesanan").child(keym).getChildren()){
+                        dataPesanModel dataMod = dsn.getValue(dataPesanModel.class);
+                        dataMod.key = keym;
+                        pesanlist.add(dataMod);
                     }
                 }
-
-                adapters = new pesananAdapter(mCall);
-                rvPesanan.setAdapter(adapters);
+                adapterPesanan = new pesananAdapter(pesanlist, getContext());
+                rvPesanan.setAdapter(adapterPesanan);
             }
 
             @Override
@@ -70,6 +73,17 @@ public class PesananFragment extends Fragment {
 
             }
         });
-        return v;
+
     }
+
+    private void recyclerSet() {
+    rvPesanan.setHasFixedSize(true);
+    rvPesanan.setLayoutManager(new LinearLayoutManager(getContext()));
+    pesanlist = new ArrayList<>();
+    }
+
+    private void init(View v) {
+    rvPesanan = v.findViewById(R.id.rvd_pesanan);
+    }
+
 }

@@ -1,24 +1,22 @@
 package com.workspace.adminpanels.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,8 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.workspace.adminpanels.Model.incomePembayaran;
+import com.workspace.adminpanels.Model.pembayaran2Model;
 import com.workspace.adminpanels.Model.pembayaranModel;
-import com.workspace.adminpanels.Model.tempPembayaran;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull pembayaranAdapter.pembayaranHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final pembayaranAdapter.pembayaranHolder holder, final int position) {
         final pembayaranModel pembayaranMod = pembayaranList.get(position);
 
         holder.IdBayar.setText("#" + pembayaranMod.getId());
@@ -79,18 +78,19 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
                 Button btnSave = holderView.findViewById(R.id.btn_save_datapesanan);
                 Button btnDelete = holderView.findViewById(R.id.btn_delete_datapesanan);
 
+                Intent intent = ((Activity) context).getIntent();
+                final String unix = intent.getStringExtra("unix");
+
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        pembayaranRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi");
+                        pembayaranRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(unix);
                         pembayaranRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                                    String key = dataSnapshot1.getKey();
-
+                                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                                     Integer idPembayaran = pembayaranMod.getId();
-                                    String idPem = String.valueOf(idPembayaran);
+                                    final String idPem = String.valueOf(idPembayaran);
                                     String namaPembayar = pembayaranMod.getNamaPenerima();
                                     String nomorPembayar = pembayaranMod.getnomerPenerima();
                                     String jumlah = pembayaranMod.getJumlah();
@@ -101,27 +101,38 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
                                     String alamatBayar = pembayaranMod.getAlamatPenerima();
                                     String tanggalBayar = pembayaranMod.getTanggalBayar();
 
-                                    tempPembayaran pemMod = new tempPembayaran(idPembayaran, namaPembayar, nomorPembayar, jumlah, total, metodeBayar, petunjuk, alamatBayar);
+                                    pembayaran2Model pemMod = new pembayaran2Model(idPembayaran, namaPembayar, nomorPembayar, alamatBayar, petunjuk, jumlah, totalBayar, metodeBayar, tanggalBayar);
 
-                                    FirebaseDatabase.getInstance().getReference("Temp").child("Transaksi")
-                                            .child("Data Pembayaran").child(idPem).setValue(pemMod)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    dialog.dismiss();
-                                        }
-                                    });
-                                    tempPembayaran pemMods = new tempPembayaran(idPembayaran, total, tanggalBayar);
-                                    FirebaseDatabase.getInstance().getReference("Data").child("Pendapatan").child(idPem)
-                                            .setValue(pemMods).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
+                                    FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(unix)
+                                            .child("PembayaranSuccess").child(idPem).setValue(pemMod);
 
-                                        }
-                                    });
+                                    incomePembayaran inMod = new incomePembayaran(idPembayaran, total, tanggalBayar);
+                                    FirebaseDatabase.getInstance().getReference("Data").child("Pendapatan").child(idPem).setValue(inMod);
                                 }
                             }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                });
+                btnDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        pembayaranRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(unix).child("Pembayaran");
+                        pembayaranRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                                    Integer idPembayaran = pembayaranMod.getId();
+                                    final String idPem = String.valueOf(idPembayaran);
+                                    FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(unix).child("Pembayaran").child(idPem).removeValue();
+                                }
+                                dialog.dismiss();
+                            }
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -184,6 +195,7 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
     public class pembayaranHolder extends RecyclerView.ViewHolder {
         TextView namaPembayar, nomorPembayar, jumlahBayar, metodeBayar, alamatBayar, petunjukBayar, totalBayar, IdBayar, btnSelesai;
         LinearLayout expandLayout;
+        CardView cardView;
         public pembayaranHolder(@NonNull View itemView) {
             super(itemView);
             namaPembayar = itemView.findViewById(R.id.textNamaPembayaran);
@@ -195,6 +207,7 @@ public class pembayaranAdapter extends RecyclerView.Adapter<pembayaranAdapter.pe
             petunjukBayar = itemView.findViewById(R.id.textPetunjukPembayaran);
             expandLayout = itemView.findViewById(R.id.linear_layout_2);
             IdBayar = itemView.findViewById(R.id.textID);
+            cardView = itemView.findViewById(R.id.card_pembayaran_item);
             btnSelesai = itemView.findViewById(R.id.btn_selesai);
         }
     }

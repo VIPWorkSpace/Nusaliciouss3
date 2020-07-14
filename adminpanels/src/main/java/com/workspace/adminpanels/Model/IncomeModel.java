@@ -1,23 +1,23 @@
 package com.workspace.adminpanels.Model;
 
 public class IncomeModel {
-    Integer id;
+    Integer idPembayaran;
     Integer total;
 
     public IncomeModel() {
     }
 
-    public IncomeModel(Integer id, Integer totalr) {
-        this.id = id;
+    public IncomeModel(Integer idPembayaran, Integer totalr) {
+        this.idPembayaran = idPembayaran;
         this.total = total;;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdPembayaran() {
+        return idPembayaran;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdPembayaran(Integer idPembayaran) {
+        this.idPembayaran = idPembayaran;
     }
 
     public Integer getTotal() {

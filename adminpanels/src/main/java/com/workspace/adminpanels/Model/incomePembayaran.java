@@ -1,6 +1,6 @@
 package com.workspace.adminpanels.Model;
 
-public class tempPembayaran {
+public class incomePembayaran {
 
     Integer idPembayaran;
     String namaPembayar;
@@ -12,10 +12,10 @@ public class tempPembayaran {
     String alamatBayar;
     String tanggalBayar;
 
-    public tempPembayaran() {
+    public incomePembayaran() {
     }
 
-    public tempPembayaran(Integer idPembayaran, String namaPembayar, String nomorPembayar, String jumlah, Integer total, String metodeBayar, String petunjuk, String alamatBayar) {
+    public incomePembayaran(Integer idPembayaran, String namaPembayar, String nomorPembayar, String jumlah, Integer total, String metodeBayar, String petunjuk, String alamatBayar, String tanggalBayar) {
         this.idPembayaran = idPembayaran;
         this.namaPembayar = namaPembayar;
         this.nomorPembayar = nomorPembayar;
@@ -24,8 +24,10 @@ public class tempPembayaran {
         this.metodeBayar = metodeBayar;
         this.petunjuk = petunjuk;
         this.alamatBayar = alamatBayar;
+        this.tanggalBayar = tanggalBayar;
     }
-    public tempPembayaran(Integer idPembayaran, Integer total, String tanggalBayar) {
+
+    public incomePembayaran(Integer idPembayaran, Integer total, String tanggalBayar) {
         this.idPembayaran = idPembayaran;
         this.total = total;
         this.tanggalBayar = tanggalBayar;

@@ -11,10 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.progressActivity"></activity>
-        <activity android:name=".Activity.editDataMenu" />
-        <activity android:name=".Activity.DataIncome" />
-        <activity android:name=".Activity.DataPesanan" />
+        <activity android:name=".Activity.DataOrderActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity android:name=".Activity.DataTransactionActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity android:name=".Activity.DataIncome"
+            android:parentActivityName=".MainActivity">
+        </activity>
         <activity android:name=".Activity.adminRegister" />
         <activity android:name=".MainActivity" />
         <activity

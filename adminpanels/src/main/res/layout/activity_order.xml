@@ -5,19 +5,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.DataPesanan">
+    tools:context=".Activity.DataOrderActivity">
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_data_pesanan"
+        android:id="@+id/toolbar_order"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="8dp"
-        android:background="@color/colorTop">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorTop"
+        app:titleTextColor="@color/colorWhite"
+        android:elevation="8dp">
     </androidx.appcompat.widget.Toolbar>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvd_data_pesanan"
+        android:id="@+id/rvd_order"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="5dp"
-        tools:listitem="@layout/card_data_pesanan_item"
-        android:layout_below="@id/toolbar_data_pesanan" />
+        android:layout_below="@id/toolbar_order"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        tools:listitem="@layout/card_order_item"/>
 </RelativeLayout>

@@ -1,17 +1,17 @@
 package com.workspace.adminpanels.Fragments;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,17 +20,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.workspace.adminpanels.Adapter.riwayatAdapter;
 import com.workspace.adminpanels.Model.riwayat2Model;
-import com.workspace.adminpanels.Model.riwayatModel;
 import com.workspace.adminpanels.R;
 
 import java.util.ArrayList;
 
 public class RiwayatFragment extends Fragment {
-
+    public static final String EXTRA_UNIX = "extra_unix";
     private RecyclerView rvRiwayat;
     private ArrayList<riwayat2Model> riwayatList;
     private riwayatAdapter adapter;
     private DatabaseReference riwayatRef;
+    private String uid;
 
     public RiwayatFragment() {
         // Required empty public constructor
@@ -43,8 +43,14 @@ public class RiwayatFragment extends Fragment {
 
         recyclerSet(view);
         retrieveData();
-        riwayatList = new ArrayList<>();
+        retrieveIntent();
         return view;
+    }
+
+    private void retrieveIntent() {
+        Intent intent = ((Activity) getContext()).getIntent();
+        String unix = intent.getStringExtra(EXTRA_UNIX);;
+        uid = unix;
     }
 
     private void retrieveData() {
@@ -52,25 +58,21 @@ public class RiwayatFragment extends Fragment {
     riwayatRef.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                String uid = dataSnapshot1.getKey();
-                for (DataSnapshot ds : dataSnapshot.child(uid).child("Riwayat").getChildren()){
-                    String uniq = ds.getKey();
-                    for (DataSnapshot dsn : dataSnapshot.child(uid).child("Riwayat").child(uniq).getChildren()){
-                        String uniqKey = dsn.getKey();
-                        Log.i("TAG", "onDataChange: "+uniqKey);
-                        riwayat2Model riwayatMod = dsn.getValue(riwayat2Model.class);
-                        riwayatList.add(riwayatMod);
-                    }
+            riwayatList.clear();
+            for (DataSnapshot dataSnapshot1 : dataSnapshot.child(uid).child("Riwayat").getChildren()){
+                String uniq = dataSnapshot1.getKey();
+                for (DataSnapshot ds : dataSnapshot.child(uid).child("Riwayat").child(uniq).getChildren()){
+                    riwayat2Model riwayatMod = ds.getValue(riwayat2Model.class);
+                    riwayatList.add(riwayatMod);
                 }
-                adapter = new riwayatAdapter(riwayatList, getContext());
-                rvRiwayat.setAdapter(adapter);
             }
+            adapter = new riwayatAdapter(riwayatList, getContext());
+            rvRiwayat.setAdapter(adapter);
         }
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            Toast.makeText(getContext(), "Error in : " + databaseError, Toast.LENGTH_SHORT).show();
         }
     });
     }
@@ -79,5 +81,6 @@ public class RiwayatFragment extends Fragment {
         rvRiwayat = view.findViewById(R.id.rvd_riwayat_pesanan);
         rvRiwayat.setHasFixedSize(true);
         rvRiwayat.setLayoutManager(new LinearLayoutManager(getContext()));
+        riwayatList = new ArrayList<>();
     }
 }

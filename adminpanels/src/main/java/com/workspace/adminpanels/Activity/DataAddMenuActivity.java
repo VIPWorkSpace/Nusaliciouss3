@@ -1,10 +1,5 @@
 package com.workspace.adminpanels.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,15 +16,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -65,6 +60,15 @@ public class DataAddMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_add_menu);
 
+        init();
+        uploadClick();
+        saveClick();
+        listCategory();
+        listCatering();
+
+    }
+
+    private void init() {
         btnUpload = findViewById(R.id.btn_upload);
         btnSave = findViewById(R.id.btn_save);
         textNama = findViewById(R.id.textNameMenu);
@@ -75,18 +79,8 @@ public class DataAddMenuActivity extends AppCompatActivity {
         textKeterangan = findViewById(R.id.txtKeteranganMenu);
         textMinimal = findViewById(R.id.txtMinimalMenu);
         spinCatering = findViewById(R.id.spin_catering);
-        //selectCategory = findViewById(R.id.select_category);
         selectCatering = findViewById(R.id.select_catering);
         mProgress = findViewById(R.id.pb_menu);
-
-        mStorage = FirebaseStorage.getInstance().getReference("Image Menu");
-        mAddMenu = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
-
-        uploadClick();
-        saveClick();
-        listCategory();
-        listCatering();
-
     }
 
     @Override
@@ -110,7 +104,8 @@ public class DataAddMenuActivity extends AppCompatActivity {
         startActivityForResult(choose, ImagePick);
     }
     private void saveMenu() {
-
+        mStorage = FirebaseStorage.getInstance().getReference("Image Menu");
+        mAddMenu = FirebaseDatabase.getInstance().getReference("Data").child("Menu");
 
         if (photoLocation != null) {
             final StorageReference fileReferense = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(photoLocation));
