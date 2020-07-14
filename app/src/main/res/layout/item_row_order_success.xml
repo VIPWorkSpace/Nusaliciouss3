@@ -30,7 +30,7 @@
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/nomer_order"
+            android:id="@+id/nomer_order_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -39,7 +39,7 @@
             tools:ignore="HardcodedText,RtlHardcoded" />
 
         <TextView
-            android:id="@+id/title_order"
+            android:id="@+id/title_order_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -52,7 +52,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/quantity_order"
+            android:id="@+id/quantity_order_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -63,69 +63,59 @@
             tools:ignore="RtlHardcoded" />
 
         <TextView
-            android:id="@+id/date_delivery"
+            android:id="@+id/date_delivery_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title_order"
+            android:layout_below="@id/title_order_c"
             android:text="@string/date"/>
 
         <TextView
-            android:id="@+id/time_delivery"
+            android:id="@+id/time_delivery_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:layout_below="@id/title_order"
+            android:layout_below="@id/title_order_c"
             android:layout_marginTop="2dp"
             android:text="@string/waktu"
             tools:ignore="RtlHardcoded" />
 
         <TextView
-            android:id="@+id/tv_rp"
+            android:id="@+id/tv_rp_c"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/time_delivery"
+            android:layout_below="@id/time_delivery_c"
             android:text="Harga :"
             tools:ignore="HardcodedText" />
         <TextView
-            android:id="@+id/price_order"
+            android:id="@+id/price_order_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:layout_below="@id/time_delivery"
-            android:layout_toEndOf="@id/tv_rp"
+            android:layout_below="@id/time_delivery_c"
+            android:layout_toEndOf="@id/tv_rp_c"
             android:text="@string/harga"
             tools:ignore="RtlHardcoded" />
 
         <TextView
-            android:id="@+id/tv_status"
+            android:id="@+id/tv_status_c"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:text="Status Pengiriman : "
             android:textStyle="bold"
-            android:layout_below="@id/tv_rp"
+            android:layout_below="@id/tv_rp_c"
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/delivery_order"
+            android:id="@+id/delivery_order_c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:layout_below="@id/tv_rp"
-            android:text="Dalam Proses"
-            android:textColor="@color/Orange_Retro"
+            android:layout_below="@id/tv_rp_c"
+            android:text="Selesai"
+            android:textColor="@color/Green"
             tools:ignore="HardcodedText,RtlHardcoded" />
 
-            <Button
-                android:id="@+id/btn_buy"
-                android:background="@drawable/bg_btn_orange"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/Orange"
-                android:text="Selesai"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/tv_status"
-                android:textSize="12sp"
-                tools:ignore="HardcodedText" />
+
 
     </RelativeLayout>
 
