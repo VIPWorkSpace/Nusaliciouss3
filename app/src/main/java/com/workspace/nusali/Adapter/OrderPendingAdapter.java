@@ -46,6 +46,13 @@ public class OrderPendingAdapter extends RecyclerView.Adapter<OrderPendingAdapte
         holder.jumlahPesan.setText(orderModel.getJumlah().toString()+ "Pax.");
         holder.tanggal.setText(orderModel.getTanggal());
         holder.waktu.setText(orderModel.getWaktu());
+
+        holder.btnSelesai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -66,6 +73,7 @@ public class OrderPendingAdapter extends RecyclerView.Adapter<OrderPendingAdapte
             waktu = itemView.findViewById(R.id.time_delivery);
             status = itemView.findViewById(R.id.delivery_order);
             harga = itemView.findViewById(R.id.price_order);
+            btnSelesai = itemView.findViewById(R.id.btn_finish);
         }
     }
 

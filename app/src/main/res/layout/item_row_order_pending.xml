@@ -116,7 +116,7 @@
             tools:ignore="HardcodedText,RtlHardcoded" />
 
             <Button
-                android:id="@+id/btn_buy"
+                android:id="@+id/btn_finish"
                 android:background="@drawable/bg_btn_orange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
