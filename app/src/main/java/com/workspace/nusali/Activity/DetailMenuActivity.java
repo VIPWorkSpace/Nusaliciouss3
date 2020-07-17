@@ -126,6 +126,8 @@ public class DetailMenuActivity extends AppCompatActivity implements DatePickerD
         minimalBeli.setText("Min" +Integer.toString(detailMinimalOrder)+ " Porsi");
         //Setting Jumlah Pesanan
         btnMinus.setEnabled(false);
+        waktu.setEnabled(false);
+        tanggal.setEnabled(false);
 
         //atur jumlah beli
         jumlahPesanan.setText(String.valueOf(detailMinimalOrder));
