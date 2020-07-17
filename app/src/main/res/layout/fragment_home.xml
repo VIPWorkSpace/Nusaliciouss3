@@ -9,6 +9,7 @@
     tools:context=".Fragment.FragmentHome">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -21,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -139,7 +141,7 @@
                     android:layout_below="@id/dashboard_money"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp" >
+                    android:layout_marginEnd="10dp">
 
                 </com.synnapps.carouselview.CarouselView>
 
@@ -148,8 +150,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/carousel"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
                     android:layout_marginTop="10dp"
+                    android:alignmentMode="alignMargins"
                     android:columnCount="4"
+                    android:fitsSystemWindows="true"
                     android:padding="5dp"
                     android:rowCount="2">
 
@@ -220,9 +227,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/medium"
                                 android:text="@string/buffet"
                                 android:textAlignment="center"
-                                android:fontFamily="@font/medium"
                                 android:textColor="@android:color/black"
                                 android:textSize="11sp"
                                 android:textStyle="bold"
@@ -412,9 +419,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/medium"
                                 android:text="@string/traditional"
                                 android:textAlignment="center"
-                                android:fontFamily="@font/medium"
                                 android:textColor="@android:color/black"
                                 android:textSize="11sp"
                                 android:textStyle="bold"
@@ -462,40 +469,39 @@
                 </GridLayout>
 
 
-
                 <LinearLayout
                     android:id="@+id/tv_promo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/homeGrid"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_below="@id/homeGrid"
-                    android:orientation="vertical"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/disc"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/reg"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold"/>
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/stay_at_home"
-                        android:textSize="14sp"
                         android:fontFamily="@font/reg"
+                        android:text="@string/disc"
                         android:textColor="@android:color/black"
-                        />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/reg"
+                        android:text="@string/stay_at_home"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
                 </LinearLayout>
+
                 <HorizontalScrollView
                     android:id="@+id/disc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_promo"
-                    >
+                    android:layout_below="@id/tv_promo">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -507,85 +513,92 @@
                         <ImageView
                             android:layout_width="110dp"
                             android:layout_height="65dp"
-                            android:src="@drawable/sushi"
-                            android:contentDescription="@string/todo" />
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="65dp"
-                            android:src="@drawable/bento"
-                            android:contentDescription="@string/todo"/>
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="65dp"
-                            android:src="@drawable/japanese"
-                            android:contentDescription="@string/todo"/>
+                            android:contentDescription="@string/todo"
+                            android:src="@drawable/sushi" />
 
                         <ImageView
                             android:layout_width="110dp"
                             android:layout_height="65dp"
-                            android:src="@drawable/sushi"
-                            android:contentDescription="@string/todo"/>
+                            android:contentDescription="@string/todo"
+                            android:src="@drawable/bento" />
+
                         <ImageView
                             android:layout_width="110dp"
                             android:layout_height="65dp"
-                            android:src="@drawable/bento"
-                            android:contentDescription="@string/todo"/>
+                            android:contentDescription="@string/todo"
+                            android:src="@drawable/japanese" />
+
+                        <ImageView
+                            android:layout_width="110dp"
+                            android:layout_height="65dp"
+                            android:contentDescription="@string/todo"
+                            android:src="@drawable/sushi" />
+
+                        <ImageView
+                            android:layout_width="110dp"
+                            android:layout_height="65dp"
+                            android:contentDescription="@string/todo"
+                            android:src="@drawable/bento" />
                     </LinearLayout>
                 </HorizontalScrollView>
+
                 <LinearLayout
                     android:id="@+id/packet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical"
+                    android:layout_below="@id/disc"
                     android:layout_marginStart="10dp"
-                    android:layout_below="@id/disc">
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/packet"
-                        android:textSize="20sp"
                         android:fontFamily="@font/reg"
+                        android:text="@string/packet"
                         android:textColor="@android:color/black"
-                        android:textStyle="bold"/>
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/desc_packet"
-                        android:textSize="14sp"
                         android:fontFamily="@font/reg"
-                        android:textColor="@android:color/black"/>
+                        android:text="@string/desc_packet"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_marginEnd="10dp"
                         android:layout_height="140dp"
-                        android:src="@drawable/spanduk2"
-                        android:contentDescription="@string/todo" />
+                        android:layout_marginEnd="10dp"
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/spanduk2" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/packet"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
                     android:gravity="center_horizontal"
+                    android:orientation="horizontal"
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/copyright"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/copyright" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:fontFamily="@font/reg"
                         android:text="@string/copyright"
                         android:textColor="@android:color/black"
-                        android:fontFamily="@font/reg"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
             </RelativeLayout>

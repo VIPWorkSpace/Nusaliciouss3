@@ -69,8 +69,8 @@ public class RegisterActivity extends AppCompatActivity {
 //                        loadingDialog.dismissDialog();
 //                    }
 //                }, 4500);
-                btnRegister.setEnabled(false);
-                btnRegister.setText("Loading...");
+//                btnRegister.setEnabled(true);
+//                btnRegister.setText("Loading...");
                 final String name = String.valueOf(textName.getText());
                 final String phone = String.valueOf(textPhone.getText());
                 final String email = String.valueOf(textEmail.getText());
