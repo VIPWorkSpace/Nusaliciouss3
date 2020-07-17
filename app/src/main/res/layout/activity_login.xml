@@ -75,6 +75,7 @@
     <Button
         android:id="@+id/btn_login"
         style="@style/button_red"
+        android:text="Masuk"
         android:textColor="@android:color/white"
         android:fontFamily="@font/medium"
         android:textSize="18sp"
