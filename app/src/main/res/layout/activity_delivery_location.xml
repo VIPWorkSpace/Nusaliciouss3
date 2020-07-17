@@ -140,6 +140,7 @@
                         android:background="@drawable/bg_waktu_nonaktif"
                         android:fontFamily="@font/medium"
                         android:hint="087788661921"
+                        android:maxLength="12"
                         android:inputType="number"
                         android:lines="1"
                         android:textSize="17sp"
