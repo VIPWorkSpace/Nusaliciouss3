@@ -11,15 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.workspace.nusali.Model.OrderModel;
+import com.workspace.nusali.Model.OrderSelesai;
 import com.workspace.nusali.R;
 
 import java.util.ArrayList;
 
 public class OrderSuccessAdapter extends RecyclerView.Adapter<OrderSuccessAdapter.MyViewHolder> {
     Context context;
-    ArrayList<OrderModel> orderList;
+    ArrayList<OrderSelesai> orderList;
 
-    public OrderSuccessAdapter(Context c, ArrayList<OrderModel> p){
+    public OrderSuccessAdapter(Context c, ArrayList<OrderSelesai> p){
         context = c;
         orderList = p;
     }
@@ -34,12 +35,13 @@ public class OrderSuccessAdapter extends RecyclerView.Adapter<OrderSuccessAdapte
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull OrderSuccessAdapter.MyViewHolder holder, int position) {
-        final  OrderModel orderModel = orderList.get(position);
+        final OrderSelesai orderModel = orderList.get(position);
         holder.idOrder.setText(orderModel.getId().toString());
         holder.titleMenu.setText(orderModel.getJudul());
         holder.jumlahPesan.setText(orderModel.getJumlah().toString()+ "Pax.");
         holder.tanggal.setText(orderModel.getTanggal());
         holder.waktu.setText(orderModel.getWaktu());
+        holder.status.setText(orderModel.getStatus());
     }
 
     @Override
@@ -56,7 +58,7 @@ public class OrderSuccessAdapter extends RecyclerView.Adapter<OrderSuccessAdapte
             jumlahPesan = itemView.findViewById(R.id.quantity_order_c);
             tanggal = itemView.findViewById(R.id.date_delivery_c);
             waktu = itemView.findViewById(R.id.time_delivery_c);
-            status = itemView.findViewById(R.id.tv_status_c);
+            status = itemView.findViewById(R.id.delivery_order_c);
             harga = itemView.findViewById(R.id.price_order_c);
         }
     }

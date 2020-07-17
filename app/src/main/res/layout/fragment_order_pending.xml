@@ -8,6 +8,7 @@
     tools:context=".Fragment.FragmentOrderPending">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/recycler_list_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,18 +18,17 @@
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/intro"
-        android:visibility="gone"
+       android:layout_marginTop="140dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
         android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_marginTop="65dp"
             android:src="@drawable/shopingchart"
             tools:ignore="ContentDescription,MissingConstraints"
             tools:layout_editor_absoluteX="0dp" />
@@ -37,23 +37,22 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/order_empty"
             android:layout_gravity="center"
-            android:textStyle="bold"
+            android:text="@string/order_empty"
             android:textColor="@android:color/black"
-            />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnBuyOrder"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/bg_btn_red"
+            android:fontFamily="@font/reg"
             android:text="Pesan"
             android:textColor="@color/White"
-            android:fontFamily="@font/reg"
-            android:background="@drawable/bg_btn_red"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>

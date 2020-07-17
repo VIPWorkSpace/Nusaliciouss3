@@ -25,6 +25,7 @@ import com.workspace.nusali.Activity.ListMenuActivity;
 import com.workspace.nusali.Adapter.OrderPendingAdapter;
 import com.workspace.nusali.Adapter.OrderSuccessAdapter;
 import com.workspace.nusali.Model.OrderModel;
+import com.workspace.nusali.Model.OrderSelesai;
 import com.workspace.nusali.R;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class FragmentOrderComplete extends Fragment implements View.OnClickListe
     String USER = "";
     LinearLayout intro;
     RecyclerView recyclerRiwayat;
-    ArrayList<OrderModel> orderList;
+    ArrayList<OrderSelesai> orderList;
     public FragmentOrderComplete() {
         // Required empty public constructor
     }
@@ -66,12 +67,13 @@ public class FragmentOrderComplete extends Fragment implements View.OnClickListe
         referenceOrder.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                orderList.clear();
                 if (dataSnapshot.exists()) {
                     intro.setVisibility(View.GONE);
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String key = ds.getKey();
                         for (DataSnapshot ds1 : dataSnapshot.child(key).getChildren()) {
-                            OrderModel dataOrder = ds1.getValue(OrderModel.class);
+                            OrderSelesai dataOrder = ds1.getValue(OrderSelesai.class);
                             orderList.add(dataOrder);
                             orderAdapter = new OrderSuccessAdapter(getActivity(), orderList);
                             recyclerRiwayat.setAdapter(orderAdapter);

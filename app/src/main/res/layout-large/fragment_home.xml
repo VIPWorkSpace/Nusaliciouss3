@@ -119,6 +119,7 @@
                         tools:ignore="RtlHardcoded,UseCompoundDrawables,UselessParent">
 
                         <Button
+                            android:id="@+id/btn_top_up"
                             android:layout_width="50dp"
                             android:layout_height="20dp"
                             android:layout_gravity="center"

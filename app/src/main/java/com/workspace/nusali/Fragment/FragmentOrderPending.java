@@ -65,6 +65,7 @@ public class FragmentOrderPending extends Fragment implements View.OnClickListen
         referenceOrder.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                orderList.clear();
                 if (dataSnapshot.exists()) {
                     intro.setVisibility(View.GONE);
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {

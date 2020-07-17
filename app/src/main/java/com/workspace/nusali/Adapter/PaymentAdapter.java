@@ -40,7 +40,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
         holder.nameUser.setText(paymentModel.getNamaPenerima());
         holder.phoneUser.setText(paymentModel.getNomerPenerima());
         holder.jumlahPesan.setText(paymentModel.getJumlah());
-        holder.totalHarga.setText(paymentModel.getTotal().toString());
+        holder.totalHarga.setText(paymentModel.getTotal());
         holder.metode.setText(paymentModel.getMetodeBayar());
         holder.hint.setText(paymentModel.getPetunjuk());
         holder.alamat.setText(paymentModel.getAlamatPenerima());

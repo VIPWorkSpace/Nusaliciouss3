@@ -82,17 +82,25 @@ public class RegisterActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(name)) {
                     Toast.makeText(getApplicationContext(), "Nama tidak valid",
                             Toast.LENGTH_LONG).show();
+                    btnRegister.setEnabled(true);
+                    btnRegister.setText("DAFTAR");
                 } else if (TextUtils.isEmpty(email) || email.length() < 5) {
                     Toast.makeText(getApplicationContext(), "Email tidak Valid",
                             Toast.LENGTH_LONG).show();
+                    btnRegister.setEnabled(true);
+                    btnRegister.setText("DAFTAR");
                 }
-                else if (TextUtils.isEmpty(phone) || phone.length() <= 11) {
+                else if (TextUtils.isEmpty(phone) || phone.length() <= 10) {
                     Toast.makeText(getApplicationContext(), "telepon minimal 11 digit",
                             Toast.LENGTH_LONG).show();
+                    btnRegister.setEnabled(true);
+                    btnRegister.setText("DAFTAR");
                 }
                 else if (TextUtils.isEmpty(password)|| password.length() < 6){
                     Toast.makeText(getApplicationContext(), "password minimal 6 karakter",
                             Toast.LENGTH_SHORT).show();
+                    btnRegister.setEnabled(true);
+                    btnRegister.setText("DAFTAR");
 
                 }
                 else {

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +36,7 @@ import com.workspace.nusali.Activity.ListMenuActivity;
 import com.workspace.nusali.Model.UserModel;
 import com.workspace.nusali.R;
 
-public class FragmentHome extends Fragment {
+public class FragmentHome extends Fragment  {
 //    String userIdKey = "";
 //    String userId = "";
     BillingProcessor bp;
@@ -59,10 +61,11 @@ public class FragmentHome extends Fragment {
 
         nameUser = v.findViewById(R.id.name_user);
         saldoUser = v.findViewById(R.id.saldo_user);
-
-        getSaldo();
-//        bp = new BillingProcessor(getContext(), "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyEzA2MHjOd3y0ubv7AZf5xZKW9OzszQYDmZbRCFBHV6FQYKkCaMyqP0paT8eck8AJ32BYY8L0jnbIV0DdM3Ejok2nkFRZx7pnNd9v7zwPlRGgN9bFo12GHJ5CTwLRoKz+bjl1tQmdPjbvs9MtzzacQRShN1jZNAt6kBA8OZifHf1Nn+JPZjTOzs1CMlUTSmfruqV6wan8bYNvBC0LMqNqLPjQ/Mve/bpwNnl5/PypjksufxXhUp4vbnVnMZvY8TbfLT8orMXD6j0NUOmYPX4+bNhR0lLF64zLKK4Fy2btYNR/uUfmUA+KtHx1eZEKY9L8XQmIe/zFIVq3iOz5CxbsQIDAQAB", (BillingProcessor.IBillingHandler) getActivity());
+        Button btnTopUp = v.findViewById(R.id.btn_top_up);
+//        bp = new BillingProcessor(getContext(), "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6XYKgUmqbH7ice5eoYUWL6+cgfSwxpoc6y1xVdsKUnrWWn/rrwggHmiSIqQ+Z4OwnnSDk4Vs6L5PqURejLxyMHG7cOYvnsE4v1Dsk38q8x7o3o867lbRYBWJR3AXgj9u9oZTxZqP8NZwtpEEyMe+nTOLKQWeJVwHyQOaq8Tp9S/RXBJD4J2tplhcFqWrtEkcEFAuLR6m3CoB9BlnHszUc2BEkALFkAj1qK4e6tTlea3ioPFpCylXiV/0UFh+lHU8GJ3Bp65Qx2MJS96oUC4QtBEo3KVyyhu0Gg+DJsPiWYPLIz4qtD86cwl7CszW04JdyE4t6vACB1fXWUkpuZw0CwIDAQAB", );
 //        bp.initialize();
+        getSaldo();
+
 
 
         CarouselView carouselView = v.findViewById(R.id.carousel);
@@ -76,7 +79,12 @@ public class FragmentHome extends Fragment {
         //Set GridLayout
         homeGrid = v.findViewById(R.id.homeGrid);
         setSingleEvent(homeGrid);
-
+//        btnTopUp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                bp.purchase(getActivity(), "TopUp");
+//            }
+//        });
         //Return
         return v;
     }
@@ -142,11 +150,47 @@ public class FragmentHome extends Fragment {
 
     }
 
+
+
     public void getUserID(){
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         USER = firebaseUser.getUid();
     }
 
-
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data){
+//        if(!bp.handleActivityResult(requestCode, resultCode, data)){
+//            super.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
+//
+//
+//    @Override
+//    public void onDestroy(){
+//        if (bp != null){
+//            bp.release();
+//        }
+//        super.onDestroy();
+//    }
+//
+//    @Override
+//    public void onProductPurchased(String productId, TransactionDetails details) {
+//            Toast.makeText(getContext(), "Berhasil", Toast.LENGTH_SHORT).show();
+//    }
+//
+//    @Override
+//    public void onPurchaseHistoryRestored() {
+//
+//    }
+//
+//    @Override
+//    public void onBillingError(int errorCode, Throwable error) {
+//        Toast.makeText(getContext(), "Failed Topup", Toast.LENGTH_SHORT).show();
+//    }
+//
+//    @Override
+//    public void onBillingInitialized() {
+//
+//    }
 }

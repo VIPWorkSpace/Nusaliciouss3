@@ -120,6 +120,7 @@ public class FragmentChart extends Fragment implements View.OnClickListener {
                     frameChart1.setVisibility(View.VISIBLE);
                     frameChart2.setVisibility(View.VISIBLE);
                     btnProses.setVisibility(View.VISIBLE);
+
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         ChartModel chartModel = dataSnapshot1.getValue(ChartModel.class);
                         chartList.add(chartModel);

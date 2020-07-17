@@ -46,6 +46,7 @@ public class ListMenuActivity extends AppCompatActivity {
         listMenu = new ArrayList<ListMenuModel>();
         Bundle bundle = getIntent().getExtras();
         String jenisMenu = bundle.getString("jenis_menu");
+        getSupportActionBar().setTitle(jenisMenu);
         referenceListMenu = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Data").child("Menu");
         Query query = FirebaseDatabase.getInstance().getReference("Data").child("Menu")
                 .orderByChild("kategori").equalTo(jenisMenu);
