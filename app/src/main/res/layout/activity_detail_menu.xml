@@ -123,7 +123,6 @@
             android:id="@+id/cardView4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1">
             <RelativeLayout
@@ -363,7 +362,7 @@
                         </LinearLayout>
                         <LinearLayout
                             android:id="@+id/bayar"
-                            android:layout_width="150dp"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_marginStart="15dp"
@@ -390,18 +389,20 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:layout_marginEnd="15dp"
-                            android:layout_toEndOf="@+id/bayar">
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="16dp"
+                            android:layout_toEndOf="@+id/bayar"
+                            android:gravity="right">
+
                             <Button
                                 android:id="@+id/btn_chart"
-                                android:layout_width="200dp"
+                                android:layout_width="140dp"
                                 android:layout_height="50dp"
                                 android:background="@drawable/btn_orange"
                                 android:text="Masuk Keranjang"
                                 android:textAllCaps="false"
                                 android:textColor="@color/White"
-                                android:textSize="18sp"/>
+                                android:textSize="14sp" />
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>

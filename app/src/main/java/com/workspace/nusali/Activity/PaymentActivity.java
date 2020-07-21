@@ -46,7 +46,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     String idTransaksi, totalHarga, jumlahItem, namaPenerima, alamatPenerima, nomerPenerima, petunjuk;
     RecyclerView recyclerViewChart;
     ChartAdapter chartAdapter;
-    Button btnGpay;
+    Button btnGpay, btnMpay;
     Integer userBalance = 0;
     Integer priceTotal = 0;
     Integer sisaBalance = 0;
@@ -60,6 +60,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         jumlahPesanan = findViewById(R.id.jumlah_item_payment4);
         totalBayar = findViewById(R.id.total_bayar_payment);
         saldoUser = findViewById(R.id.saldo_anda);
+
         Bundle bundle = getIntent().getExtras();
         idTransaksi = bundle.getString("idTrans");
 //        idbayar.setText(idTransaksi);
@@ -77,11 +78,11 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         chartList = new ArrayList<>();
          btnGpay = findViewById(R.id.btn_g_pay);
         Button mPay = findViewById(R.id.btn_m_pay);
-
+        btnMpay = findViewById(R.id.btn_m_pay);
         // inisiasi harga
         priceTotal = Integer.parseInt(totalHarga);
 
-
+        btnMpay.setOnClickListener(this);
 
         btnGpay.setOnClickListener(this);
 

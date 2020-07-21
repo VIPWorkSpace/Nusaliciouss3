@@ -9,8 +9,8 @@ android {
         applicationId "com.workspace.nusali"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 3
-        versionName "3"
+        versionCode 5
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
