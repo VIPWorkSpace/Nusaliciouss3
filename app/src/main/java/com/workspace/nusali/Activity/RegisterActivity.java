@@ -80,18 +80,17 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(getApplicationContext(), "Nama tidak valid",
+                    Toast.makeText(getApplicationContext(), "Nama tidak terisi",
                             Toast.LENGTH_LONG).show();
                     btnRegister.setEnabled(true);
                     btnRegister.setText("DAFTAR");
                 } else if (TextUtils.isEmpty(email) || email.length() < 5) {
-                    Toast.makeText(getApplicationContext(), "Email tidak Valid",
+                    Toast.makeText(getApplicationContext(), "Email tidak terisi",
                             Toast.LENGTH_LONG).show();
                     btnRegister.setEnabled(true);
                     btnRegister.setText("DAFTAR");
-                }
-                else if (TextUtils.isEmpty(phone) || phone.length() <= 10) {
-                    Toast.makeText(getApplicationContext(), "telepon minimal 11 digit",
+                } else if (TextUtils.isEmpty(phone) || phone.length() <= 12) {
+                    Toast.makeText(getApplicationContext(), "telepon minimal 12 digit",
                             Toast.LENGTH_LONG).show();
                     btnRegister.setEnabled(true);
                     btnRegister.setText("DAFTAR");
@@ -127,8 +126,6 @@ public class RegisterActivity extends AppCompatActivity {
                                        FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("petunjuk").setValue(alamatPenerima);
                                        FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("tanggalBayar").setValue(alamatPenerima);
                                        FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(userId).child("Pembayaran").child(idMenu).child("total").setValue(alamatPenerima);
-
-
 
                                         Toast.makeText(RegisterActivity.this, "Daftar Sukses",
                                                 Toast.LENGTH_LONG).show();
