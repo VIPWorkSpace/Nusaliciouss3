@@ -1,9 +1,11 @@
 package com.workspace.nusali.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,8 @@ import com.workspace.nusali.R;
 
 import org.w3c.dom.Text;
 
+import java.util.Objects;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentAccount extends Fragment implements View.OnClickListener {
@@ -61,6 +65,7 @@ public class FragmentAccount extends Fragment implements View.OnClickListener {
         delivery.setOnClickListener(this);
         getDataUser();
         logoutUser.setOnClickListener(this);
+
         return v;
     }
 
@@ -132,10 +137,21 @@ public class FragmentAccount extends Fragment implements View.OnClickListener {
                 case R.id.exit_account:
                    logoutDataUser();
                     break;
+
             }
 
 
     }
+
+//    public void rateMe() {
+//        try {
+//            startActivity(new Intent(Intent.ACTION_VIEW,
+//                    Uri.parse("market://details?id=" + Objects.requireNonNull(getActivity()).getPackageName())));
+//        } catch (ActivityNotFoundException e) {
+//            startActivity(new Intent(Intent.ACTION_VIEW,
+//                    Uri.parse("https://play.google.com/store/apps/details?id=com.workspace.nusali" + Objects.requireNonNull(getActivity()).getPackageName())));
+//        }
+//    }
     //
 //    public void getUsernameLocal() {
 //        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(userIdKey, MODE_PRIVATE);

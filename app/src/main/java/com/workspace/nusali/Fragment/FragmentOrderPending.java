@@ -68,6 +68,7 @@ public class FragmentOrderPending extends Fragment implements View.OnClickListen
                 orderList.clear();
                 if (dataSnapshot.exists()) {
                     intro.setVisibility(View.GONE);
+                    recyclerOrder.setVisibility(View.VISIBLE);
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String key = ds.getKey();
                         for (DataSnapshot ds1 : dataSnapshot.child(key).getChildren()) {

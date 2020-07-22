@@ -49,6 +49,7 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
     Task<Void> referenceUpdate;
     UserModel userModel;
     String USER = "";
+    Integer saldoAwal = 0;
     private int[] mImages = new int[]{
             R.drawable.spanduk1, R.drawable.spanduk2, R.drawable.spanduk3
     };
@@ -87,6 +88,7 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
             @Override
             public void onClick(View v) {
                 bp.purchase(getActivity(), "1000000");
+
 
             }
         });
@@ -145,6 +147,7 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
                 UserModel userModel = dataSnapshot.getValue(UserModel.class);
                 saldoUser.setText("Rp."+userModel.getSaldo().toString());
                 nameUser.setText("Hi, "+userModel.getName());
+                saldoAwal = userModel.getSaldo();
             }
 
             @Override
@@ -183,11 +186,10 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
 
     @Override
     public void onProductPurchased(String productId, TransactionDetails details) {
-            Integer tambah = 1000000;
-            Integer saldoAwal = Integer.valueOf(String.valueOf(saldoUser));
-            Integer saldoUpdate = saldoAwal + tambah;
-            referenceUpdate = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo").setValue(saldoUpdate);
-            Toast.makeText(getContext(), "Berhasil", Toast.LENGTH_SHORT).show();
+        Integer tambah = 1000000;
+        Integer saldoUpdate = saldoAwal + tambah;
+        referenceUpdate = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo").setValue(saldoUpdate);
+        Toast.makeText(getContext(), "Berhasil", Toast.LENGTH_SHORT).show();
     }
 
     @Override

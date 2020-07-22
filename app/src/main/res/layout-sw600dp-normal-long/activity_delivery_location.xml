@@ -268,11 +268,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="RtlHardcoded">
 
-                <ImageView
-                    android:id="@+id/back_edit_profile"
-                    android:layout_width="25dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_back" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

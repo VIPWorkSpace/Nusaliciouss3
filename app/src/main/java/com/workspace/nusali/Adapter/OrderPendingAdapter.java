@@ -63,6 +63,7 @@ public class OrderPendingAdapter extends RecyclerView.Adapter<OrderPendingAdapte
         holder.btnSelesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                orderList.clear();
                 riwayatRef = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER).child("Pesanan");
                 riwayatRef.addValueEventListener(new ValueEventListener() {
                     @Override

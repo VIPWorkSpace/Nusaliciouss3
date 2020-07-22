@@ -42,7 +42,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     DatabaseReference referenceOrder, referenceChart, referenceUser;
     DatabaseReference referencePayment;
     Task<Void> referenceRemove;
-    TextView totalTagihan, jumlahPesanan, totalBayar, saldoUser;
+    TextView totalTagihan, jumlahPesanan, totalBayar, saldoUser, bayarBank;
     String idTransaksi, totalHarga, jumlahItem, namaPenerima, alamatPenerima, nomerPenerima, petunjuk;
     RecyclerView recyclerViewChart;
     ChartAdapter chartAdapter;
@@ -60,6 +60,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         jumlahPesanan = findViewById(R.id.jumlah_item_payment4);
         totalBayar = findViewById(R.id.total_bayar_payment);
         saldoUser = findViewById(R.id.saldo_anda);
+        bayarBank = findViewById(R.id.total_bank_payment);
 
         Bundle bundle = getIntent().getExtras();
         idTransaksi = bundle.getString("idTrans");
@@ -73,6 +74,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
         totalTagihan.setText(totalHarga);
         jumlahPesanan.setText(jumlahItem);
         totalBayar.setText(totalHarga);
+        bayarBank.setText(totalHarga);
         getSaldoUser();
 
         chartList = new ArrayList<>();
