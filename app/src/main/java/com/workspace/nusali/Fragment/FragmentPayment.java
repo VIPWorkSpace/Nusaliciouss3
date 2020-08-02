@@ -61,12 +61,13 @@ public class FragmentPayment extends Fragment implements View.OnClickListener {
     }
 
     public void loadPayment(){
-        referencePay = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER).child("Pembayaran");
+        referencePay = FirebaseDatabase.getInstance().getReference("Data").child("Transaksi").child(USER).child("PembayaranSuccess");
         referencePay.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     intro.setVisibility(View.GONE);
+                    recyclerPayment.setVisibility(View.VISIBLE);
                     for (DataSnapshot ds: dataSnapshot.getChildren()){
                         PaymentModel dataPayment = ds.getValue(PaymentModel.class);
                         payList.add(dataPayment);
@@ -76,7 +77,7 @@ public class FragmentPayment extends Fragment implements View.OnClickListener {
                 }
                 else{
                     recyclerPayment.setVisibility(View.GONE);
-                    intro.setVisibility(View.INVISIBLE);
+                    intro.setVisibility(View.VISIBLE);
                 }
             }
 

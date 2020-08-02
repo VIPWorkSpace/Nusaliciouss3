@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.BillingClient;
 import com.anjlab.android.iab.v3.BillingProcessor;
 
 import com.anjlab.android.iab.v3.TransactionDetails;
@@ -41,7 +42,9 @@ import com.workspace.nusali.R;
 public class FragmentHome extends Fragment implements BillingProcessor.IBillingHandler {
 //    String userIdKey = "";
 //    String userId = "";
+    String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6XYKgUmqbH7ice5eoYUWL6+cgfSwxpoc6y1xVdsKUnrWWn/rrwggHmiSIqQ+Z4OwnnSDk4Vs6L5PqURejLxyMHG7cOYvnsE4v1Dsk38q8x7o3o867lbRYBWJR3AXgj9u9oZTxZqP8NZwtpEEyMe+nTOLKQWeJVwHyQOaq8Tp9S/RXBJD4J2tplhcFqWrtEkcEFAuLR6m3CoB9BlnHszUc2BEkALFkAj1qK4e6tTlea3ioPFpCylXiV/0UFh+lHU8GJ3Bp65Qx2MJS96oUC4QtBEo3KVyyhu0Gg+DJsPiWYPLIz4qtD86cwl7CszW04JdyE4t6vACB1fXWUkpuZw0CwIDAQAB";
     BillingProcessor bp;
+    BillingClient billingClient;
     Context context;
     FirebaseAuth firebaseAuth;
     TextView nameUser, saldoUser;
@@ -67,10 +70,9 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
         nameUser = v.findViewById(R.id.name_user);
         saldoUser = v.findViewById(R.id.saldo_user);
         Button btnTopUp = v.findViewById(R.id.btn_top_up);
-        bp = new BillingProcessor(getContext(), "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6XYKgUmqbH7ice5eoYUWL6+cgfSwxpoc6y1xVdsKUnrWWn/rrwggHmiSIqQ+Z4OwnnSDk4Vs6L5PqURejLxyMHG7cOYvnsE4v1Dsk38q8x7o3o867lbRYBWJR3AXgj9u9oZTxZqP8NZwtpEEyMe+nTOLKQWeJVwHyQOaq8Tp9S/RXBJD4J2tplhcFqWrtEkcEFAuLR6m3CoB9BlnHszUc2BEkALFkAj1qK4e6tTlea3ioPFpCylXiV/0UFh+lHU8GJ3Bp65Qx2MJS96oUC4QtBEo3KVyyhu0Gg+DJsPiWYPLIz4qtD86cwl7CszW04JdyE4t6vACB1fXWUkpuZw0CwIDAQAB",this);
+         bp = new BillingProcessor(getContext(), LICENSE_KEY,this);
         bp.initialize();
         getSaldo();
-
 
 
         CarouselView carouselView = v.findViewById(R.id.carousel);
@@ -87,7 +89,13 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
         btnTopUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!BillingProcessor.isIabServiceAvailable(getContext())){
+
+                }
+
                 bp.purchase(getActivity(), "1000000");
+
 
 
             }
@@ -176,16 +184,9 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
     }
 
 
-    @Override
-    public void onDestroy(){
-        if (bp != null){
-            bp.release();
-        }
-        super.onDestroy();
-    }
 
     @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
+    public void onProductPurchased(@NonNull String productId, TransactionDetails details) {
         Integer tambah = 1000000;
         Integer saldoUpdate = saldoAwal + tambah;
         referenceUpdate = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo").setValue(saldoUpdate);
@@ -206,4 +207,13 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
     public void onBillingInitialized() {
 
     }
+    @Override
+    public void onDestroy(){
+        if (bp != null){
+            bp.release();
+        }
+        super.onDestroy();
+    }
+
+
 }
