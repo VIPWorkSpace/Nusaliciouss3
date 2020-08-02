@@ -28,7 +28,7 @@
 
 
     <!--TextWelcomeColour-->
-    <color name="welcome_register">#f84257</color>
+    <color name="welcome_register">#de0000</color>
 
     <!-- Custom Color Orange -->
     <color name="Orange">#F7931F</color>
