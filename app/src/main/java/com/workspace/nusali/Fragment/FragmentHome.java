@@ -121,20 +121,25 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
                         intent.putExtra("jenis_menu", "Prasmanan");
                         startActivity(intent);
                     } else if (finall == 2) {
-                       Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
-                       mCardView.setEnabled(false);
+                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
+                        intent.putExtra("jenis_menu", "Kantoran");
+                        startActivity(intent);
                     } else if (finall == 3) {
-                        Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
-                        mCardView.setEnabled(false);
+                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
+                        intent.putExtra("jenis_menu", "Drink");
+                        startActivity(intent);
                     } else if (finall == 4) {
-                        Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
-                        mCardView.setEnabled(false);
+                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
+                        intent.putExtra("jenis_menu", "Tumpeng");
+                        startActivity(intent);
                     } else if (finall == 5) {
-                        Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
-                        mCardView.setEnabled(false);
+                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
+                        intent.putExtra("jenis_menu", "Rantang");
+                        startActivity(intent);
                     } else if (finall == 6) {
-                        Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
-                        mCardView.setEnabled(false);
+                        Intent intent = new Intent(getContext(), ListMenuActivity.class);
+                        intent.putExtra("jenis_menu", "Tradisional");
+                        startActivity(intent);
                     } else if (finall == 7) {
                         Toast.makeText(getContext(), "Cooming Soon", Toast.LENGTH_SHORT).show();
                         mCardView.setEnabled(false);
