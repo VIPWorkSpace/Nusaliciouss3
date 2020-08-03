@@ -87,8 +87,6 @@
         <item name="android:padding">5dp</item>
     </style>
 
-
-
     <style name="progressTheme">
         <item name="colorAccent">@color/colorProgressbar</item>
     </style>
