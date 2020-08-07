@@ -54,14 +54,14 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/gw"/>
-            <Button
-                android:id="@+id/btnEdit"
-                android:layout_width="80dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="315dp"
-                android:text="Edit"
-                android:textColor="@android:color/white"
-                android:background="@color/Pink"/>
+<!--            <Button-->
+<!--                android:id="@+id/btnEdit"-->
+<!--                android:layout_width="80dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginLeft="315dp"-->
+<!--                android:text="Edit"-->
+<!--                android:textColor="@android:color/white"-->
+<!--                android:background="@color/Pink"/>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -149,6 +149,7 @@
                 android:background="#EDEDED" />
 
             <LinearLayout
+                android:id="@+id/customer_service"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
@@ -180,6 +181,7 @@
                 android:background="#EDEDED" />
 
             <LinearLayout
+                android:id="@+id/term_condition"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"

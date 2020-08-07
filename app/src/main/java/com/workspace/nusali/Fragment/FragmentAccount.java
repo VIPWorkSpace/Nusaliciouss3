@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.workspace.nusali.Activity.DeliveryLocationActivity;
 import com.workspace.nusali.Activity.SplashActivity;
+import com.workspace.nusali.Activity.customerServiceActivity;
+import com.workspace.nusali.Activity.termActivity;
 import com.workspace.nusali.MainActivity;
 import com.workspace.nusali.R;
 
@@ -42,7 +45,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class FragmentAccount extends Fragment implements View.OnClickListener {
     DatabaseReference referenceAccount;
     TextView namaUser, emailUser, teleponUser;
-    LinearLayout delivery;
+    LinearLayout delivery, cs, termcondition;
     ImageView imageUser;
     LinearLayout logoutUser;
     FirebaseAuth firebaseAuth;
@@ -61,8 +64,12 @@ public class FragmentAccount extends Fragment implements View.OnClickListener {
         teleponUser = v.findViewById(R.id.textTelp);
         imageUser = v.findViewById(R.id.imageUser);
         delivery = v.findViewById(R.id.delivery_location);
+        termcondition = v.findViewById(R.id.term_condition);
+        cs = v.findViewById(R.id.customer_service);
         logoutUser = v.findViewById(R.id.exit_account);
         delivery.setOnClickListener(this);
+        termcondition.setOnClickListener(this);
+        cs.setOnClickListener(this);
         getDataUser();
         logoutUser.setOnClickListener(this);
 
@@ -136,6 +143,14 @@ public class FragmentAccount extends Fragment implements View.OnClickListener {
                     break;
                 case R.id.exit_account:
                    logoutDataUser();
+                    break;
+                case R.id.term_condition:
+                    Intent term = new Intent(getContext(), termActivity.class);
+                    startActivity(term);
+                    break;
+                case R.id.customer_service:
+                    Intent customer = new Intent(getActivity(), customerServiceActivity.class);
+                    startActivity(customer);
                     break;
 
             }

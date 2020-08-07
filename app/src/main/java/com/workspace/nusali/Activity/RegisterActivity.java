@@ -89,8 +89,8 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     btnRegister.setEnabled(true);
                     btnRegister.setText("DAFTAR");
-                } else if (TextUtils.isEmpty(phone) || phone.length() <= 12) {
-                    Toast.makeText(getApplicationContext(), "telepon minimal 12 digit",
+                } else if (TextUtils.isEmpty(phone) || phone.length() < 11) {
+                    Toast.makeText(getApplicationContext(), "telepon minimal 11 digit",
                             Toast.LENGTH_LONG).show();
                     btnRegister.setEnabled(true);
                     btnRegister.setText("DAFTAR");

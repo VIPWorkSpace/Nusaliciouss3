@@ -9,8 +9,8 @@ android {
         applicationId "com.workspace.nusali"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 11
-        versionName "1.7"
+        versionCode 12
+        versionName "1.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -55,5 +55,6 @@ dependencies {
     implementation 'com.anjlab.android.iab.v3:library:1.0.44'
     implementation 'com.android.billingclient:billing:3.0.0'
 
+    implementation 'com.codesgood:justifiedtextview:1.1.0'
 
 }
