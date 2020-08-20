@@ -36,15 +36,13 @@ import com.synnapps.carouselview.ImageListener;
 
 import com.workspace.nusali.Activity.ListMenuActivity;
 
+import com.workspace.nusali.Activity.TopupActivity;
 import com.workspace.nusali.Model.UserModel;
 import com.workspace.nusali.R;
 
-public class FragmentHome extends Fragment implements BillingProcessor.IBillingHandler {
+public class FragmentHome extends Fragment{
 //    String userIdKey = "";
 //    String userId = "";
-    String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6XYKgUmqbH7ice5eoYUWL6+cgfSwxpoc6y1xVdsKUnrWWn/rrwggHmiSIqQ+Z4OwnnSDk4Vs6L5PqURejLxyMHG7cOYvnsE4v1Dsk38q8x7o3o867lbRYBWJR3AXgj9u9oZTxZqP8NZwtpEEyMe+nTOLKQWeJVwHyQOaq8Tp9S/RXBJD4J2tplhcFqWrtEkcEFAuLR6m3CoB9BlnHszUc2BEkALFkAj1qK4e6tTlea3ioPFpCylXiV/0UFh+lHU8GJ3Bp65Qx2MJS96oUC4QtBEo3KVyyhu0Gg+DJsPiWYPLIz4qtD86cwl7CszW04JdyE4t6vACB1fXWUkpuZw0CwIDAQAB";
-    BillingProcessor bp;
-    BillingClient billingClient;
     Context context;
     FirebaseAuth firebaseAuth;
     TextView nameUser, saldoUser;
@@ -53,6 +51,7 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
     UserModel userModel;
     String USER = "";
     Integer saldoAwal = 0;
+
     private int[] mImages = new int[]{
             R.drawable.spanduk1, R.drawable.spanduk2, R.drawable.spanduk3
     };
@@ -70,10 +69,15 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
         nameUser = v.findViewById(R.id.name_user);
         saldoUser = v.findViewById(R.id.saldo_user);
         Button btnTopUp = v.findViewById(R.id.btn_top_up);
-         bp = new BillingProcessor(getContext(), LICENSE_KEY,this);
-        bp.initialize();
         getSaldo();
 
+        btnTopUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent topups = new Intent(getContext(), TopupActivity.class);
+                startActivity(topups);
+            }
+        });
 
         CarouselView carouselView = v.findViewById(R.id.carousel);
         carouselView.setPageCount(mImages.length);
@@ -86,20 +90,6 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
         //Set GridLayout
         homeGrid = v.findViewById(R.id.homeGrid);
         setSingleEvent(homeGrid);
-        btnTopUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(!BillingProcessor.isIabServiceAvailable(getContext())){
-
-                }
-
-                bp.purchase(getActivity(), "1000000");
-
-
-
-            }
-        });
 
         return v;
     }
@@ -171,54 +161,10 @@ public class FragmentHome extends Fragment implements BillingProcessor.IBillingH
 
     }
 
-
-
     public void getUserID(){
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         USER = firebaseUser.getUid();
     }
-
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(!bp.handleActivityResult(requestCode, resultCode, data)){
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-
-
-    @Override
-    public void onProductPurchased(@NonNull String productId, TransactionDetails details) {
-        Integer tambah = 1000000;
-        Integer saldoUpdate = saldoAwal + tambah;
-        referenceUpdate = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo").setValue(saldoUpdate);
-        Toast.makeText(getContext(), "Berhasil", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPurchaseHistoryRestored() {
-
-    }
-
-    @Override
-    public void onBillingError(int errorCode, Throwable error) {
-        Toast.makeText(context.getApplicationContext(), "Failed Topup", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onBillingInitialized() {
-
-    }
-    @Override
-    public void onDestroy(){
-        if (bp != null){
-            bp.release();
-        }
-        super.onDestroy();
-    }
-
 
 }
