@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.workspace.nusali.Fragment.FragmentHome;
+import com.workspace.nusali.MainActivity;
 import com.workspace.nusali.Model.UserModel;
 import com.workspace.nusali.R;
 
@@ -60,6 +61,16 @@ public class TopupActivity extends AppCompatActivity implements BillingProcessor
         bp.initialize();
 
         minSaldo();
+    }
+
+    private void minSaldo() {
+        btn_5000.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bp.purchase(TopupActivity.this, "1000000");
+                bp.consumePurchase("1000000");
+            }
+        });
     }
 
     private void init() {
@@ -106,16 +117,6 @@ public class TopupActivity extends AppCompatActivity implements BillingProcessor
         USER = firebaseUser.getUid();
     }
 
-    private void minSaldo() {
-        btn_5000.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bp.purchase(TopupActivity.this, "1000000");
-                bp.consumePurchase("1000000");
-            }
-        });
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (!bp.handleActivityResult(requestCode, resultCode, data))
@@ -124,13 +125,14 @@ public class TopupActivity extends AppCompatActivity implements BillingProcessor
 
     @Override
     public void onProductPurchased(String productId, TransactionDetails details) {
-        if (bp.isPurchased("1000000"))
+        if (bp.isPurchased(productId))
         {
+            bp.consumePurchase("1000000");
             Integer tambah = 1000000;
             Integer saldoUpdate = saldoAwal + tambah;
             updateRef = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo").setValue(saldoUpdate);
         }
-        Intent main = new Intent(TopupActivity.this, FragmentHome.class);
+        Intent main = new Intent(this, MainActivity.class);
         startActivity(main);
         Toast.makeText(this, "Topup Success", Toast.LENGTH_SHORT).show();
     }
