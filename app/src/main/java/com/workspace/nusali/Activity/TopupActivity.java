@@ -1,10 +1,5 @@
 package com.workspace.nusali.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +9,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.SkuDetails;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,9 +29,12 @@ import com.workspace.nusali.Fragment.FragmentHome;
 import com.workspace.nusali.Model.UserModel;
 import com.workspace.nusali.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TopupActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler {
 
-    private Button btn_5000, btn_15000, btn_25000;
+    private Button btn_5000;
     private FirebaseAuth mAuth;
     private DatabaseReference userRef;
     private Toolbar toolbarT;
@@ -56,8 +60,6 @@ public class TopupActivity extends AppCompatActivity implements BillingProcessor
         bp.initialize();
 
         minSaldo();
-        standarSaldo();
-        HighSaldo();
     }
 
     private void init() {
@@ -65,8 +67,6 @@ public class TopupActivity extends AppCompatActivity implements BillingProcessor
         nama = findViewById(R.id.name_activity);
         saldo = findViewById(R.id.saldo_activity);
         btn_5000 = findViewById(R.id.btn_topup_5000);
-        btn_15000 = findViewById(R.id.btn_topup_15000);
-        btn_25000 = findViewById(R.id.btn_topup_25000);
     }
 
     private void btnBack() {
@@ -116,26 +116,6 @@ public class TopupActivity extends AppCompatActivity implements BillingProcessor
         });
     }
 
-    private void standarSaldo() {
-        btn_15000.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bp.purchase(TopupActivity.this, "com.vipworkspace.15000");
-                bp.consumePurchase("com.vipworkspace.15000");
-            }
-        });
-    }
-
-    private void HighSaldo() {
-        btn_25000.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bp.purchase(TopupActivity.this, "com.vipworkspace.25000");
-                bp.consumePurchase("com.vipworkspace.25000");
-            }
-        });
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (!bp.handleActivityResult(requestCode, resultCode, data))
@@ -144,27 +124,15 @@ public class TopupActivity extends AppCompatActivity implements BillingProcessor
 
     @Override
     public void onProductPurchased(String productId, TransactionDetails details) {
-        if (bp.isPurchased("10000"))
+        if (bp.isPurchased("1000000"))
         {
             Integer tambah = 1000000;
             Integer saldoUpdate = saldoAwal + tambah;
             updateRef = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo").setValue(saldoUpdate);
         }
-        else if (bp.isPurchased("com.vipworkspace.15000"))
-        {
-            Integer tambah = 1500000;
-            Integer saldoUpdate = saldoAwal + tambah;
-            updateRef = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo").setValue(saldoUpdate);
-        }
-        else if (bp.isPurchased("com.vipworkspace.25000"))
-        {
-            Integer tambah = 2000000;
-            Integer saldoUpdate = saldoAwal + tambah;
-            updateRef = FirebaseDatabase.getInstance().getReference("Data").child("User").child(USER).child("pribadi").child("saldo").setValue(saldoUpdate);
-        }
-            Intent main = new Intent(this, FragmentHome.class);
-            startActivity(main);
-            Toast.makeText(this, "Product success to buy", Toast.LENGTH_SHORT).show();
+        Intent main = new Intent(TopupActivity.this, FragmentHome.class);
+        startActivity(main);
+        Toast.makeText(this, "Topup Success", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -179,7 +147,6 @@ public class TopupActivity extends AppCompatActivity implements BillingProcessor
 
     @Override
     public void onBillingInitialized() {
-
     }
 
     @Override
